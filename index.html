@@ -126,7 +126,7 @@
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
-      text-align: center; /* Texto centrado */
+      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -147,7 +147,7 @@
     }
 
     .casillero.largo h3 {
-      font-size: 1.05rem; /* Ajuste sutil para la frase más larga */
+      font-size: 1.05rem;
     }
 
     .casillero p {
@@ -156,9 +156,16 @@
       color: var(--text-muted);
     }
 
+    /* Formato de las cartas/vistas internas */
     .contenido-vista {
       text-align: left;
-      line-height: 1.7;
+      line-height: 1.8;
+      font-size: 0.95rem;
+      color: #e0e0e0;
+    }
+
+    .contenido-vista p {
+      margin-bottom: 16px;
     }
 
     .btn-volver {
@@ -171,6 +178,7 @@
       cursor: pointer;
       font-size: 0.85rem;
       transition: 0.3s;
+      display: inline-block;
     }
 
     .btn-volver:hover {
@@ -222,7 +230,7 @@
   <!-- MENÚ PRINCIPAL (3 CASILLEROS) -->
   <div id="seccion-menu" class="container oculto">
     <div class="titulo-cursivo" style="font-size: 2.5rem;">Para Andre</div>
-    <p style="font-size:0.85rem; color: var(--text-muted);">Elige lo que quieres ver primero:</p>
+    <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom: 20px;">Elige lo que quieres ver primero:</p>
 
     <div class="grid-casilleros">
       <div class="casillero" onclick="abrirCasillero('carta')">
@@ -244,23 +252,47 @@
 
   <!-- VISTA: CARTA -->
   <div id="vista-carta" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.2rem;">Para ti 💕</div>
-    <p style="color: var(--text-muted); margin-top:20px;">Aquí irá el texto completo de tu carta para Andre...</p>
-    <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    <div class="titulo-cursivo" style="font-size: 2.5rem; text-align: center; margin-bottom: 20px;">Para ti 💕</div>
+    
+    <p>Hola, mi amor.</p>
+    <p>Espero de verdad que te sientas bien hoy. Quizás este no sea un día que esperabas con tantas ganas, o quizás te provoque emociones que no son precisamente las mejores, jeje. Pero está bien, amorcito. No tienes que sentirte feliz todo el tiempo solamente porque es tu cumpleaños. Yo estoy aquí para acompañarte, aunque sea desde lejos, y para intentar hacerte sentir especial en TU día.</p>
+    <p>Quiero que sepas que te amo. Te amo muchísimo. Y que para mí este sí es un día demasiado especial, porque es el día en que nació el amor de mi vida. El niño y hombre de mis ojos, la persona que amo con todo mi corazón.</p>
+    <p>Ojalá pudiera regalarte el mundo entero, mi amor. De verdad. Para que pudieras ver con tus propios ojos todo lo que mereces y todo lo bonito que quiero para ti. No quiero que sientas pena, ni tristeza, ni que te bajonees porque quizás algunas personas ignoraron este día o no te demostraron lo especial que eres.</p>
+    <p>Porque tú eres especial, Andre. Muchísimo más de lo que quizás tú mismo alcanzas a ver.</p>
+    <p>Perdón por no poder estar ahí contigo. Perdón por no poder cantarte feliz cumpleaños, abrazarte, molestarte en persona o hacer todas esas cosas que me gustaría hacer contigo. Pero algún día vamos a estar juntitos y voy a poder cantarte cumpleaños en tu camita, abrazarte y decirte en persona todo esto que ahora tengo que escribirte por una pantalla.</p>
+    <p>Y ya, amor… es un día demasiado lindo como para dejar que unas malas experiencias lo arruinen. Quiero que intentes disfrutarlo, aunque sea un poquito. Quiero que tengas la mejor disposición, porque siempre puede ser un buen día para cambiar las cosas, y eso es lo que quiero intentar hacer por ti.</p>
+    <p>Quiero hacerte ver que este día es tan especial como el nacimiento de la Princesa Diana. JAJAJAJA. No sé por qué se me ocurrió ese ejemplo, pero déjame ser dramática por un momento.</p>
+    <p>Te amo, corazón. Feliz cumpleaños.</p>
+    <p>Y perdón por lo poco. Perdón por esto que quizás sientas que no es nada, por no poder darte algo enorme, por tener que darte solamente palabras. Pero es lo que tengo ahora mismo en mis manos y estoy haciendo lo mejor que puedo con ellas.</p>
+    <p>Aunque bueno… también te hice esto JAJAJA. Con toda la programación que sé, que no es precisamente mucha. Y con la ayuda de mi ChatGPT, que sabe demasiado de nosotros, obvio JAJAJA.</p>
+    <p>Pero aunque haya un poquito de código, un poquito de ChatGPT y probablemente muchas horas de pensar qué mierda hacer, todo esto lo hice yo pensando en ti y con todo el amor del mundo.</p>
+    <p>Te amo mucho, we. Muchísimo.</p>
+    <p>Y ojalá pueda hacerte cambiar un poquito esa visión que tienes de tu cumpleaños. Porque para mí, amor, este día sí es demasiado especial.</p>
+    <p>Porque naciste tú.</p>
+    <p>Y para mí, tú eres de las cosas más especiales que tengo en mi vida.</p>
+    <p>Feliz cumpleaños, mi amor.<br>Te amo. Siempre.</p>
+
+    <div style="text-align: center;">
+      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    </div>
   </div>
 
   <!-- VISTA: FOTOS -->
   <div id="vista-fotos" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.2rem;">Recuerditos ✨</div>
-    <p style="color: var(--text-muted); margin-top:20px;">Aquí agregaremos tus fotos con pequeñas frases...</p>
-    <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    <div class="titulo-cursivo" style="font-size: 2.5rem; text-align: center;">Recuerditos ✨</div>
+    <p style="color: var(--text-muted); margin-top:20px; text-align:center;">Aquí agregaremos tus fotos con pequeñas frases...</p>
+    <div style="text-align: center;">
+      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    </div>
   </div>
 
   <!-- VISTA: HISTORIA INVENTADA -->
   <div id="vista-historia" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.2rem;">Andrecito, el amante de lo bonito 🐣</div>
-    <p style="color: var(--text-muted); margin-top:20px;">Aquí irá la historia de ficción para Andre...</p>
-    <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    <div class="titulo-cursivo" style="font-size: 2.5rem; text-align: center;">Andrecito, el amante de lo bonito 🐣</div>
+    <p style="color: var(--text-muted); margin-top:20px; text-align:center;">Aquí irá la historia de ficción para Andre...</p>
+    <div style="text-align: center;">
+      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    </div>
   </div>
 
   <script>
