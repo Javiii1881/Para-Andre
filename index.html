@@ -6,14 +6,13 @@
   <title>Para Andre ❤️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg-color: #0b0b0d;
       --card-bg: #16161a;
       --text-white: #ffffff;
-      --text-muted: #cccccc;
       --border-color: rgba(255, 255, 255, 0.15);
       --gold-accent: #ffd700;
       --pink-neon: #ff1493;
@@ -36,18 +35,6 @@
       justify-content: center;
       overflow-x: hidden;
       padding: 20px;
-    }
-
-    .bg-lights {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-      background: radial-gradient(circle at 20% 30%, rgba(255, 20, 147, 0.15) 0%, transparent 40%),
-                  radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 40%);
     }
 
     .container {
@@ -96,10 +83,10 @@
       transform: translateY(-5px);
     }
 
-    .casillero-btn[data-target="c1"] { border-color: rgba(255, 50, 50, 0.6); box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); }
-    .casillero-btn[data-target="c2"] { border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
-    .casillero-btn[data-target="c3"] { border-color: rgba(255, 215, 0, 0.6); box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
-    .casillero-btn[data-target="c4"] { border-color: rgba(255, 20, 147, 0.6); box-shadow: 0 0 15px rgba(255, 20, 147, 0.3); }
+    .casillero-btn[data-target="c1"] { border-color: rgba(255, 50, 50, 0.6); }
+    .casillero-btn[data-target="c2"] { border-color: rgba(255, 255, 255, 0.6); }
+    .casillero-btn[data-target="c3"] { border-color: rgba(255, 215, 0, 0.6); }
+    .casillero-btn[data-target="c4"] { border-color: rgba(255, 20, 147, 0.6); }
 
     .casillero-btn .icon {
       font-size: 2rem;
@@ -163,6 +150,42 @@
       font-size: 0.85rem;
     }
 
+    /* HISTORIA COMPLETA (CASILLERO 2) */
+    .historia-container {
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 15px;
+      line-height: 1.8;
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      text-align: justify;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .historia-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .historia-container::-webkit-scrollbar-thumb {
+      background: var(--gold-accent);
+      border-radius: 10px;
+    }
+
+    .historia-titulo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--gold-accent);
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .historia-texto p {
+      margin-bottom: 15px;
+    }
+
+    /* CASILLERO 4 Y CANVAS DE IMÁGENES */
     .c4-container {
       background: #050508;
       border: 2px solid var(--pink-neon);
@@ -170,33 +193,6 @@
       padding: 20px 15px;
       box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
       text-align: center;
-    }
-
-    .ecg-box {
-      width: 100%;
-      height: 60px;
-      background: rgba(255, 20, 147, 0.05);
-      border: 1px dashed rgba(255, 20, 147, 0.3);
-      border-radius: 10px;
-      margin: 15px 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .ecg-canvas {
-      width: 100%;
-      height: 100%;
-    }
-
-    .info-card-c4 {
-      background: rgba(255, 20, 147, 0.1);
-      border: 1px solid rgba(255, 20, 147, 0.3);
-      padding: 12px;
-      border-radius: 12px;
-      margin: 10px 0;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #fff;
     }
 
     .canvas-fotos-box {
@@ -215,52 +211,9 @@
       height: 100%;
       display: block;
     }
-
-    /* HISTORIA RATONCITO */
-    .historia-container {
-      max-height: 450px;
-      overflow-y: auto;
-      padding: 10px;
-      line-height: 1.8;
-      font-size: 0.95rem;
-      color: #e0e0e0;
-      text-align: justify;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
-    }
-
-    .historia-container::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .historia-container::-webkit-scrollbar-thumb {
-      background: var(--gold-accent);
-      border-radius: 10px;
-    }
-
-    .historia-titulo {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.3rem;
-      color: var(--gold-accent);
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .historia-texto p {
-      margin-bottom: 15px;
-    }
-
-    .timer-display {
-      font-size: 0.95rem;
-      text-align: center;
-      margin-bottom: 15px;
-      color: #ffb6c1;
-    }
   </style>
 </head>
 <body>
-
-  <div class="bg-lights"></div>
 
   <div class="container">
     <h1 class="main-title">Para Andre ❤️</h1>
@@ -296,14 +249,14 @@
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
 
-    <!-- CASILLERO 2: HISTORIA DEL RATONCITO RESTAURADA -->
+    <!-- CASILLERO 2: HISTORIA COMPLETA -->
     <div id="c2" class="content-section">
       <div class="audio-controls">
         <span style="font-size:0.85rem;">🎵 Música 2</span>
         <button class="audio-btn" onclick="toggleAudio('audio2')">Pausar/Play</button>
       </div>
 
-      <div id="seccion-historia" class="historia-container">
+      <div class="historia-container">
         <h2 class="historia-titulo">🐭 El ratoncito André y la ratoncita Vanidosa ✨</h2>
         <div class="historia-texto">
           <p>Había una vez un pequeño ratoncito llamado André, muy curioso, tierno y con un corazón gigantesco. Un día, en su camino por el bosque, conoció a una ratoncita muy especial: la ratoncita Vanidosa. Desde el primer instante en que sus miradas se cruzaron, el ratoncito André supo que ella no era como las demás; tenía un brillo único, una sonrisa que iluminaba todo a su alrededor y un encanto al que nadie podía resistirse.</p>
@@ -323,29 +276,20 @@
         <button class="audio-btn" onclick="toggleAudio('audio3')">Pausar/Play</button>
       </div>
       <h2 style="text-align:center; color: var(--gold-accent); margin-bottom:15px;">Línea del Tiempo ✨</h2>
-      <p style="text-align:center; font-size:0.9rem; line-height:1.6;">Caminando juntos hacia nuestro gran día especial el 18 de Septiembre de 2026.</p>
+      <p style="text-align:center; font-size:0.9rem; line-height:1.6;">Caminando juntos hacia nuestro gran día especial.</p>
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
 
-    <!-- CASILLERO 4: NUESTRA HISTORIA VIVA -->
+    <!-- CASILLERO 4: IMÁGENES PERSISTENTES I1-I5 -->
     <div id="c4" class="content-section">
       <div class="audio-controls">
-        <span style="font-size:0.85rem;">🎵 Música</span>
+        <span style="font-size:0.85rem;">🎵 Música 4</span>
         <button class="audio-btn" onclick="toggleAudio('audio4')">Pausar/Play</button>
       </div>
 
       <div class="c4-container">
-        <div class="timer-display" id="contadorRelacion">Tiempo recorriendo este camino juntos...</div>
-
-        <div class="ecg-box">
-          <canvas id="ecgCanvas" class="ecg-canvas"></canvas>
-        </div>
-
-        <div class="info-card-c4">🌹 COMIENZO: 18 de Mayo, 2025</div>
-        <div class="info-card-c4">🎉 MESANIVERSARIO: Cada día 18</div>
-        <div class="info-card-c4">✨ PROMESA: AMARNOS HASTA LA ETERNIDAD</div>
-
-        <p style="margin-top:15px; font-weight:700; color: #ff1493;">TE AMO PAPITO BELLO 😘✨</p>
+        <h3 style="color: var(--pink-neon); margin-bottom: 10px;">Nuestra Historia Viva 💖</h3>
+        <p style="font-size: 0.85rem; color: #ccc;">Nuestros recuerdos en movimiento</p>
 
         <div class="canvas-fotos-box">
           <canvas id="canvasFotos"></canvas>
@@ -405,41 +349,44 @@
       });
     }
 
-    /* RENDERIZADO PERSISTENTE DE IMÁGENES CASILLERO 4 */
-    let ecgAnimId = null;
+    /* SISTEMA DE CARGA Y RENDERIZADO GARANTIZADO DE I1 A I5 */
     let fotosAnimId = null;
     let canvasF, ctxF;
     let fotosFlotantes = [];
 
-    const rutasFotosNuevas = ['I1.jpg', 'I2.jpg', 'I3.jpg', 'I4.jpg', 'I5.jpg'];
-    const imagenesCargadasI = [];
+    const rutasFotos = ['I1.jpg', 'I2.jpg', 'I3.jpg', 'I4.jpg', 'I5.jpg'];
+    const imagenesCargadas = [];
 
-    rutasFotosNuevas.forEach((ruta) => {
+    // Carga de imágenes con control de errores
+    rutasFotos.forEach((ruta) => {
       const img = new Image();
       img.src = ruta;
       img.isReady = false;
       img.onload = () => { img.isReady = true; };
       img.onerror = () => {
-        // Reintento continuo directo
-        img.src = ruta + '?t=' + Date.now();
+        // Intenta recargar si hubo un fallo de red momentáneo
+        setTimeout(() => { img.src = ruta + '?retry=' + Date.now(); }, 1000);
       };
-      imagenesCargadasI.push(img);
+      imagenesCargadas.push(img);
     });
 
-    class FotoFlotanteI {
-      constructor(img) {
+    class FotoFlotante {
+      constructor(img, index) {
         this.img = img;
-        this.maxSize = 85;
+        this.maxSize = 80;
+        this.index = index;
         this.reset();
       }
 
       reset() {
         const cw = canvasF ? canvasF.width : 300;
         const ch = canvasF ? canvasF.height : 300;
-        this.x = Math.random() * (cw - this.maxSize - 10) + 5;
-        this.y = Math.random() * (ch - this.maxSize - 10) + 5;
-        this.vx = (Math.random() - 0.5) * 1.2;
-        this.vy = (Math.random() - 0.5) * 1.2;
+        this.x = Math.random() * (cw - this.maxSize - 20) + 10;
+        this.y = Math.random() * (ch - this.maxSize - 20) + 10;
+        this.vx = (Math.random() - 0.5) * 1.5;
+        this.vy = (Math.random() - 0.5) * 1.5;
+        if(this.vx === 0) this.vx = 1;
+        if(this.vy === 0) this.vy = 1;
       }
 
       update() {
@@ -452,7 +399,7 @@
       }
 
       draw() {
-        // Renderizado garantizado: Dibuja siempre que la imagen exista y tenga dimensiones válidas
+        // Solamente se dibuja si la imagen ya está completamente cargada
         if (this.img && (this.img.isReady || this.img.complete) && this.img.naturalWidth > 0) {
           ctxF.save();
           let w = this.img.naturalWidth;
@@ -466,7 +413,7 @@
           }
 
           ctxF.shadowColor = '#ff1493';
-          ctxF.shadowBlur = 10;
+          ctxF.shadowBlur = 8;
           ctxF.strokeStyle = '#ff1493';
           ctxF.lineWidth = 2;
 
@@ -478,47 +425,13 @@
     }
 
     function iniciarCasillero4() {
-      actualizarContador();
-
-      const ecgCanvas = document.getElementById('ecgCanvas');
-      if (ecgCanvas) {
-        ecgCanvas.width = ecgCanvas.parentElement.clientWidth;
-        ecgCanvas.height = ecgCanvas.parentElement.clientHeight;
-        const ctxEcg = ecgCanvas.getContext('2d');
-        let x = 0;
-
-        function loopEcg() {
-          ctxEcg.fillStyle = 'rgba(5, 5, 8, 0.1)';
-          ctxEcg.fillRect(0, 0, ecgCanvas.width, ecgCanvas.height);
-
-          ctxEcg.beginPath();
-          ctxEcg.strokeStyle = '#ff1493';
-          ctxEcg.lineWidth = 2;
-          ctxEcg.shadowColor = '#ff1493';
-          ctxEcg.shadowBlur = 8;
-
-          let y = ecgCanvas.height / 2;
-          if (x % 100 > 40 && x % 100 < 60) {
-            y += (Math.random() - 0.5) * 35;
-          }
-
-          ctxEcg.lineTo(x, y);
-          ctxEcg.stroke();
-
-          x = (x + 2) % ecgCanvas.width;
-          ecgAnimId = requestAnimationFrame(loopEcg);
-        }
-        if (ecgAnimId) cancelAnimationFrame(ecgAnimId);
-        loopEcg();
-      }
-
       canvasF = document.getElementById('canvasFotos');
       if (canvasF) {
         canvasF.width = canvasF.parentElement.clientWidth;
         canvasF.height = canvasF.parentElement.clientHeight;
         ctxF = canvasF.getContext('2d');
 
-        fotosFlotantes = imagenesCargadasI.map(img => new FotoFlotanteI(img));
+        fotosFlotantes = imagenesCargadas.map((img, idx) => new FotoFlotante(img, idx));
 
         function loopFotos() {
           ctxF.clearRect(0, 0, canvasF.width, canvasF.height);
@@ -532,21 +445,6 @@
         loopFotos();
       }
     }
-
-    function actualizarContador() {
-      const fechaInicio = new Date('2025-05-18T00:00:00');
-      const ahora = new Date();
-      const dif = ahora - fechaInicio;
-
-      if (dif > 0) {
-        const dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((dif / (1000 * 60 * 60)) % 24);
-        const mins = Math.floor((dif / 1000 / 60) % 60);
-        document.getElementById('contadorRelacion').innerText = 
-          `Juntos desde el 18 de Mayo de 2025 (${dias}d ${horas}h ${mins}m)`;
-      } else {
-        document.getElementById('contadorRelacion').innerText = `Juntos desde el 18 de Mayo de 2025`;
-      }
-    }
   </script>
 </body>
+</html>
