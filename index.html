@@ -3,448 +3,972 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para Andre ❤️</title>
+  <title>Para Andre</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg-color: #0b0b0d;
       --card-bg: #16161a;
       --text-white: #ffffff;
+      --text-muted: #cccccc;
       --border-color: rgba(255, 255, 255, 0.15);
       --gold-accent: #ffd700;
       --pink-neon: #ff1493;
     }
 
-    * {
-      box-sizing: border-box;
+    body {
       margin: 0;
       padding: 0;
-    }
-
-    body {
+      font-family: 'Montserrat', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-white);
-      font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* CANVAS FONDO DE LLUVIA Y EXPLOSIONES PIXELADAS */
+    #canvasEstrellas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 88%;
+      padding: 30px 20px;
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      box-sizing: border-box;
+      margin: 20px auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .titulo-cursivo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.2rem;
+      font-weight: 400;
+      color: var(--text-white);
+      margin: 15px 0 5px 0;
+      line-height: 1.1;
+    }
+
+    .subtitulo-cursivo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--text-white);
+      margin-bottom: 25px;
+    }
+
+    .pista-cursiva {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      margin-top: -10px;
+      margin-bottom: 25px;
+      font-weight: 300;
+    }
+
+    .fecha {
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .img-portada {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .reproductor-global {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: rgba(22, 22, 26, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    .reproductor-global span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .btn-audio {
+      background: var(--text-white);
+      color: var(--bg-color);
+      border: none;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .btn-audio:hover {
+      background: #e0e0e0;
+    }
+
+    /* BOTÓN ENTRAR ANIMADO */
+    .btn {
+      background-color: var(--text-white);
+      color: var(--bg-color);
+      border: none;
+      padding: 12px 36px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      animation: latidoBoton 2.5s infinite ease-in-out;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        60deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.8) 50%,
+        transparent 70%
+      );
+      transform: rotate(30deg);
+      animation: brilloContinuo 3s infinite;
+    }
+
+    @keyframes latidoBoton {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+      }
+    }
+
+    @keyframes brilloContinuo {
+      0% {
+        left: -100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    .btn:hover {
+      background-color: #e0e0e0;
+      transform: translateY(-2px) scale(1.05);
+    }
+
+    .oculto {
+      display: none !important;
+    }
+
+    .grid-casilleros {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .casillero {
+      background: #202026;
+      border: 1px solid var(--border-color);
+      padding: 22px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow-x: hidden;
-      padding: 20px;
     }
 
-    .container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 500px;
-      margin: 0 auto;
+    .casillero:hover {
+      background: #2a2a32;
+      border-color: var(--text-white);
     }
 
-    h1.main-title {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3rem;
-      text-align: center;
-      margin-bottom: 25px;
-      color: var(--gold-accent);
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-    }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      width: 100%;
-    }
-
-    .casillero-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 15px;
-      padding: 20px 15px;
+    .casillero h3 {
+      margin: 0 0 6px 0;
       color: var(--text-white);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      font-size: 1.15rem;
+      font-weight: 500;
+      line-height: 1.3;
     }
 
-    .casillero-btn:hover {
-      transform: translateY(-5px);
+    .casillero.largo h3 {
+      font-size: 1.05rem;
     }
 
-    .casillero-btn[data-target="c1"] { border-color: rgba(255, 50, 50, 0.6); }
-    .casillero-btn[data-target="c2"] { border-color: rgba(255, 255, 255, 0.6); }
-    .casillero-btn[data-target="c3"] { border-color: rgba(255, 215, 0, 0.6); }
-    .casillero-btn[data-target="c4"] { border-color: rgba(255, 20, 147, 0.6); }
-
-    .casillero-btn .icon {
-      font-size: 2rem;
-    }
-
-    .content-section {
-      display: none;
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 25px 20px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-      animation: fadeIn 0.4s ease-in-out;
-    }
-
-    .content-section.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .btn-volver {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-white);
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      margin-top: 20px;
-      width: 100%;
-      transition: all 0.2s;
-    }
-
-    .btn-volver:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .audio-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 10px 15px;
-      border-radius: 30px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .audio-btn {
-      background: var(--gold-accent);
-      border: none;
-      color: #000;
-      padding: 6px 15px;
-      border-radius: 15px;
+    /* TEXTO "DE JAVIERA" ROSA NEÓN ANIMADO CON DESTELLOS */
+    .texto-javiera {
+      margin: 4px 0 0 0 !important;
+      font-size: 0.85rem !important;
       font-weight: 700;
-      cursor: pointer;
-      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: #ff3399;
+      text-transform: uppercase;
+      animation: flotarRosa 3s infinite ease-in-out;
+      display: inline-block;
+      position: relative;
     }
 
-    /* HISTORIA COMPLETA (CASILLERO 2) */
-    .historia-container {
-      max-height: 400px;
-      overflow-y: auto;
-      padding: 15px;
+    .texto-javiera::before,
+    .texto-javiera::after {
+      content: '✨';
+      font-size: 0.75rem;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: titileoEstrella 1.8s infinite alternate ease-in-out;
+    }
+
+    .texto-javiera::before {
+      left: -18px;
+    }
+
+    .texto-javiera::after {
+      right: -18px;
+      animation-delay: 0.9s;
+    }
+
+    @keyframes flotarRosa {
+      0%, 100% {
+        transform: translateY(0);
+        text-shadow: 0 0 6px rgba(255, 20, 147, 0.6), 0 0 12px rgba(255, 51, 153, 0.4);
+      }
+      50% {
+        transform: translateY(-3px);
+        color: #ff66cc;
+        text-shadow: 0 0 12px rgba(255, 20, 147, 0.9), 0 0 20px rgba(255, 105, 180, 0.7);
+      }
+    }
+
+    @keyframes titileoEstrella {
+      0% {
+        opacity: 0.3;
+        transform: translateY(-50%) scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.2);
+      }
+    }
+
+    .contenido-vista {
+      text-align: left;
       line-height: 1.8;
       font-size: 0.95rem;
       color: #e0e0e0;
-      text-align: justify;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
     }
 
-    .historia-container::-webkit-scrollbar {
-      width: 6px;
+    .contenido-vista p {
+      margin-bottom: 16px;
     }
 
-    .historia-container::-webkit-scrollbar-thumb {
-      background: var(--gold-accent);
-      border-radius: 10px;
-    }
-
-    .historia-titulo {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.2rem;
-      color: var(--gold-accent);
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .historia-texto p {
-      margin-bottom: 15px;
-    }
-
-    /* CASILLERO 4 Y CANVAS DE IMÁGENES */
-    .c4-container {
-      background: #050508;
-      border: 2px solid var(--pink-neon);
+    .btn-volver {
+      margin-top: 25px;
+      background: transparent;
+      border: 1px solid var(--text-white);
+      color: var(--text-white);
+      padding: 8px 22px;
       border-radius: 20px;
-      padding: 20px 15px;
-      box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
-      text-align: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: 0.3s;
+      display: inline-block;
     }
 
-    .canvas-fotos-box {
-      width: 100%;
-      height: 320px;
-      border: 1px solid rgba(255, 20, 147, 0.3);
-      border-radius: 15px;
-      position: relative;
+    .btn-volver:hover {
+      background: var(--text-white);
+      color: var(--bg-color);
+    }
+
+    .input-pass {
+      padding: 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
       background: #000;
-      overflow: hidden;
-      margin-top: 15px;
+      color: white;
+      font-size: 0.95rem;
+      text-align: center;
+      margin-bottom: 20px;
+      outline: none;
+      width: 70%;
     }
 
-    #canvasFotos {
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+
+    .papel-carta {
+      background: #18171c;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      border-radius: 12px;
+      padding: 30px 22px;
+      position: relative;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 8px 25px rgba(0,0,0,0.6);
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .sello-carta {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sello-icono {
+      font-size: 1.8rem;
+      color: var(--gold-accent);
+      border: 1px solid var(--gold-accent);
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      line-height: 43px;
+      margin: 0 auto 10px auto;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .papel-carta p {
+      font-size: 0.98rem;
+      line-height: 1.95;
+      color: #e6e4ea;
+      margin-bottom: 18px;
+    }
+
+    .marco-foto-carta {
+      background: #222128;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      margin: 25px 0;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .marco-foto-carta:hover {
+      transform: scale(1.02);
+      border-color: rgba(255, 215, 0, 0.6);
+    }
+
+    .marco-foto-carta img {
       width: 100%;
-      height: 100%;
+      height: auto;
+      border-radius: 6px;
       display: block;
+    }
+
+    .contenedor-foto-corazon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0;
+      position: relative;
+    }
+
+    .foto-corazon {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      clip-path: path('M 125,225 C 125,225 15,145 15,75 C 15,30 48,10 85,10 C 108,10 120,25 125,35 C 130,25 142,10 165,10 C 202,10 235,30 235,75 C 235,145 125,225 125,225 Z');
+      filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+      transition: transform 0.4s ease;
+    }
+
+    .foto-corazon:hover {
+      transform: scale(1.05);
+    }
+
+    .texto-dorado-especial {
+      color: var(--gold-accent);
+      font-weight: 600;
+      animation: destelloEstrella 3.5s infinite ease-in-out;
+      display: inline-block;
+    }
+
+    @keyframes destelloEstrella {
+      0%, 100% {
+        color: #ffd700;
+        text-shadow: 0 0 4px rgba(255, 215, 0, 0.4), 0 0 8px rgba(255, 215, 0, 0.2);
+      }
+      50% {
+        color: #fff4b8;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.9), 0 0 18px rgba(255, 255, 255, 0.6);
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1 class="main-title">Para Andre ❤️</h1>
+  <!-- CANVAS PARA EFECTO PIXELADO -->
+  <canvas id="canvasEstrellas"></canvas>
 
-    <!-- MENU PRINCIPAL -->
-    <div id="menu-principal" class="menu-grid">
-      <button class="casillero-btn" data-target="c1">
-        <span class="icon">🌹</span>
-        <span>Nuestros Momentos</span>
-      </button>
-      <button class="casillero-btn" data-target="c2">
-        <span class="icon">🐭</span>
-        <span>Historia del Ratoncito</span>
-      </button>
-      <button class="casillero-btn" data-target="c3">
-        <span class="icon">✨</span>
-        <span>Línea del Tiempo</span>
-      </button>
-      <button class="casillero-btn" data-target="c4">
-        <span class="icon">💖</span>
-        <span>Nuestra Historia Viva</span>
-      </button>
-    </div>
+  <audio id="audioM1" src="M1.mp3" loop></audio>
+  <audio id="audioM2" src="M2.mp3" loop></audio>
+  <audio id="audioM3" src="M3.mp3" loop></audio>
 
-    <!-- CASILLERO 1 -->
-    <div id="c1" class="content-section">
-      <div class="audio-controls">
-        <span style="font-size:0.85rem;">🎵 Música 1</span>
-        <button class="audio-btn" onclick="toggleAudio('audio1')">Pausar/Play</button>
-      </div>
-      <h2 style="text-align:center; color: var(--gold-accent); margin-bottom:15px;">Nuestros Momentos 🌹</h2>
-      <p style="text-align:center; font-size:0.9rem; line-height:1.6;">Cada foto y cada segundo a tu lado guardan un recuerdo único en mi corazón.</p>
-      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
-    </div>
-
-    <!-- CASILLERO 2: HISTORIA COMPLETA -->
-    <div id="c2" class="content-section">
-      <div class="audio-controls">
-        <span style="font-size:0.85rem;">🎵 Música 2</span>
-        <button class="audio-btn" onclick="toggleAudio('audio2')">Pausar/Play</button>
-      </div>
-
-      <div class="historia-container">
-        <h2 class="historia-titulo">🐭 El ratoncito André y la ratoncita Vanidosa ✨</h2>
-        <div class="historia-texto">
-          <p>Había una vez un pequeño ratoncito llamado André, muy curioso, tierno y con un corazón gigantesco. Un día, en su camino por el bosque, conoció a una ratoncita muy especial: la ratoncita Vanidosa. Desde el primer instante en que sus miradas se cruzaron, el ratoncito André supo que ella no era como las demás; tenía un brillo único, una sonrisa que iluminaba todo a su alrededor y un encanto al que nadie podía resistirse.</p>
-          <p>El ratoncito André decidió acompañarla en cada una de sus aventuras. Aprendió a cuidar de ella, a sacarle sonrisas incluso en los días más grises y a recordarle a diario lo valiosa e increíble que era. A pesar de que a veces la ratoncita Vanidosa se hacía la difícil o mostraba su lado orgulloso, en el fondo guardaba un cariño inmenso y sincero por su fiel compañero.</p>
-          <p>Caminaron juntos superando cada obstáculo, compartiendo momentos inolvidables, risas y abrazos que curaban cualquier tristeza. El ratoncito André le prometió a su amada ratoncita que, sin importar cuánto tiempo pasara o qué tan lejos estuviera el camino, él siempre estaría a su lado para protegerla, amarla y celebrar cada mes aniversario juntos.</p>
-          <p>Hoy, esa bella historia no ha terminado, sino que sigue escribiéndose día con día. Porque este amor entre el ratoncito André y la ratoncita Vanidosa es real, infinito y está destinado a durar hasta la eternidad. 💖✨</p>
-        </div>
-      </div>
-
-      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
-    </div>
-
-    <!-- CASILLERO 3 -->
-    <div id="c3" class="content-section">
-      <div class="audio-controls">
-        <span style="font-size:0.85rem;">🎵 Música 3</span>
-        <button class="audio-btn" onclick="toggleAudio('audio3')">Pausar/Play</button>
-      </div>
-      <h2 style="text-align:center; color: var(--gold-accent); margin-bottom:15px;">Línea del Tiempo ✨</h2>
-      <p style="text-align:center; font-size:0.9rem; line-height:1.6;">Caminando juntos hacia nuestro gran día especial.</p>
-      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
-    </div>
-
-    <!-- CASILLERO 4: IMÁGENES PERSISTENTES I1-I5 -->
-    <div id="c4" class="content-section">
-      <div class="audio-controls">
-        <span style="font-size:0.85rem;">🎵 Música 4</span>
-        <button class="audio-btn" onclick="toggleAudio('audio4')">Pausar/Play</button>
-      </div>
-
-      <div class="c4-container">
-        <h3 style="color: var(--pink-neon); margin-bottom: 10px;">Nuestra Historia Viva 💖</h3>
-        <p style="font-size: 0.85rem; color: #ccc;">Nuestros recuerdos en movimiento</p>
-
-        <div class="canvas-fotos-box">
-          <canvas id="canvasFotos"></canvas>
-        </div>
-      </div>
-
-      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
-    </div>
-
+  <div id="controlAudio" class="reproductor-global oculto">
+    <span>🎵 Música</span>
+    <button id="btnAudioToggle" class="btn-audio" onclick="toggleMusica()">Pausar ⏸️</button>
   </div>
 
-  <audio id="audio1" src="M1.mp3" loop></audio>
-  <audio id="audio2" src="M2.mp3" loop></audio>
-  <audio id="audio3" src="M3.mp3" loop></audio>
-  <audio id="audio4" src="T1.mp3" loop></audio>
+  <div id="seccion-portada" class="container">
+    <img src="portada.jpg" alt="Minnie y Mickey" class="img-portada">
+    <div class="titulo-cursivo">Para Andre</div>
+    <div class="fecha">18 de septiembre de 2026</div>
+    <div class="subtitulo-cursivo">Feliz cumpleaños Andre</div>
+    <button class="btn" onclick="iniciarExperiencia()">ENTRAR</button>
+  </div>
+
+  <div id="seccion-login" class="container oculto">
+    <div class="titulo-cursivo" style="font-size: 2.8rem; margin-bottom: 15px;">Contraseña</div>
+    <div class="pista-cursiva">Hoy es un día especial… ¿qué fecha es?</div>
+    <input type="password" id="inputPassword" class="input-pass" placeholder="••••••••">
+    <br>
+    <button class="btn" onclick="verificarPassword()">Ingresar</button>
+    <div id="mensajeError" class="error-msg oculto">Contraseña incorrecta. Intenta de nuevo.</div>
+  </div>
+
+  <div id="seccion-menu" class="container oculto">
+    <div class="titulo-cursivo" style="font-size: 2.5rem;">Para Andre</div>
+    <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom: 20px;">Elige lo que quieres ver primero:</p>
+
+    <div class="grid-casilleros">
+      <div class="casillero" onclick="abrirCasillero('m1')">
+        <h3>Para ti 💕</h3>
+        <p class="texto-javiera">DE JAVIERA</p>
+      </div>
+
+      <div class="casillero" onclick="abrirCasillero('m2')">
+        <h3>Recuerditos ✨</h3>
+        <p class="texto-javiera">DE JAVIERA</p>
+      </div>
+
+      <div class="casillero largo" onclick="abrirCasillero('m3')">
+        <h3>Andrecito, el amante de lo bonito 🐣</h3>
+        <p class="texto-javiera">DE JAVIERA</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA M1 -->
+  <div id="vista-m1" class="container oculto contenido-vista" style="padding: 15px;">
+    <div class="papel-carta">
+      <div class="sello-carta">
+        <div class="sello-icono">💌</div>
+        <div class="titulo-cursivo" style="font-size: 2.8rem; margin: 0; color: #fff;">Cartita para usted</div>
+        <div class="texto-dorado-especial" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; margin-top: 5px;">18.09.2026</div>
+      </div>
+
+      <p>Hola, mi amor.</p>
+      <p>Espero de verdad que te sientas bien hoy. Quizás este no sea un día que esperabas con tantas ganas, o quizás te provoque emociones que no son precisamente las mejores, jeje. Pero está bien, amorcito. No tienes que sentirte feliz todo el tiempo solamente porque es tu cumpleaños. Yo estoy aquí para acompañarte, aunque sea desde lejos, y para intentar hacerte sentir especial en TU día.</p>
+      <p>Quiero que sepas que te amo. Te amo muchísimo. Y que para mí este sí es un día demasiado especial, porque es el día en que nació el amor de mi vida. El niño y hombre de mis ojos, la persona que amo con todo mi corazón.</p>
+      
+      <div class="marco-foto-carta">
+        <img src="CF1.jpg" alt="Foto especial 1">
+      </div>
+
+      <p>Ojalá pudiera regalarte el mundo entero, mi amor. De verdad. Para que pudieras ver con tus propios ojos todo lo que mereces y todo lo bonito que quiero para ti. No quiero que sientas pena, ni tristeza, ni que te bajonees porque quizás algunas personas ignoraron este día o no te demostraron lo especial que eres.</p>
+      <p>Porque tú eres especial, Andre. Muchísimo más de lo que quizás tú mismo alcanzas a ver.</p>
+      <p>Perdón por no poder estar ahí contigo. Perdón por no poder cantarte feliz cumpleaños, abrazarte, molestarte en persona o hacer todas esas cosas que me gustaría hacer contigo. Pero algún día vamos a estar juntitos y voy a poder cantarte cumpleaños en tu camita, abrazarte y decirte en persona todo esto que ahora tengo que escribirte por una pantalla.</p>
+      
+      <div class="marco-foto-carta">
+        <img src="CF2.jpg" alt="Foto especial 2">
+      </div>
+
+      <p>Y ya, amor… es un día demasiado lindo como para dejar que unas malas experiencias lo arruinen. Quiero que intentes disfrutarlo, aunque sea un poquito. Quiero que tengas la mejor disposición, porque siempre puede ser un buen día para cambiar las cosas, y eso es lo que quiero intentar hacer por ti.</p>
+      <p>Quiero hacerte ver que este día es tan especial como el nacimiento de la Princesa Diana. JAJAJAJA. No sé por qué se me ocurrió ese ejemplo, pero déjame ser dramática por un momento.</p>
+      <p>Te amo, corazón. Feliz cumpleaños.</p>
+      <p>Y perdón por lo poco. Perdón por esto que quizás sientas que no es nada, por no poder darte algo enorme, por tener que darte solamente palabras. Pero es lo que tengo ahora mismo en mis manos y estoy haciendo lo mejor que puedo con ellas.</p>
+      
+      <div class="marco-foto-carta">
+        <img src="CF3.jpg" alt="Foto especial 3">
+      </div>
+
+      <p>Aunque bueno… también te hice esto JAJAJA. Con toda la programación que sé, que no es precisamente mucha. Y con la ayuda de mi ChatGPT, que sabe demasiado de nosotros, obvio JAJAJA.</p>
+      <p>Pero aunque haya un poquito de código, un poquito de ChatGPT y probablemente muchas horas de pensar qué mierda hacer, todo esto lo hice yo pensando en ti y con todo el amor del mundo.</p>
+      <p>Te amo mucho, we. Muchísimo.</p>
+      <p>Y ojalá pueda hacerte cambiar un poquito esa visión que tienes de tu cumpleaños. Porque para mí, amor, este día sí es demasiado especial.</p>
+      <p>Porque naciste tú.</p>
+      <p>Y para mí, tú eres de las cosas más especiales que tengo en mi vida.</p>
+      <p class="texto-dorado-especial" style="font-style: italic; margin-top: 25px;">Feliz cumpleaños, mi amor.<br>Te amo. Siempre.</p>
+    </div>
+
+    <div style="text-align: center;">
+      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    </div>
+  </div>
+
+  <!-- VISTA M2 -->
+  <div id="vista-m2" class="container oculto contenido-vista" style="padding: 15px;">
+    <div class="papel-carta">
+      <div class="sello-carta">
+        <div class="sello-icono">✨</div>
+        <div class="titulo-cursivo" style="font-size: 2.8rem; margin: 0; color: #fff;">Feliz Aniversario</div>
+        <div class="texto-dorado-especial" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; margin-top: 5px;">16 MESES JUNTOS</div>
+      </div>
+
+      <p>Aparte de ser tu cumpleaños, es nuestro mes aniversario: ¡16 meses ya, mi amorcito precioso! No te imaginas lo feliz que estoy de un mes más, de estar siempre contigo, de que seas el hombre de mi vida. Te amo como no te imaginas y no tengo palabras para expresar lo hermoso que es esto.</p>
+      
+      <div class="marco-foto-carta">
+        <img src="F1.jfif" alt="Foto F1">
+      </div>
+
+      <p>Te amo. Perdón por las actitudes, las peleas, los cambios de humor que a veces tengo. De verdad, perdóname por todo, mi amor. Te juro que estoy tratando de mejorar para darte la mejor versión de mí.</p>
+      <p>Perdón si estos días he estado un poco floja, duermo de más o quizás no contesto tanto. Me he sentido bastante cansadita, no sé qué me pasa, pero estoy feliz y agradecida de poder tenerte aún. Perdóname, mi amor.</p>
+
+      <div class="marco-foto-carta">
+        <img src="F2.jfif" alt="Foto F2">
+      </div>
+
+      <p>Y también quiero agradecerte por algo más: gracias por la suegra que me diste. De verdad la amo muchísimo y estoy demasiado agradecida de haber podido conocerla y tener ese cariño con ella. Y a mi suegro también lo quiero muchísimo. Gracias por darme una familia tan bonita y por hacerme sentir parte de ella, incluso estando tan lejos. Los quiero muchísimo a los dos y espero poder compartir muchos momentos más con ellos.</p>
+
+      <div class="marco-foto-carta">
+        <img src="F3.jfif" alt="Foto F3">
+      </div>
+
+      <p>Aparte de eso, también te hice tu regalito de cumpleaños y eso que me costó un montón encontrarle un orden JAJAJA. Pero ya aprendí a programar solo para darte un regalo de cumpleaños virtual, JJAJAJA.</p>
+
+      <div class="marco-foto-carta">
+        <img src="F4.jfif" alt="Foto F4">
+      </div>
+
+      <p>TE AMO, AMORCITO MÍO. FELIZ MES. Eres mi vida entera, el hombre con el que me quiero casar, eres mi todo, mi TODOOOO. Te amo demasiado. Ojalá poder darte el mundo, mi amor, pero no te preocupes, algún día estaremos mirando la playa por nuestras vacaciones y nuestros babys, que serán hermosos, y valdrá cada centavo, cada segundo a tu lado. Es mi todo, corazón.</p>
+      <p>Te extraño demasiado. Perdón por estar tan lejos, perdóname. Te amo mucho, corazón.</p>
+
+      <div class="marco-foto-carta">
+        <img src="F5.jfif" alt="Foto F5">
+      </div>
+
+      <p>Aquí atentamente tu mujer, que te ama hoy, siempre y está vuelta loca por ti, hombrecito. Te amo y estoy locamente enamorada de ti.</p>
+      <p class="texto-dorado-especial" style="font-style: italic; margin-top: 15px;">Loca, loca, estoy por ti.</p>
+    </div>
+
+    <div style="text-align: center;">
+      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    </div>
+  </div>
+
+  <!-- VISTA M3 -->
+  <div id="vista-m3" class="container oculto contenido-vista" style="padding: 15px;">
+    <div class="papel-carta">
+      <div class="sello-carta">
+        <div class="sello-icono">🐣</div>
+        <div class="titulo-cursivo" style="font-size: 2.5rem; margin: 0; color: #fff;">El ratoncito André y la ratoncita Vanidosa</div>
+        <div class="texto-dorado-especial" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; margin-top: 5px;">UN CUENTO ESPECIAL</div>
+      </div>
+
+      <p>Había una vez un pequeño ratoncito llamado André que vivía junto a sus papás en una pequeña y acogedora cuevita, escondida entre las paredes de una enorme casa.</p>
+      <p>A André le encantaba salir a recorrerla cuando los humanos regresaban de hacer sus compras. Se escondía entre los rincones y observaba todo con enorme curiosidad: los zapatos, los bolsos, los vestidos y, sobre todo, las prendas de lujo que veía desfilar frente a sus pequeños ojos.</p>
+      <p>Conocía casi todas las marcas.</p>
+      <p>Y aunque sabía que aquellas cosas pertenecían a un mundo demasiado grande para un pequeño ratón, siempre pensaba:</p>
+      <p>—Algún día yo también tendré algo así.</p>
+      <p>Una tarde, mientras caminaba por uno de los pasillos, encontró un pequeño trozo de tela que había caído de alguna prenda humana.</p>
+      <p>André lo recogió entre sus patitas y tuvo una idea.</p>
+      <p>Con mucho esfuerzo, comenzó a convertir aquel pedacito de tela en una pequeña chaqueta. No era perfecta, pero para él era maravillosa.</p>
+      <p>Cuando finalmente terminó, se la puso frente a un pequeño espejo.</p>
+      <p>André sonrió.</p>
+      <p>Por primera vez se sintió como uno de aquellos elegantes humanos que tanto admiraba.</p>
+      <p>Y estaba feliz.</p>
+      <p>Pero aquella felicidad no duró mucho tiempo, porque ese mismo día vio algo que cambiaría su pequeño mundo.</p>
+      <p>Al otro lado de la habitación había una hermosa ratoncita.</p>
+      <p>Su pelaje era negro, brillante y perfectamente cuidado. Además, desprendía un delicado aroma a jabón que hacía que André quisiera quedarse cerca de ella para siempre.</p>
+      <p>La ratoncita observaba fascinada un hermoso vestido brillante que llevaba puesto una humana frente al espejo.</p>
+      <p>André quedó completamente encantado.</p>
+      <p>Sin saber cómo acercarse, corrió hasta un pequeño mosquito que conocía la habitación.</p>
+      <p>—¿Quién es ella? —preguntó.</p>
+      <p>El mosquito se rió.</p>
+      <p>—Ella es la ratoncita Vanidosa.</p>
+      <p>Desde aquel instante, André quedó enamorado.</p>
+      <p>No sabía su historia. No conocía sus gustos. Ni siquiera sabía cómo era realmente.</p>
+      <p>Solo sabía que, desde que la había visto, algo dentro de él había cambiado.</p>
+
+      <div class="contenedor-foto-corazon">
+        <img src="H1.jpg" alt="Foto en Corazón H1" class="foto-corazon" onerror="this.onerror=null; this.src='H1.jfif';">
+      </div>
+
+      <p>Así que decidió conquistarla.</p>
+      <p>Durante varios días buscó la manera de conseguir algo especial para ella. Hasta que, en una de sus aventuras, encontró una pequeña moneda que los humanos habían dejado caer.</p>
+      <p>André la arrastró con todas sus fuerzas hasta donde vivía un viejo pájaro carpintero que fabricaba pequeños objetos con todo tipo de materiales.</p>
+      <p>—Quiero un anillo, un collar y unos pendientes —le pidió—. Quiero que brillen como sus ojos.</p>
+      <p>El pájaro carpintero trabajó durante horas y finalmente creó unas pequeñas joyas que parecían guardar la luz de la luna.</p>
+      <p>Pero André todavía no estaba satisfecho.</p>
+      <p>Recordó el hermoso vestido brillante que la ratoncita había estado mirando.</p>
+      <p>Esperó hasta que nadie estuviera cerca, corrió hasta la habitación de la humana y, con mucho cuidado, arrancó un pequeño pedazo de aquella tela.</p>
+      <p>Después fue donde una vieja araña costurera.</p>
+      <p>—¿Podrías hacer un vestido para alguien muy especial?</p>
+      <p>La araña aceptó.</p>
+      <p>Y André esperó toda la tarde.</p>
+      <p>Cuando finalmente cayó la noche, la luna apareció en el cielo en todo su esplendor y los grillos comenzaron a tocar su hermosa canción.</p>
+      <p>André tomó sus regalos y caminó hasta el rincón donde vivía la ratoncita.</p>
+      <p>Ella lo vio acercarse.</p>
+      <p>Primero observó sus pequeñas patas.</p>
+      <p>Después su chaqueta brillante.</p>
+      <p>Y finalmente su rostro.</p>
+      <p>—¿Qué haces aquí, ratoncito? —preguntó—. Estás muy lejos de casa. ¿Por qué viniste hasta aquí? En este rincón no hay comida y durante la noche solo nos acompaña la luna.</p>
+      <p>André respiró profundamente.</p>
+      <p>—Solo vine a ver una estrella.</p>
+      <p>La ratoncita levantó una ceja.</p>
+      <p>—¿Una estrella?</p>
+      <p>—Sí —respondió él—. Una estrella que aparece justo aquí.</p>
+      <p>Ella, confundida, aceptó que se sentara a su lado.</p>
+      <p>Los dos miraron la luna.</p>
+      <p>Pasaron los minutos.</p>
+      <p>Después, las horas.</p>
+      <p>Pero aquella supuesta estrella nunca apareció.</p>
+      <p>La ratoncita comenzó a bostezar.</p>
+      <p>—Bueno, ratoncito. Creo que iré a dormir. Mañana será un lindo día, eso me dijeron los pájaros.</p>
+      <p>André sintió que su única oportunidad se escapaba.</p>
+      <p>—¡Espera! ¡Espera!</p>
+      <p>La ratoncita se dio vuelta.</p>
+      <p>André sacó los regalos.</p>
+      <p>—Tengo esto para ti.</p>
+      <p>Le entregó el vestido y las pequeñas joyas.</p>
+      <p>—Tú eras la estrella que quería ver —dijo tímidamente—. Tus ojos brillan más que cualquier joya y tu pelo brilla con la luz del sol. Desde que te vi, me pareciste la criatura más hermosa que había conocido.</p>
+      <p>La ratoncita se sonrojó.</p>
+      <p>Aceptó los regalos y, curiosa, se puso el vestido. Después colocó las joyas y se miró frente al espejo.</p>
+      <p>Por un momento quedó maravillada.</p>
+      <p>Era exactamente como había imaginado verse.</p>
+      <p>Se dio vuelta hacia André y sonrió.</p>
+      <p>Pero luego su expresión cambió.</p>
+      <p>—¿Cómo sabías que me gustaría esto?</p>
+      <p>André respondió con toda sinceridad:</p>
+      <p>—Porque desde que te vi me enamoré de ti.</p>
+      <p>Ella soltó una pequeña risa.</p>
+      <p>—¿Pero cómo puedes estar enamorado de mí si ni siquiera me conoces?</p>
+      <p>André se quedó en silencio.</p>
+      <p>—No sabes cómo soy. No conoces mis defectos, mis miedos, mis sueños... Solo sabes cómo me veo.</p>
+      <p>La pequeña ratoncita se quitó lentamente las joyas y después el vestido.</p>
+      <p>Se los devolvió.</p>
+      <p>—Quizás mañana descubras que no te gusta cómo soy.</p>
+      <p>André bajó la mirada.</p>
+      <p>—Pero desde que te vi pude ver colores mágicos en ti.</p>
+      <p>Ella negó suavemente con la cabeza.</p>
+      <p>—¿Y tú crees que cuando yo te miro veo esos mismos colores?</p>
+      <p>André no respondió.</p>
+      <p>—Para mí —continuó ella— eres solo un ratoncito que quiere conquistarme con cosas bonitas.</p>
+      <p>La ratoncita dejó los regalos sobre el suelo.</p>
+      <p>—Si para ti conquistarme significa llenarme de lujos, estás equivocado. Yo busco algo mucho más preciado. Algo que todavía no he encontrado.</p>
+      <p>Y antes de marcharse, agregó:</p>
+      <p>—Buena suerte, ratoncito al que le gustan las cosas bonitas.</p>
+      <p>André quedó destrozado.</p>
+      <p>A la mañana siguiente decidió descubrir qué era aquello que ella buscaba.</p>
+      <p>—Si le dicen Vanidosa porque le gusta verse bien... entonces debe amar los lujos —pensaba—. Y yo solo soy un pequeño ratón.</p>
+      <p>Mientras caminaba cabizbajo, una hormiga que pasaba cerca escuchó sus pensamientos.</p>
+      <p>—La ratoncita no es vanidosa —dijo.</p>
+      <p>André levantó la cabeza.</p>
+      <p>—¿No?</p>
+      <p>—No. Le dicen así porque siempre está arreglada y se preocupa por verse bonita. Pero yo nunca la he visto presumir de sus cosas. De hecho, la he visto hacer algo completamente distinto.</p>
+      <p>—¿Qué cosa?</p>
+      <p>La hormiga sonrió.</p>
+      <p>—La he visto saltar desde lugares muy altos solamente para sentir la adrenalina.</p>
+      <p>André abrió los ojos.</p>
+      <p>—¿Adrenalina?</p>
+      <p>—Quizás eso sea lo que está buscando.</p>
+      <p>La hormiga continuó su camino.</p>
+      <p>Y André comenzó a pensar.</p>
+      <p>Aquella tarde se le ocurrió una idea.</p>
+      <p>Fue hasta la casa de la ratoncita y llamó a su puerta.</p>
+      <p>Cuando ella salió, André sonrió.</p>
+      <p>—Tengo una invitación para ti.</p>
+      <p>—¿Para qué?</p>
+      <p>—Para el festival de juegos.</p>
+      <p>Los ojos de la ratoncita cambiaron inmediatamente.</p>
+      <p>—Nos vemos allá.</p>
+      <p>André salió corriendo y dando pequeños saltos de felicidad.</p>
+      <p>Esa noche se puso su mejor vestimenta y llegó al festival.</p>
+      <p>Y entonces la vio.</p>
+      <p>La ratoncita llevaba un elegante vestido de seda blanca. Su hermoso pelaje negro brillaba bajo las luces del festival.</p>
+      <p>Pero esta vez André no se quedó mirando su vestido.</p>
+      <p>Se quedó mirando su sonrisa.</p>
+      <p>Subieron al primer juego.</p>
+      <p>Después al segundo.</p>
+      <p>Luego al tercero.</p>
+      <p>Y después perdieron la cuenta.</p>
+      <p>La ratoncita reía, gritaba, saltaba y disfrutaba cada segundo.</p>
+      <p>André finalmente comprendió.</p>
+      <p>No le gustaba solamente verse bonita.</p>
+      <p>Le gustaba sentirse viva.</p>
+      <p>Cuando la noche estaba llegando a su fin, André se sentó junto a ella.</p>
+      <p>—Ahora entiendo —dijo.</p>
+      <p>La ratoncita lo miró.</p>
+      <p>—¿Entiendes qué?</p>
+      <p>—Por qué te dicen Vanidosa.</p>
+      <p>Ella sonrió.</p>
+      <p>—¿Y qué crees?</p>
+      <p>André negó con la cabeza.</p>
+      <p>—Creo que la gente solo ve cómo te ves. Te ven arreglada, bonita y preocupada por lucir bien. Pero no ven lo que hay detrás.</p>
+      <p>La ratoncita bajó la mirada.</p>
+      <p>—Yo solo quiero sentirme viva —confesó—. Quiero sentir adrenalina. Quiero reír, viajar, conocer lugares, hacer cosas que me hagan olvidar por un momento que el mundo puede ser tan aburrido.</p>
+      <p>Miró a André.</p>
+      <p>—Y tú... eres el único ratoncito que me ha hecho sentir así.</p>
+      <p>André se quedó completamente rojo.</p>
+      <p>La ratoncita se acercó y le dio un pequeño beso.</p>
+      <p>André, todavía avergonzado, le devolvió el beso.</p>
+      <p>Después tomó su pequeña patita entre las suyas.</p>
+      <p>—Entonces viajaremos por el mundo.</p>
+      <p>Ella sonrió.</p>
+      <p>—¿Nosotros?</p>
+      <p>—Nosotros.</p>
+      <p>—¿Y qué haremos?</p>
+      <p>André miró las estrellas.</p>
+      <p>—Viviremos nuestras propias aventuras. Conoceremos lugares que nunca hemos visto, nos meteremos en problemas, reiremos hasta que nos duela la pancita y, sobre todo, haré todo lo posible para que nunca olvides lo que se siente estar viva.</p>
+      <p>La ratoncita apoyó su cabeza sobre él.</p>
+      <p>Y desde aquella noche comenzó una nueva historia.</p>
+      <p>André dejó de intentar conquistarla con cosas bonitas.</p>
+      <p>Porque finalmente había entendido que el regalo más valioso no era un vestido, una joya ni una prenda de lujo.</p>
+      <p>Era compartir la vida con alguien que te hiciera sentir que cada día podía convertirse en una nueva aventura.</p>
+      <p>Y así, el pequeño ratoncito André comenzó su viaje junto a su querida ratoncita Vanidosa.</p>
+      <p>Dos pequeños ratones.</p>
+      <p>Un mundo enorme.</p>
+      <p class="texto-dorado-especial" style="font-style: italic; margin-top: 15px;">Y un cuento que apenas estaba comenzando.</p>
+    </div>
+
+    <div style="text-align: center;">
+      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    </div>
+  </div>
 
   <script>
-    const botones = document.querySelectorAll('.casillero-btn');
-    const secciones = document.querySelectorAll('.content-section');
-    const menu = document.getElementById('menu-principal');
+    const CLAVE_CORRECTA = "18092026";
+    let audioActual = null;
 
-    botones.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-target');
-        menu.style.display = 'none';
-        secciones.forEach(sec => sec.classList.remove('active'));
-        const targetSec = document.getElementById(target);
-        if(targetSec) targetSec.classList.add('active');
+    /* SCRIPT DE LLUVIA Y EXPLOSIONES PIXELADAS EN SEGUNDO PLANO */
+    const canvas = document.getElementById('canvasEstrellas');
+    const ctx = canvas.getContext('2d');
 
-        if(target === 'c4') {
-          iniciarCasillero4();
-        }
-      });
-    });
-
-    function volverMenu() {
-      secciones.forEach(sec => sec.classList.remove('active'));
-      menu.style.display = 'grid';
-      detenerAudios();
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-    function toggleAudio(id) {
-      const audio = document.getElementById(id);
-      if(!audio) return;
-      if (audio.paused) {
-        detenerAudios();
-        audio.play().catch(()=>{});
-      } else {
-        audio.pause();
-      }
-    }
+    const coloresPixeles = ['#ff1493', '#ff66cc', '#ffd700', '#ffffff', '#ff99dd'];
+    const estrellas = [];
+    const particulasExplosion = [];
 
-    function detenerAudios() {
-      ['audio1', 'audio2', 'audio3', 'audio4'].forEach(id => {
-        const a = document.getElementById(id);
-        if(a) { a.pause(); }
-      });
-    }
-
-    /* SISTEMA DE CARGA Y RENDERIZADO GARANTIZADO DE I1 A I5 */
-    let fotosAnimId = null;
-    let canvasF, ctxF;
-    let fotosFlotantes = [];
-
-    const rutasFotos = ['I1.jpg', 'I2.jpg', 'I3.jpg', 'I4.jpg', 'I5.jpg'];
-    const imagenesCargadas = [];
-
-    // Carga de imágenes con control de errores
-    rutasFotos.forEach((ruta) => {
-      const img = new Image();
-      img.src = ruta;
-      img.isReady = false;
-      img.onload = () => { img.isReady = true; };
-      img.onerror = () => {
-        // Intenta recargar si hubo un fallo de red momentáneo
-        setTimeout(() => { img.src = ruta + '?retry=' + Date.now(); }, 1000);
-      };
-      imagenesCargadas.push(img);
-    });
-
-    class FotoFlotante {
-      constructor(img, index) {
-        this.img = img;
-        this.maxSize = 80;
-        this.index = index;
+    class EstrellitaCaida {
+      constructor() {
         this.reset();
       }
 
       reset() {
-        const cw = canvasF ? canvasF.width : 300;
-        const ch = canvasF ? canvasF.height : 300;
-        this.x = Math.random() * (cw - this.maxSize - 20) + 10;
-        this.y = Math.random() * (ch - this.maxSize - 20) + 10;
-        this.vx = (Math.random() - 0.5) * 1.5;
-        this.vy = (Math.random() - 0.5) * 1.5;
-        if(this.vx === 0) this.vx = 1;
-        if(this.vy === 0) this.vy = 1;
+        this.x = Math.random() * canvas.width;
+        this.y = -10;
+        this.size = Math.floor(Math.random() * 3) + 2; // Tamaño pixel
+        this.speed = Math.random() * 1.5 + 0.8;
+        this.color = coloresPixeles[Math.floor(Math.random() * coloresPixeles.length)];
+        this.puntosExplosion = Math.random() * (canvas.height * 0.7) + (canvas.height * 0.15);
       }
 
       update() {
-        if (!canvasF) return;
-        this.x += this.vx;
-        this.y += this.vy;
+        this.y += this.speed;
 
-        if (this.x <= 5 || this.x + this.maxSize >= canvasF.width - 5) this.vx *= -1;
-        if (this.y <= 5 || this.y + this.maxSize >= canvasF.height - 5) this.vy *= -1;
+        // Probabilidad aleatoria de explotar en el trayecto
+        if (this.y >= this.puntosExplosion && Math.random() < 0.15) {
+          crearExplosionPixel(this.x, this.y, this.color);
+          this.reset();
+        }
+
+        if (this.y > canvas.height + 10) {
+          this.reset();
+        }
       }
 
       draw() {
-        // Solamente se dibuja si la imagen ya está completamente cargada
-        if (this.img && (this.img.isReady || this.img.complete) && this.img.naturalWidth > 0) {
-          ctxF.save();
-          let w = this.img.naturalWidth;
-          let h = this.img.naturalHeight;
-          let renderW = this.maxSize;
-          let renderH = (h / w) * this.maxSize;
+        ctx.fillStyle = this.color;
+        // Dibujo de píxel cuadrado de estrella
+        ctx.fillRect(Math.floor(this.x), Math.floor(this.y), this.size, this.size);
+      }
+    }
 
-          if (renderH > this.maxSize) {
-            renderH = this.maxSize;
-            renderW = (w / h) * this.maxSize;
-          }
+    class ParticulaExplosion {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.floor(Math.random() * 3) + 2;
+        const angulo = Math.random() * Math.PI * 2;
+        const velocidad = Math.random() * 3 + 0.5;
+        this.vx = Math.cos(angulo) * velocidad;
+        this.vy = Math.sin(angulo) * velocidad;
+        this.color = color;
+        this.life = 1.0;
+        this.decay = Math.random() * 0.04 + 0.02;
+      }
 
-          ctxF.shadowColor = '#ff1493';
-          ctxF.shadowBlur = 8;
-          ctxF.strokeStyle = '#ff1493';
-          ctxF.lineWidth = 2;
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life -= this.decay;
+      }
 
-          ctxF.strokeRect(this.x, this.y, renderW, renderH);
-          ctxF.drawImage(this.img, this.x, this.y, renderW, renderH);
-          ctxF.restore();
+      draw() {
+        ctx.globalAlpha = Math.max(0, this.life);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(Math.floor(this.x), Math.floor(this.y), this.size, this.size);
+        ctx.globalAlpha = 1.0;
+      }
+    }
+
+    function crearExplosionPixel(x, y, color) {
+      const numParticulas = Math.floor(Math.random() * 10) + 8;
+      for (let i = 0; i < numParticulas; i++) {
+        particulasExplosion.push(new ParticulaExplosion(x, y, color));
+      }
+    }
+
+    // Generar la lluvia inicial
+    for (let i = 0; i < 35; i++) {
+      const e = new EstrellitaCaida();
+      e.y = Math.random() * canvas.height; // Distribuir en la pantalla al iniciar
+      estrellas.push(e);
+    }
+
+    function animar() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      estrellas.forEach(estrella => {
+        estrella.update();
+        estrella.draw();
+      });
+
+      for (let i = particulasExplosion.length - 1; i >= 0; i--) {
+        const p = particulasExplosion[i];
+        p.update();
+        p.draw();
+        if (p.life <= 0) {
+          particulasExplosion.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animar);
+    }
+    animar();
+
+    /* FUNCIONES DE AUDIO Y NAVEGACIÓN INTACTAS */
+    function detenerTodosLosAudios() {
+      const audios = [
+        document.getElementById('audioM1'),
+        document.getElementById('audioM2'),
+        document.getElementById('audioM3')
+      ];
+      audios.forEach(a => {
+        if (a) {
+          a.pause();
+          a.currentTime = 0;
+        }
+      });
+    }
+
+    function reproducirAudioSeccion(idAudio) {
+      detenerTodosLosAudios();
+      const audio = document.getElementById(idAudio);
+      if (audio) {
+        audio.volume = 0.4;
+        audio.play().then(() => {
+          audioActual = audio;
+          document.getElementById('controlAudio').classList.remove('oculto');
+          document.getElementById('btnAudioToggle').innerText = "Pausar ⏸️";
+        }).catch(e => console.log("Permiso de audio pendiente."));
+      }
+    }
+
+    function toggleMusica() {
+      const btn = document.getElementById('btnAudioToggle');
+      if (audioActual) {
+        if (audioActual.paused) {
+          audioActual.play();
+          btn.innerText = "Pausar ⏸️";
+        } else {
+          audioActual.pause();
+          btn.innerText = "Reproducir ▶️";
         }
       }
     }
 
-    function iniciarCasillero4() {
-      canvasF = document.getElementById('canvasFotos');
-      if (canvasF) {
-        canvasF.width = canvasF.parentElement.clientWidth;
-        canvasF.height = canvasF.parentElement.clientHeight;
-        ctxF = canvasF.getContext('2d');
+    function iniciarExperiencia() {
+      document.getElementById('seccion-portada').classList.add('oculto');
+      document.getElementById('seccion-login').classList.remove('oculto');
+    }
 
-        fotosFlotantes = imagenesCargadas.map((img, idx) => new FotoFlotante(img, idx));
-
-        function loopFotos() {
-          ctxF.clearRect(0, 0, canvasF.width, canvasF.height);
-          fotosFlotantes.forEach(foto => {
-            foto.update();
-            foto.draw();
-          });
-          fotosAnimId = requestAnimationFrame(loopFotos);
-        }
-        if (fotosAnimId) cancelAnimationFrame(fotosAnimId);
-        loopFotos();
+    function verificarPassword() {
+      const input = document.getElementById('inputPassword').value;
+      if (input === CLAVE_CORRECTA) {
+        document.getElementById('seccion-login').classList.add('oculto');
+        document.getElementById('seccion-menu').classList.remove('oculto');
+        reproducirAudioSeccion('audioM1');
+      } else {
+        document.getElementById('mensajeError').classList.remove('oculto');
       }
+    }
+
+    function abrirCasillero(codigo) {
+      document.getElementById('seccion-menu').classList.add('oculto');
+      
+      if (codigo === 'm1') {
+        document.getElementById('vista-m1').classList.remove('oculto');
+        reproducirAudioSeccion('audioM1');
+      }
+      if (codigo === 'm2') {
+        document.getElementById('vista-m2').classList.remove('oculto');
+        reproducirAudioSeccion('audioM2');
+      }
+      if (codigo === 'm3') {
+        document.getElementById('vista-m3').classList.remove('oculto');
+        reproducirAudioSeccion('audioM3');
+      }
+    }
+
+    function volverMenu() {
+      document.getElementById('vista-m1').classList.add('oculto');
+      document.getElementById('vista-m2').classList.add('oculto');
+      document.getElementById('vista-m3').classList.add('oculto');
+      document.getElementById('seccion-menu').classList.remove('oculto');
     }
   </script>
+
 </body>
 </html>
