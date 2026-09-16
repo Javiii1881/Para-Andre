@@ -5,12 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Para André ❤️</title>
   <style>
+    :root {
+      --primary: #7b2cbf;
+      --primary-hover: #9d4edd;
+      --bg-dark: #12111a;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --text-light: #f4f4f9;
+      --accent: #e0aaff;
+    }
+
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1e1e24, #2a2a36);
-      color: #f4f4f9;
+      background: linear-gradient(135deg, #181623, #2a283a);
+      color: var(--text-light);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -19,22 +28,23 @@
     }
 
     .container {
-      max-width: 600px;
+      max-width: 700px;
       width: 90%;
-      padding: 30px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      backdrop-filter: blur(8px);
+      padding: 35px 25px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
     }
 
     h1 {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-      color: #e0aaff;
-      font-weight: 400;
-      letter-spacing: 1px;
+      font-size: 2.3rem;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-weight: 300;
+      letter-spacing: 1.5px;
     }
 
     .fecha {
@@ -45,15 +55,16 @@
     }
 
     .subtitulo {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       margin-bottom: 30px;
+      font-weight: 300;
     }
 
     .btn {
-      background-color: #7b2cbf;
+      background-color: var(--primary);
       color: white;
       border: none;
-      padding: 14px 32px;
+      padding: 14px 36px;
       font-size: 1.1rem;
       border-radius: 30px;
       cursor: pointer;
@@ -62,20 +73,195 @@
     }
 
     .btn:hover {
-      background-color: #9d4edd;
+      background-color: var(--primary-hover);
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(157, 78, 221, 0.6);
+    }
+
+    /* Ocultar secciones */
+    .oculto {
+      display: none !important;
+    }
+
+    /* Red de Casilleros */
+    .grid-casilleros {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .casillero {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 22px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .casillero:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .casillero h3 {
+      margin: 0 0 8px 0;
+      color: var(--accent);
+      font-size: 1.3rem;
+    }
+
+    .casillero p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #d1d1e0;
+    }
+
+    /* Contenido de cada casillero */
+    .contenido-vista {
+      text-align: left;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .btn-volver {
+      margin-top: 25px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 8px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-volver:hover {
+      background: var(--accent);
+      color: var(--bg-dark);
+    }
+
+    /* Formulario Contraseña */
+    .input-pass {
+      padding: 12px 18px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 15px;
+      outline: none;
+      width: 80%;
+      max-width: 250px;
+    }
+
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <!-- PORTADA -->
+  <div id="seccion-portada" class="container">
     <h1>Para André</h1>
     <div class="fecha">18 de septiembre de 2026</div>
     <div class="subtitulo">Feliz cumpleaños André</div>
-    <button class="btn" onclick="alert('¡Pronto añadiremos la clave y los casilleros!')">ENTRAR</button>
+    <button class="btn" onclick="mostrarLogin()">ENTRAR</button>
   </div>
+
+  <!-- LOGIN DE CONTRASEÑA -->
+  <div id="seccion-login" class="container oculto">
+    <h2>Ingresa la contraseña</h2>
+    <p style="font-size:0.9rem; color:#aaa; margin-bottom:20px;">Pista: Una fecha especial o la clave que te di 😉</p>
+    <input type="password" id="inputPassword" class="input-pass" placeholder="Contraseña">
+    <br>
+    <button class="btn" onclick="verificarPassword()">Ingresar</button>
+    <div id="mensajeError" class="error-msg oculto">Contraseña incorrecta. ¡Intenta de nuevo!</div>
+  </div>
+
+  <!-- MENÚ PRINCIPAL (3 CASILLEROS) -->
+  <div id="seccion-menu" class="container oculto">
+    <h1>Para André ❤️</h1>
+    <p>Elige lo que quieres ver primero:</p>
+
+    <div class="grid-casilleros">
+      <div class="casillero" onclick="abrirCasillero('carta')">
+        <h3>Carta de cumpleaños 💌</h3>
+        <p>Unas palabras escritas especialmente para ti en tu día.</p>
+      </div>
+
+      <div class="casillero" onclick="abrirCasillero('fotos')">
+        <h3>Fotos juntos 📸</h3>
+        <p>Un recorrido por algunos de nuestros momentos especiales.</p>
+      </div>
+
+      <div class="casillero" onclick="abrirCasillero('historia')">
+        <h3>Una historia inventada 📖</h3>
+        <p>Una pequeña aventura de ficción dedicada a ti.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA: CARTA -->
+  <div id="vista-carta" class="container oculto contenido-vista">
+    <h2>Carta de cumpleaños 💌</h2>
+    <p>Aquí irá el texto de tu carta para André...</p>
+    <p>Puedes escribir varios párrafos con todo lo que sientes por él en este día tan especial.</p>
+    <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+  </div>
+
+  <!-- VISTA: FOTOS -->
+  <div id="vista-fotos" class="container oculto contenido-vista">
+    <h2>Fotos juntos 📸</h2>
+    <p>Aquí subiremos tus fotos favoritas juntos con pequeñas frases.</p>
+    <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+  </div>
+
+  <!-- VISTA: HISTORIA INVENTADA -->
+  <div id="vista-historia" class="container oculto contenido-vista">
+    <h2>Una historia inventada 📖</h2>
+    <p>Aquí escribirás la historia ficticia para André...</p>
+    <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+  </div>
+
+  <script>
+    // CONTRASEÑA (Puedes cambiar '18092026' por la clave que prefieras)
+    const CLAVE_CORRECTA = "18092026";
+
+    function mostrarLogin() {
+      document.getElementById('seccion-portada').classList.add('oculto');
+      document.getElementById('seccion-login').classList.remove('oculto');
+    }
+
+    function verificarPassword() {
+      const input = document.getElementById('inputPassword').value;
+      if (input === CLAVE_CORRECTA) {
+        document.getElementById('seccion-login').classList.add('oculto');
+        document.getElementById('seccion-menu').classList.remove('oculto');
+      } else {
+        document.getElementById('mensajeError').classList.remove('oculto');
+      }
+    }
+
+    function abrirCasillero(tipo) {
+      document.getElementById('seccion-menu').classList.add('oculto');
+      if (tipo === 'carta') document.getElementById('vista-carta').classList.remove('oculto');
+      if (tipo === 'fotos') document.getElementById('vista-fotos').classList.remove('oculto');
+      if (tipo === 'historia') document.getElementById('vista-historia').classList.remove('oculto');
+    }
+
+    function volverMenu() {
+      document.getElementById('vista-carta').classList.add('oculto');
+      document.getElementById('vista-fotos').classList.add('oculto');
+      document.getElementById('vista-historia').classList.add('oculto');
+      document.getElementById('seccion-menu').classList.remove('oculto');
+    }
+  </script>
 
 </body>
 </html>
