@@ -251,8 +251,10 @@
 </head>
 <body>
 
-  <!-- Audio Continuo Global en segundo plano -->
-  <audio id="musicaFondo" src="M1.mp3" loop></audio>
+  <!-- Audios independientes para cada M -->
+  <audio id="audioM1" src="M1.mp3" loop></audio>
+  <audio id="audioM2" src="M2.mp3" loop></audio>
+  <audio id="audioM3" src="M3.mp3" loop></audio>
 
   <!-- Control de Audio Flotante -->
   <div id="controlAudio" class="reproductor-global oculto">
@@ -363,43 +365,60 @@
 
   <script>
     const CLAVE_CORRECTA = "18092026";
-    let musicaIniciada = false;
+    let audioActual = null;
 
-    function reproducirMusicaGlobal() {
-      if (!musicaIniciada) {
-        const audio = document.getElementById('musicaFondo');
+    function detenerTodosLosAudios() {
+      const audios = [
+        document.getElementById('audioM1'),
+        document.getElementById('audioM2'),
+        document.getElementById('audioM3')
+      ];
+      audios.forEach(a => {
+        if (a) {
+          a.pause();
+          a.currentTime = 0;
+        }
+      });
+    }
+
+    function reproducirAudioSeccion(idAudio) {
+      detenerTodosLosAudios();
+      const audio = document.getElementById(idAudio);
+      if (audio) {
         audio.volume = 0.4;
         audio.play().then(() => {
-          musicaIniciada = true;
+          audioActual = audio;
           document.getElementById('controlAudio').classList.remove('oculto');
+          document.getElementById('btnAudioToggle').innerText = "Pausar ⏸️";
         }).catch(e => console.log("Permiso de audio pendiente."));
       }
     }
 
     function toggleMusica() {
-      const audio = document.getElementById('musicaFondo');
       const btn = document.getElementById('btnAudioToggle');
-      if (audio.paused) {
-        audio.play();
-        btn.innerText = "Pausar ⏸️";
-      } else {
-        audio.pause();
-        btn.innerText = "Reproducir ▶️";
+      if (audioActual) {
+        if (audioActual.paused) {
+          audioActual.play();
+          btn.innerText = "Pausar ⏸️";
+        } else {
+          audioActual.pause();
+          btn.innerText = "Reproducir ▶️";
+        }
       }
     }
 
     function iniciarExperiencia() {
-      reproducirMusicaGlobal();
       document.getElementById('seccion-portada').classList.add('oculto');
       document.getElementById('seccion-login').classList.remove('oculto');
     }
 
     function verificarPassword() {
-      reproducirMusicaGlobal();
       const input = document.getElementById('inputPassword').value;
       if (input === CLAVE_CORRECTA) {
         document.getElementById('seccion-login').classList.add('oculto');
         document.getElementById('seccion-menu').classList.remove('oculto');
+        // Inicia automáticamente la música de M1 al entrar
+        reproducirAudioSeccion('audioM1');
       } else {
         document.getElementById('mensajeError').classList.remove('oculto');
       }
@@ -407,9 +426,19 @@
 
     function abrirCasillero(codigo) {
       document.getElementById('seccion-menu').classList.add('oculto');
-      if (codigo === 'm1') document.getElementById('vista-m1').classList.remove('oculto');
-      if (codigo === 'm2') document.getElementById('vista-m2').classList.remove('oculto');
-      if (codigo === 'm3') document.getElementById('vista-m3').classList.remove('oculto');
+      
+      if (codigo === 'm1') {
+        document.getElementById('vista-m1').classList.remove('oculto');
+        reproducirAudioSeccion('audioM1');
+      }
+      if (codigo === 'm2') {
+        document.getElementById('vista-m2').classList.remove('oculto');
+        reproducirAudioSeccion('audioM2');
+      }
+      if (codigo === 'm3') {
+        document.getElementById('vista-m3').classList.remove('oculto');
+        reproducirAudioSeccion('audioM3');
+      }
     }
 
     function volverMenu() {
