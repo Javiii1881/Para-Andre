@@ -224,9 +224,49 @@
       justify-content: center;
     }
 
-    .casillero:hover {
-      background: #2a2a32;
-      border-color: var(--text-white);
+    /* ILUMINACIÓN INDIVIDUAL PARA CADA CASILLERO */
+    .casillero.c1-rojo {
+      background: rgba(255, 0, 51, 0.08);
+      border: 1.5px solid #ff0033;
+      box-shadow: 0 0 12px rgba(255, 0, 51, 0.35);
+    }
+    .casillero.c1-rojo:hover {
+      background: rgba(255, 0, 51, 0.18);
+      border-color: #ff3366;
+      box-shadow: 0 0 20px rgba(255, 0, 51, 0.7);
+    }
+
+    .casillero.c2-blanco {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+    }
+    .casillero.c2-blanco:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #ffffff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+    }
+
+    .casillero.c3-amarillo {
+      background: rgba(255, 215, 0, 0.08);
+      border: 1.5px solid #ffd700;
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+    }
+    .casillero.c3-amarillo:hover {
+      background: rgba(255, 215, 0, 0.18);
+      border-color: #ffea70;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    }
+
+    .casillero.casillero-neon {
+      background: rgba(255, 0, 127, 0.08);
+      border: 1.5px solid #ff007f;
+      box-shadow: 0 0 12px rgba(255, 0, 127, 0.35);
+    }
+    .casillero.casillero-neon:hover {
+      background: rgba(255, 0, 127, 0.18);
+      border-color: #ff66cc;
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.7);
     }
 
     .casillero h3 {
@@ -239,19 +279,6 @@
 
     .casillero.largo h3 {
       font-size: 1.05rem;
-    }
-
-    /* ESTILO ESPECIAL CASILLERO 4 ROSA NEÓN */
-    .casillero.casillero-neon {
-      background: rgba(255, 0, 127, 0.08);
-      border: 1.5px solid #ff007f;
-      box-shadow: 0 0 12px rgba(255, 0, 127, 0.3);
-    }
-
-    .casillero.casillero-neon:hover {
-      background: rgba(255, 0, 127, 0.18);
-      border-color: #ff66cc;
-      box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
     }
 
     .texto-javiera {
@@ -503,11 +530,11 @@
       text-transform: uppercase;
     }
 
-    /* MONITOR LÍNEA DE VIDA */
+    /* MONITOR LÍNEA DE VIDA CON PULSO QUE SIGUE EL TRAZADO EXACTO */
     .vitals-container {
       position: relative;
       width: 100%;
-      height: 50px;
+      height: 60px;
       margin: 20px 0;
       background: rgba(255, 0, 127, 0.05);
       border-top: 1px dashed #ff007f;
@@ -530,14 +557,10 @@
       box-shadow: 0 0 10px #ff007f, 0 0 18px #ff007f;
       border-radius: 50%;
       position: absolute;
-      top: 50%;
+      top: 0;
+      left: 0;
       transform: translate(-50%, -50%);
-      animation: moverPunto 3.5s linear infinite;
-    }
-
-    @keyframes moverPunto {
-      0% { left: 0%; }
-      100% { left: 100%; }
+      pointer-events: none;
     }
 
     .fechas-contenedor {
@@ -576,6 +599,7 @@
   <audio id="audioM1" src="M1.mp3" loop></audio>
   <audio id="audioM2" src="M2.mp3" loop></audio>
   <audio id="audioM3" src="M3.mp3" loop></audio>
+  <audio id="audioT1" src="T1.mp3" loop></audio>
 
   <div id="controlAudio" class="reproductor-global oculto">
     <span>🎵 Música</span>
@@ -604,22 +628,22 @@
     <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom: 20px;">Elige lo que quieres ver primero:</p>
 
     <div class="grid-casilleros">
-      <div class="casillero" onclick="abrirCasillero('m1')">
-        <h3>Para ti 💕</h3>
+      <div class="casillero c1-rojo" onclick="abrirCasillero('m1')">
+        <h3 style="color: #ff3366; text-shadow: 0 0 8px #ff0033;">Para ti 💕</h3>
         <p class="texto-javiera">DE JAVIERA</p>
       </div>
 
-      <div class="casillero" onclick="abrirCasillero('m2')">
-        <h3>Recuerditos ✨</h3>
+      <div class="casillero c2-blanco" onclick="abrirCasillero('m2')">
+        <h3 style="color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.8);">Recuerditos ✨</h3>
         <p class="texto-javiera">DE JAVIERA</p>
       </div>
 
-      <div class="casillero largo" onclick="abrirCasillero('m3')">
-        <h3>Andrecito, el amante de lo bonito 🐣</h3>
+      <div class="casillero largo c3-amarillo" onclick="abrirCasillero('m3')">
+        <h3 style="color: #ffea70; text-shadow: 0 0 8px #ffd700;">Andrecito, el amante de lo bonito 🐣</h3>
         <p class="texto-javiera">DE JAVIERA</p>
       </div>
 
-      <!-- NUEVO CASILLERO 4 -->
+      <!-- CASILLERO 4 ILUMINACIÓN ROSA NEÓN -->
       <div class="casillero casillero-neon" onclick="abrirCasillero('m4')">
         <h3 style="color: #ff66cc; text-shadow: 0 0 8px #ff007f;">Nuestra Historia Viva 💖</h3>
         <p class="texto-javiera">DE JAVIERA</p>
@@ -768,24 +792,24 @@
         💖 Tiempo recorriendo este camino juntos desde el <strong>18 de Mayo de 2025</strong>.
       </p>
 
-      <!-- MONITOR LÍNEA DE VIDA -->
+      <!-- MONITOR LÍNEA DE VIDA CON PULSO QUE SIGUE EL TRAZADO EXACTO DE ELEVACIONES -->
       <div class="vitals-container">
-        <svg width="100%" height="100%" viewBox="0 0 500 50" preserveAspectRatio="none">
-          <path class="vitals-line" d="M0,25 L150,25 L160,8 L170,42 L180,15 L190,35 L200,25 L500,25" />
+        <svg id="svgVitals" width="100%" height="100%" viewBox="0 0 500 60" preserveAspectRatio="none">
+          <path id="vitalsPath" class="vitals-line" d="M 0,30 L 140,30 L 160,8 L 180,52 L 200,18 L 210,38 L 220,30 L 320,30 L 340,10 L 360,50 L 380,20 L 390,40 L 400,30 L 500,30" />
         </svg>
-        <div class="vitals-dot"></div>
+        <div id="vitalsDot" class="vitals-dot"></div>
       </div>
 
-      <!-- FECHAS IMPORTANTES -->
+      <!-- FECHAS IMPORTANTES ACTUALIZADAS -->
       <div class="fechas-contenedor">
-        <div class="card-fecha">🌹 <strong>Inicio de nuestra historia:</strong> 18 de Mayo, 2025</div>
-        <div class="card-fecha">🎉 <strong>Nuestro Mes Aniversario:</strong> Cada día 18</div>
-        <div class="card-fecha">✨ <strong>Promesa:</strong> Amarnos siempre y seguir volando juntos</div>
+        <div class="card-fecha">🌹 <strong>COMIENZO:</strong> 18 de Mayo, 2025</div>
+        <div class="card-fecha">🎉 <strong>MESANIVERSARIO:</strong> Cada día 18</div>
+        <div class="card-fecha">✨ <strong>PROMESA: AMARNOS HASTA LA ETERNIDAD</strong></div>
       </div>
 
-      <!-- GALERÍA DE FOTOS FLOTANTES I1, I2, I3... CON EXPLOSIONES PIXELADAS -->
-      <p style="font-size: 0.8rem; color: #ff66cc; text-align: center; margin-top: 15px;">
-        Nuestros recuerdos flotando... cuando se cruzan, ¡explotan en destellos pixelados! ✨
+      <!-- DESCRIPCIÓN ACTUALIZADA Y GALERÍA DE FOTOS FLOTANTES CON PROPORCIÓN PERFECTA -->
+      <p style="font-size: 0.85rem; color: #ff66cc; text-align: center; margin-top: 15px; font-weight: 600;">
+        TE AMO PAPITO BELLO 😘✨
       </p>
       <canvas id="canvasFotos"></canvas>
     </div>
@@ -914,7 +938,8 @@
       const audios = [
         document.getElementById('audioM1'),
         document.getElementById('audioM2'),
-        document.getElementById('audioM3')
+        document.getElementById('audioM3'),
+        document.getElementById('audioT1')
       ];
       audios.forEach(a => {
         if (a) {
@@ -983,8 +1008,9 @@
       }
       if (codigo === 'm4') {
         document.getElementById('vista-m4').classList.remove('oculto');
-        reproducirAudioSeccion('audioM2');
-        iniciarCanvasFotos(); // Inicia la física de fotos I1, I2, I3...
+        reproducirAudioSeccion('audioT1'); // REPRODUCE MÚSICA T1.mp3 PARA EL CASILLERO 4
+        iniciarCanvasFotos();
+        iniciarAnimacionPuntoPulso();
       }
     }
 
@@ -1023,7 +1049,40 @@
     setInterval(actualizarContador, 1000);
     actualizarContador();
 
-    /* CANVAS FOTOS I1, I2, I3... Y EXPLOSIONES */
+    /* ANIMACIÓN DE PULSO QUE SIGUE FIELMENTE EL TRAZADO SVG (SUBE Y BAJA EN ELEVACIONES) */
+    let animPulsoId = null;
+    function iniciarAnimacionPuntoPulso() {
+      const path = document.getElementById('vitalsPath');
+      const dot = document.getElementById('vitalsDot');
+      const svg = document.getElementById('svgVitals');
+      if (!path || !dot || !svg) return;
+
+      const pathLength = path.getTotalLength();
+      let progreso = 0;
+      const velocidad = 0.0035; // Ajuste suave de velocidad
+
+      function mover() {
+        progreso += velocidad;
+        if (progreso > 1) progreso = 0;
+
+        const punto = path.getPointAtLength(progreso * pathLength);
+        
+        // Escalar según el contenedor SVG actual
+        const rect = svg.getBoundingClientRect();
+        const escalaX = rect.width / 500;
+        const escalaY = rect.height / 60;
+
+        dot.style.left = (punto.x * escalaX) + 'px';
+        dot.style.top = (punto.y * escalaY) + 'px';
+
+        animPulsoId = requestAnimationFrame(mover);
+      }
+
+      if (animPulsoId) cancelAnimationFrame(animPulsoId);
+      mover();
+    }
+
+    /* CANVAS FOTOS FLOTANTES CON CORRECCIÓN DE ASPECT-RATIO (PROPORCIÓN PERFECTA SIN DEFORMAR) */
     let canvasF, ctxF;
     let fotosArr = [];
     let explosionesArr = [];
@@ -1037,7 +1096,6 @@
       canvasF.width = canvasF.offsetWidth;
       canvasF.height = canvasF.offsetHeight;
 
-      // Nombres de tus nuevas fotos (I1, I2, I3, I4, I5)
       const rutasFotosNuevas = ['I1.jpg', 'I2.jpg', 'I3.jpg', 'I4.jpg', 'I5.jpg'];
       
       fotosArr = [];
@@ -1056,15 +1114,15 @@
     class FotoFlotanteI {
       constructor(img) {
         this.img = img;
-        this.size = 55;
+        this.maxSize = 60; // Tamaño máximo contenedor
         this.reset();
       }
 
       reset() {
-        this.x = Math.random() * ((canvasF ? canvasF.width : 300) - this.size);
-        this.y = Math.random() * ((canvasF ? canvasF.height : 300) - this.size);
-        this.vx = (Math.random() - 0.5) * 1.6;
-        this.vy = (Math.random() - 0.5) * 1.6;
+        this.x = Math.random() * ((canvasF ? canvasF.width : 300) - this.maxSize);
+        this.y = Math.random() * ((canvasF ? canvasF.height : 300) - this.maxSize);
+        this.vx = (Math.random() - 0.5) * 1.5;
+        this.vy = (Math.random() - 0.5) * 1.5;
         this.visible = true;
       }
 
@@ -1073,26 +1131,47 @@
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.x <= 0 || this.x + this.size >= canvasF.width) this.vx *= -1;
-        if (this.y <= 0 || this.y + this.size >= canvasF.height) this.vy *= -1;
+        if (this.x <= 0 || this.x + this.maxSize >= canvasF.width) this.vx *= -1;
+        if (this.y <= 0 || this.y + this.maxSize >= canvasF.height) this.vy *= -1;
       }
 
       draw() {
         if (!this.visible) return;
         ctxF.save();
-        ctxF.strokeStyle = '#ff007f';
-        ctxF.lineWidth = 2;
-        ctxF.strokeRect(this.x - 2, this.y - 2, this.size + 4, this.size + 4);
 
         if (this.img.complete && this.img.naturalWidth !== 0) {
-          ctxF.drawImage(this.img, this.x, this.y, this.size, this.size);
+          // CALCULAR ASPECT RATIO ORIGINAL PARA EVITAR DEFORMACIONES
+          let w = this.img.naturalWidth;
+          let h = this.img.naturalHeight;
+          let renderW, renderH;
+
+          if (w > h) {
+            renderW = this.maxSize;
+            renderH = (h / w) * this.maxSize;
+          } else {
+            renderH = this.maxSize;
+            renderW = (w / h) * this.maxSize;
+          }
+
+          // Marco neón adaptado
+          ctxF.strokeStyle = '#ff007f';
+          ctxF.lineWidth = 2;
+          ctxF.strokeRect(this.x - 2, this.y - 2, renderW + 4, renderH + 4);
+
+          // Dibujar la imagen manteniendo proporciones exactas
+          ctxF.drawImage(this.img, this.x, this.y, renderW, renderH);
+
         } else {
-          // Si la imagen aún no ha cargado o no existe, muestra un cuadrito rosa con texto I
+          // Cuadro alternativo mientras carga
+          ctxF.strokeStyle = '#ff007f';
+          ctxF.lineWidth = 2;
+          ctxF.strokeRect(this.x - 2, this.y - 2, this.maxSize + 4, this.maxSize + 4);
+
           ctxF.fillStyle = '#ff007f';
-          ctxF.fillRect(this.x, this.y, this.size, this.size);
+          ctxF.fillRect(this.x, this.y, this.maxSize, this.maxSize);
           ctxF.fillStyle = '#fff';
           ctxF.font = '10px Montserrat';
-          ctxF.fillText('📸 I', this.x + 12, this.y + 30);
+          ctxF.fillText('📸 I', this.x + 15, this.y + 32);
         }
         ctxF.restore();
       }
@@ -1141,18 +1220,18 @@
         f.draw();
       });
 
-      // Chequear colisiones entre fotos I
+      // Chequear colisiones entre fotos
       for (let i = 0; i < fotosArr.length; i++) {
         for (let j = i + 1; j < fotosArr.length; j++) {
           let f1 = fotosArr[i];
           let f2 = fotosArr[j];
 
           if (f1.visible && f2.visible) {
-            let dx = (f1.x + f1.size / 2) - (f2.x + f2.size / 2);
-            let dy = (f1.y + f1.size / 2) - (f2.y + f2.size / 2);
+            let dx = (f1.x + f1.maxSize / 2) - (f2.x + f2.maxSize / 2);
+            let dy = (f1.y + f1.maxSize / 2) - (f2.y + f2.maxSize / 2);
             let dist = Math.sqrt(dx * dx + dy * dy);
 
-            if (dist < f1.size) {
+            if (dist < f1.maxSize) {
               explosionesArr.push(new PixelesExplosionI((f1.x + f2.x) / 2, (f1.y + f2.y) / 2));
               f1.visible = false;
               f2.visible = false;
