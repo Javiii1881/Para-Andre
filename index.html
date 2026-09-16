@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para André ❤️</title>
+  <title>Para Andre ❤️</title>
   <style>
     :root {
       --primary: #7b2cbf;
@@ -78,12 +78,10 @@
       box-shadow: 0 6px 20px rgba(157, 78, 221, 0.6);
     }
 
-    /* Ocultar secciones */
     .oculto {
       display: none !important;
     }
 
-    /* Red de Casilleros */
     .grid-casilleros {
       display: flex;
       flex-direction: column;
@@ -119,7 +117,6 @@
       color: #d1d1e0;
     }
 
-    /* Contenido de cada casillero */
     .contenido-vista {
       text-align: left;
       line-height: 1.7;
@@ -142,7 +139,6 @@
       color: var(--bg-dark);
     }
 
-    /* Formulario Contraseña */
     .input-pass {
       padding: 12px 18px;
       border-radius: 25px;
@@ -168,16 +164,16 @@
 
   <!-- PORTADA -->
   <div id="seccion-portada" class="container">
-    <h1>Para André</h1>
+    <h1>Para Andre</h1>
     <div class="fecha">18 de septiembre de 2026</div>
-    <div class="subtitulo">Feliz cumpleaños André</div>
+    <div class="subtitulo">Feliz cumpleaños Andre</div>
     <button class="btn" onclick="mostrarLogin()">ENTRAR</button>
   </div>
 
   <!-- LOGIN DE CONTRASEÑA -->
   <div id="seccion-login" class="container oculto">
     <h2>Ingresa la contraseña</h2>
-    <p style="font-size:0.9rem; color:#aaa; margin-bottom:20px;">Pista: Una fecha especial o la clave que te di 😉</p>
+    <p style="font-size:0.9rem; color:#aaa; margin-bottom:20px;">Ingresa la clave especial 😉</p>
     <input type="password" id="inputPassword" class="input-pass" placeholder="Contraseña">
     <br>
     <button class="btn" onclick="verificarPassword()">Ingresar</button>
@@ -186,7 +182,7 @@
 
   <!-- MENÚ PRINCIPAL (3 CASILLEROS) -->
   <div id="seccion-menu" class="container oculto">
-    <h1>Para André ❤️</h1>
+    <h1>Para Andre ❤️</h1>
     <p>Elige lo que quieres ver primero:</p>
 
     <div class="grid-casilleros">
@@ -210,8 +206,7 @@
   <!-- VISTA: CARTA -->
   <div id="vista-carta" class="container oculto contenido-vista">
     <h2>Carta de cumpleaños 💌</h2>
-    <p>Aquí irá el texto de tu carta para André...</p>
-    <p>Puedes escribir varios párrafos con todo lo que sientes por él en este día tan especial.</p>
+    <p>Aquí irá el texto de tu carta para Andre...</p>
     <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
   </div>
 
@@ -225,12 +220,11 @@
   <!-- VISTA: HISTORIA INVENTADA -->
   <div id="vista-historia" class="container oculto contenido-vista">
     <h2>Una historia inventada 📖</h2>
-    <p>Aquí escribirás la historia ficticia para André...</p>
+    <p>Aquí escribirás la historia ficticia para Andre...</p>
     <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
   </div>
 
   <script>
-    // CONTRASEÑA (Puedes cambiar '18092026' por la clave que prefieras)
     const CLAVE_CORRECTA = "18092026";
 
     function mostrarLogin() {
