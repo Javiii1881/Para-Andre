@@ -6,7 +6,7 @@
   <title>Para Andre</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -15,6 +15,7 @@
       --text-white: #ffffff;
       --text-muted: #cccccc;
       --border-color: rgba(255, 255, 255, 0.15);
+      --gold-accent: #d4af37;
     }
 
     body {
@@ -83,16 +84,6 @@
       border-radius: 12px;
       border: 1px solid var(--border-color);
       box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    }
-
-    .img-carta {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-      margin: 18px 0;
-      display: block;
     }
 
     /* Reproductor flotante superior constante */
@@ -247,6 +238,71 @@
       font-size: 0.85rem;
       margin-top: 10px;
     }
+
+    /* ESTILOS EXCLUSIVOS PARA CARTA M1 Y M2 */
+    .papel-carta {
+      background: #18171c;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 12px;
+      padding: 30px 22px;
+      position: relative;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 8px 25px rgba(0,0,0,0.6);
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .sello-carta {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sello-icono {
+      font-size: 1.8rem;
+      color: var(--gold-accent);
+      border: 1px solid var(--gold-accent);
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      line-height: 43px;
+      margin: 0 auto 10px auto;
+    }
+
+    .papel-carta p {
+      font-size: 0.98rem;
+      line-height: 1.95;
+      color: #e6e4ea;
+      margin-bottom: 18px;
+    }
+
+    .marco-foto-carta {
+      background: #222128;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      margin: 25px 0;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .marco-foto-carta:hover {
+      transform: scale(1.02);
+      border-color: rgba(212, 175, 55, 0.5);
+    }
+
+    .marco-foto-carta img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .marco-foto-carta .pie-foto {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
   </style>
 </head>
 <body>
@@ -307,47 +363,107 @@
     </div>
   </div>
 
-  <!-- VISTA M1: PRIMERA SECCIÓN (CARTA) -->
-  <div id="vista-m1" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.6rem; text-align: center; margin-bottom: 15px;">Cartita para usted</div>
-    
-    <p>Hola, mi amor.</p>
-    <p>Espero de verdad que te sientas bien hoy. Quizás este no sea un día que esperabas con tantas ganas, o quizás te provoque emociones que no son precisamente las mejores, jeje. Pero está bien, amorcito. No tienes que sentirte feliz todo el tiempo solamente porque es tu cumpleaños. Yo estoy aquí para acompañarte, aunque sea desde lejos, y para intentar hacerte sentir especial en TU día.</p>
-    <p>Quiero que sepas que te amo. Te amo muchísimo. Y que para mí este sí es un día demasiado especial, porque es el día en que nació el amor de mi vida. El niño y hombre de mis ojos, la persona que amo con todo mi corazón.</p>
-    
-    <img src="CF1.jpg" alt="Foto especial 1" class="img-carta" onerror="this.style.display='none'">
+  <!-- VISTA M1: PRIMERA SECCIÓN -->
+  <div id="vista-m1" class="container oculto contenido-vista" style="padding: 15px;">
+    <div class="papel-carta">
+      <div class="sello-carta">
+        <div class="sello-icono">💌</div>
+        <div class="titulo-cursivo" style="font-size: 2.8rem; margin: 0; color: #fff;">Cartita para usted</div>
+        <div style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; color: var(--gold-accent); margin-top: 5px;">18.09.2026</div>
+      </div>
 
-    <p>Ojalá pudiera regalarte el mundo entero, mi amor. De verdad. Para que pudieras ver con tus propios ojos todo lo que mereces y todo lo bonito que quiero para ti. No quiero que sientas pena, ni tristeza, ni que te bajonees porque quizás algunas personas ignoraron este día o no te demostraron lo especial que eres.</p>
-    <p>Porque tú eres especial, Andre. Muchísimo más de lo que quizás tú mismo alcanzas a ver.</p>
-    <p>Perdón por no poder estar ahí contigo. Perdón por no poder cantarte feliz cumpleaños, abrazarte, molestarte en persona o hacer todas esas cosas que me gustaría hacer contigo. Pero algún día vamos a estar juntitos y voy a poder cantarte cumpleaños en tu camita, abrazarte y decirte en persona todo esto que ahora tengo que escribirte por una pantalla.</p>
-    
-    <img src="CF2.jpg" alt="Foto especial 2" class="img-carta" onerror="this.style.display='none'">
+      <p>Hola, mi amor.</p>
+      <p>Espero de verdad que te sientas bien hoy. Quizás este no sea un día que esperabas con tantas ganas, o quizás te provoque emociones que no son precisamente las mejores, jeje. Pero está bien, amorcito. No tienes que sentirte feliz todo el tiempo solamente porque es tu cumpleaños. Yo estoy aquí para acompañarte, aunque sea desde lejos, y para intentar hacerte sentir especial en TU día.</p>
+      <p>Quiero que sepas que te amo. Te amo muchísimo. Y que para mí este sí es un día demasiado especial, porque es el día en que nació el amor de mi vida. El niño y hombre de mis ojos, la persona que amo con todo mi corazón.</p>
+      
+      <div class="marco-foto-carta">
+        <img src="CF1.jpg" alt="Foto especial 1" onerror="this.parentElement.style.display='none'">
+        <div class="pie-foto">NUESTROS MOMENTOS I</div>
+      </div>
 
-    <p>Y ya, amor… es un día demasiado lindo como para dejar que unas malas experiencias lo arruinen. Quiero que intentes disfrutarlo, aunque sea un poquito. Quiero que tengas la mejor disposición, porque siempre puede ser un buen día para cambiar las cosas, y eso es lo que quiero intentar hacer por ti.</p>
-    <p>Quiero hacerte ver que este día es tan especial como el nacimiento de la Princesa Diana. JAJAJAJA. No sé por qué se me ocurrió ese ejemplo, pero déjame ser dramática por un momento.</p>
-    <p>Te amo, corazón. Feliz cumpleaños.</p>
-    <p>Y perdón por lo poco. Perdón por esto que quizás sientas que no es nada, por no poder darte algo enorme, por tener que darte solamente palabras. Pero es lo que tengo ahora mismo en mis manos y estoy haciendo lo mejor que puedo con ellas.</p>
-    
-    <img src="CF3.jpg" alt="Foto especial 3" class="img-carta" onerror="this.style.display='none'">
+      <p>Ojalá pudiera regalarte el mundo entero, mi amor. De verdad. Para que pudieras ver con tus propios ojos todo lo que mereces y todo lo bonito que quiero para ti. No quiero que sientas pena, ni tristeza, ni que te bajonees porque quizás algunas personas ignoraron este día o no te demostraron lo especial que eres.</p>
+      <p>Porque tú eres especial, Andre. Muchísimo más de lo que quizás tú mismo alcanzas a ver.</p>
+      <p>Perdón por no poder estar ahí contigo. Perdón por no poder cantarte feliz cumpleaños, abrazarte, molestarte en persona o hacer todas esas cosas que me gustaría hacer contigo. Pero algún día vamos a estar juntitos y voy a poder cantarte cumpleaños en tu camita, abrazarte y decirte en persona todo esto que ahora tengo que escribirte por una pantalla.</p>
+      
+      <div class="marco-foto-carta">
+        <img src="CF2.jpg" alt="Foto especial 2" onerror="this.parentElement.style.display='none'">
+        <div class="pie-foto">NUESTROS MOMENTOS II</div>
+      </div>
 
-    <p>Aunque bueno… también te hice esto JAJAJA. Con toda la programación que sé, que no es precisamente mucha. Y con la ayuda de mi ChatGPT, que sabe demasiado de nosotros, obvio JAJAJA.</p>
-    <p>Pero aunque haya un poquito de código, un poquito de ChatGPT y probablemente muchas horas de pensar qué mierda hacer, todo esto lo hice yo pensando en ti y con todo el amor del mundo.</p>
-    <p>Te amo mucho, we. Muchísimo.</p>
-    <p>Y ojalá pueda hacerte cambiar un poquito esa visión que tienes de tu cumpleaños. Porque para mí, amor, este día sí es demasiado especial.</p>
-    <p>Porque naciste tú.</p>
-    <p>Y para mí, tú eres de las cosas más especiales que tengo en mi vida.</p>
-    <p>Feliz cumpleaños, mi amor.<br>Te amo. Siempre.</p>
+      <p>Y ya, amor… es un día demasiado lindo como para dejar que unas malas experiencias lo arruinen. Quiero que intentes disfrutarlo, aunque sea un poquito. Quiero que tengas la mejor disposición, porque siempre puede ser un buen día para cambiar las cosas, y eso es lo que quiero intentar hacer por ti.</p>
+      <p>Quiero hacerte ver que este día es tan especial como el nacimiento de la Princesa Diana. JAJAJAJA. No sé por qué se me ocurrió ese ejemplo, pero déjame ser dramática por un momento.</p>
+      <p>Te amo, corazón. Feliz cumpleaños.</p>
+      <p>Y perdón por lo poco. Perdón por esto que quizás sientas que no es nada, por no poder darte algo enorme, por tener que darte solamente palabras. Pero es lo que tengo ahora mismo en mis manos y estoy haciendo lo mejor que puedo con ellas.</p>
+      
+      <div class="marco-foto-carta">
+        <img src="CF3.jpg" alt="Foto especial 3" onerror="this.parentElement.style.display='none'">
+        <div class="pie-foto">NUESTROS MOMENTOS III</div>
+      </div>
+
+      <p>Aunque bueno… también te hice esto JAJAJA. Con toda la programación que sé, que no es precisamente mucha. Y con la ayuda de mi ChatGPT, que sabe demasiado de nosotros, obvio JAJAJA.</p>
+      <p>Pero aunque haya un poquito de código, un poquito de ChatGPT y probablemente muchas horas de pensar qué mierda hacer, todo esto lo hice yo pensando en ti y con todo el amor del mundo.</p>
+      <p>Te amo mucho, we. Muchísimo.</p>
+      <p>Y ojalá pueda hacerte cambiar un poquito esa visión que tienes de tu cumpleaños. Porque para mí, amor, este día sí es demasiado especial.</p>
+      <p>Porque naciste tú.</p>
+      <p>Y para mí, tú eres de las cosas más especiales que tengo en mi vida.</p>
+      <p style="font-style: italic; color: var(--gold-accent); margin-top: 25px;">Feliz cumpleaños, mi amor.<br>Te amo. Siempre.</p>
+    </div>
 
     <div style="text-align: center;">
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
   </div>
 
-  <!-- VISTA M2: SEGUNDA SECCIÓN (RECUERDITOS) -->
-  <div id="vista-m2" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.6rem; text-align: center;">Feliz 18, amor</div>
-    <p style="color: var(--text-muted); margin-top:20px; text-align:center;">Aquí agregaremos tus fotos con pequeñas frases...</p>
-    
+  <!-- VISTA M2: SEGUNDA SECCIÓN (CARTA DE ANIVERSARIO + FOTO F1, F2, F3, F4, F5) -->
+  <div id="vista-m2" class="container oculto contenido-vista" style="padding: 15px;">
+    <div class="papel-carta">
+      <div class="sello-carta">
+        <div class="sello-icono">✨</div>
+        <div class="titulo-cursivo" style="font-size: 2.8rem; margin: 0; color: #fff;">Feliz Aniversario</div>
+        <div style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; color: var(--gold-accent); margin-top: 5px;">16 MESES JUNTOS</div>
+      </div>
+
+      <p>Aparte de ser tu cumpleaños, es nuestro mes aniversario: ¡16 meses ya, mi amorcito precioso! No te imaginas lo feliz que estoy de un mes más, de estar siempre contigo, de que seas el hombre de mi vida. Te amo como no te imaginas y no tengo palabras para expresar lo hermoso que es esto.</p>
+      
+      <!-- FOTO F1 -->
+      <div class="marco-foto-carta">
+        <img src="F1.jpg" alt="Foto F1" onerror="this.parentElement.style.display='none'">
+      </div>
+
+      <p>Te amo. Perdón por las actitudes, las peleas, los cambios de humor que a veces tengo. De verdad, perdóname por todo, mi amor. Te juro que estoy tratando de mejorar para darte la mejor versión de mí.</p>
+      <p>Perdón si estos días he estado un poco floja, duermo de más o quizás no contesto tanto. Me he sentido bastante cansadita, no sé qué me pasa, pero estoy feliz y agradecida de poder tenerte aún. Perdóname, mi amor.</p>
+
+      <!-- FOTO F2 -->
+      <div class="marco-foto-carta">
+        <img src="F2.jpg" alt="Foto F2" onerror="this.parentElement.style.display='none'">
+      </div>
+
+      <p>Y también quiero agradecerte por algo más: gracias por la suegra que me diste. De verdad la amo muchísimo y estoy demasiado agradecida de haber podido conocerla y tener ese cariño con ella. Y a mi suegro también lo quiero muchísimo. Gracias por darme una familia tan bonita y por hacerme sentir parte de ella, incluso estando tan lejos. Los quiero muchísimo a los dos y espero poder compartir muchos momentos más con ellos.</p>
+
+      <!-- FOTO F3 (OBLIGATORIA AQUÍ POST-PÁRRAFO DE LOS SUEGROS) -->
+      <div class="marco-foto-carta">
+        <img src="F3.jpg" alt="Foto F3" onerror="this.parentElement.style.display='none'">
+      </div>
+
+      <p>Aparte de eso, también te hice tu regalito de cumpleaños y eso que me costó un montón encontrarle un orden JAJAJA. Pero ya aprendí a programar solo para darte un regalo de cumpleaños virtual, JJAJAJA.</p>
+
+      <!-- FOTO F4 -->
+      <div class="marco-foto-carta">
+        <img src="F4.jpg" alt="Foto F4" onerror="this.parentElement.style.display='none'">
+      </div>
+
+      <p>TE AMO, AMORCITO MÍO. FELIZ MES. Eres mi vida entera, el hombre con el que me quiero casar, eres mi todo, mi TODOOOO. Te amo demasiado. Ojalá poder darte el mundo, mi amor, pero no te preocupes, algún día estaremos mirando la playa por nuestras vacaciones y nuestros babys, que serán hermosos, y valdrá cada centavo, cada segundo a tu lado. Es mi todo, corazón.</p>
+      <p>Te extraño demasiado. Perdón por estar tan lejos, perdóname. Te amo mucho, corazón.</p>
+
+      <!-- FOTO F5 -->
+      <div class="marco-foto-carta">
+        <img src="F5.jpg" alt="Foto F5" onerror="this.parentElement.style.display='none'">
+      </div>
+
+      <p>Aquí atentamente tu mujer, que te ama hoy, siempre y está vuelta loca por ti, hombrecito. Te amo y estoy locamente enamorada de ti.</p>
+      <p style="font-style: italic; color: var(--gold-accent); margin-top: 15px;">Loca, loca, estoy por ti.</p>
+    </div>
+
     <div style="text-align: center;">
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
@@ -417,7 +533,6 @@
       if (input === CLAVE_CORRECTA) {
         document.getElementById('seccion-login').classList.add('oculto');
         document.getElementById('seccion-menu').classList.remove('oculto');
-        // Inicia automáticamente la música de M1 al entrar
         reproducirAudioSeccion('audioM1');
       } else {
         document.getElementById('mensajeError').classList.remove('oculto');
