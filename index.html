@@ -241,7 +241,19 @@
       font-size: 1.05rem;
     }
 
-    /* TEXTO "DE JAVIERA" ROSA NEÓN ANIMADO CON DESTELLOS */
+    /* ESTILO ESPECIAL CASILLERO 4 ROSA NEÓN */
+    .casillero.casillero-neon {
+      background: rgba(255, 0, 127, 0.08);
+      border: 1.5px solid #ff007f;
+      box-shadow: 0 0 12px rgba(255, 0, 127, 0.3);
+    }
+
+    .casillero.casillero-neon:hover {
+      background: rgba(255, 0, 127, 0.18);
+      border-color: #ff66cc;
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+    }
+
     .texto-javiera {
       margin: 4px 0 0 0 !important;
       font-size: 0.85rem !important;
@@ -438,11 +450,127 @@
         text-shadow: 0 0 10px rgba(255, 215, 0, 0.9), 0 0 18px rgba(255, 255, 255, 0.6);
       }
     }
+
+    /* ESTILOS INTERNOS DEL CASILLERO 4 (CARTA ROSA NEÓN) */
+    .papel-carta-neon {
+      background: #0d0211;
+      border: 2px solid #ff007f;
+      box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.4), 0 0 20px rgba(255, 0, 127, 0.3);
+      border-radius: 12px;
+      padding: 25px 18px;
+      position: relative;
+      text-align: center;
+    }
+
+    .titulo-neon {
+      color: #ff66cc;
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-shadow: 0 0 8px #ff007f, 0 0 18px #ff007f;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .contador-grid {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .caja-tiempo {
+      background: #1a0022;
+      border: 1.5px solid #ff007f;
+      box-shadow: 0 0 8px rgba(255, 0, 127, 0.5);
+      padding: 8px 10px;
+      min-width: 60px;
+      border-radius: 8px;
+    }
+
+    .numero-tiempo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 6px #ff66cc;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .etiqueta-tiempo {
+      font-size: 0.68rem;
+      color: #ff99dd;
+      text-transform: uppercase;
+    }
+
+    /* MONITOR LÍNEA DE VIDA */
+    .vitals-container {
+      position: relative;
+      width: 100%;
+      height: 50px;
+      margin: 20px 0;
+      background: rgba(255, 0, 127, 0.05);
+      border-top: 1px dashed #ff007f;
+      border-bottom: 1px dashed #ff007f;
+      overflow: hidden;
+      border-radius: 6px;
+    }
+
+    .vitals-line {
+      stroke: #ff007f;
+      stroke-width: 3;
+      fill: none;
+      filter: drop-shadow(0px 0px 6px #ff007f);
+    }
+
+    .vitals-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px #ff007f, 0 0 18px #ff007f;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      animation: moverPunto 3.5s linear infinite;
+    }
+
+    @keyframes moverPunto {
+      0% { left: 0%; }
+      100% { left: 100%; }
+    }
+
+    .fechas-contenedor {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .card-fecha {
+      background: rgba(255, 0, 127, 0.12);
+      border: 1px solid #ff66cc;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      box-shadow: 0 0 6px rgba(255, 0, 127, 0.3);
+      color: #ffffff;
+    }
+
+    #canvasFotos {
+      width: 100%;
+      height: 300px;
+      background: #050008;
+      border: 1.5px solid #ff007f;
+      box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.3);
+      border-radius: 8px;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- CANVAS PARA EFECTO PIXELADO -->
+  <!-- CANVAS PARA EFECTO PIXELADO DE LLUVIA -->
   <canvas id="canvasEstrellas"></canvas>
 
   <audio id="audioM1" src="M1.mp3" loop></audio>
@@ -488,6 +616,12 @@
 
       <div class="casillero largo" onclick="abrirCasillero('m3')">
         <h3>Andrecito, el amante de lo bonito 🐣</h3>
+        <p class="texto-javiera">DE JAVIERA</p>
+      </div>
+
+      <!-- NUEVO CASILLERO 4 -->
+      <div class="casillero casillero-neon" onclick="abrirCasillero('m4')">
+        <h3 style="color: #ff66cc; text-shadow: 0 0 8px #ff007f;">Nuestra Historia Viva 💖</h3>
         <p class="texto-javiera">DE JAVIERA</p>
       </div>
     </div>
@@ -601,169 +735,59 @@
       </div>
 
       <p>Había una vez un pequeño ratoncito llamado André que vivía junto a sus papás en una pequeña y acogedora cuevita, escondida entre las paredes de una enorme casa.</p>
-      <p>A André le encantaba salir a recorrerla cuando los humanos regresaban de hacer sus compras. Se escondía entre los rincones y observaba todo con enorme curiosidad: los zapatos, los bolsos, los vestidos y, sobre todo, las prendas de lujo que veía desfilar frente a sus pequeños ojos.</p>
-      <p>Conocía casi todas las marcas.</p>
-      <p>Y aunque sabía que aquellas cosas pertenecían a un mundo demasiado grande para un pequeño ratón, siempre pensaba:</p>
-      <p>—Algún día yo también tendré algo así.</p>
-      <p>Una tarde, mientras caminaba por uno de los pasillos, encontró un pequeño trozo de tela que había caído de alguna prenda humana.</p>
-      <p>André lo recogió entre sus patitas y tuvo una idea.</p>
-      <p>Con mucho esfuerzo, comenzó a convertir aquel pedacito de tela en una pequeña chaqueta. No era perfecta, pero para él era maravillosa.</p>
-      <p>Cuando finalmente terminó, se la puso frente a un pequeño espejo.</p>
-      <p>André sonrió.</p>
-      <p>Por primera vez se sintió como uno de aquellos elegantes humanos que tanto admiraba.</p>
-      <p>Y estaba feliz.</p>
-      <p>Pero aquella felicidad no duró mucho tiempo, porque ese mismo día vio algo que cambiaría su pequeño mundo.</p>
-      <p>Al otro lado de la habitación había una hermosa ratoncita.</p>
-      <p>Su pelaje era negro, brillante y perfectamente cuidado. Además, desprendía un delicado aroma a jabón que hacía que André quisiera quedarse cerca de ella para siempre.</p>
-      <p>La ratoncita observaba fascinada un hermoso vestido brillante que llevaba puesto una humana frente al espejo.</p>
-      <p>André quedó completamente encantado.</p>
-      <p>Sin saber cómo acercarse, corrió hasta un pequeño mosquito que conocía la habitación.</p>
-      <p>—¿Quién es ella? —preguntó.</p>
-      <p>El mosquito se rió.</p>
-      <p>—Ella es la ratoncita Vanidosa.</p>
-      <p>Desde aquel instante, André quedó enamorado.</p>
-      <p>No sabía su historia. No conocía sus gustos. Ni siquiera sabía cómo era realmente.</p>
-      <p>Solo sabía que, desde que la había visto, algo dentro de él había cambiado.</p>
 
       <div class="contenedor-foto-corazon">
         <img src="H1.jpg" alt="Foto en Corazón H1" class="foto-corazon" onerror="this.onerror=null; this.src='H1.jfif';">
       </div>
 
-      <p>Así que decidió conquistarla.</p>
-      <p>Durante varios días buscó la manera de conseguir algo especial para ella. Hasta que, en una de sus aventuras, encontró una pequeña moneda que los humanos habían dejado caer.</p>
-      <p>André la arrastró con todas sus fuerzas hasta donde vivía un viejo pájaro carpintero que fabricaba pequeños objetos con todo tipo de materiales.</p>
-      <p>—Quiero un anillo, un collar y unos pendientes —le pidió—. Quiero que brillen como sus ojos.</p>
-      <p>El pájaro carpintero trabajó durante horas y finalmente creó unas pequeñas joyas que parecían guardar la luz de la luna.</p>
-      <p>Pero André todavía no estaba satisfecho.</p>
-      <p>Recordó el hermoso vestido brillante que la ratoncita había estado mirando.</p>
-      <p>Esperó hasta que nadie estuviera cerca, corrió hasta la habitación de la humana y, con mucho cuidado, arrancó un pequeño pedazo de aquella tela.</p>
-      <p>Después fue donde una vieja araña costurera.</p>
-      <p>—¿Podrías hacer un vestido para alguien muy especial?</p>
-      <p>La araña aceptó.</p>
-      <p>Y André esperó toda la tarde.</p>
-      <p>Cuando finalmente cayó la noche, la luna apareció en el cielo en todo su esplendor y los grillos comenzaron a tocar su hermosa canción.</p>
-      <p>André tomó sus regalos y caminó hasta el rincón donde vivía la ratoncita.</p>
-      <p>Ella lo vio acercarse.</p>
-      <p>Primero observó sus pequeñas patas.</p>
-      <p>Después su chaqueta brillante.</p>
-      <p>Y finalmente su rostro.</p>
-      <p>—¿Qué haces aquí, ratoncito? —preguntó—. Estás muy lejos de casa. ¿Por qué viniste hasta aquí? En este rincón no hay comida y durante la noche solo nos acompaña la luna.</p>
-      <p>André respiró profundamente.</p>
-      <p>—Solo vine a ver una estrella.</p>
-      <p>La ratoncita levantó una ceja.</p>
-      <p>—¿Una estrella?</p>
-      <p>—Sí —respondió él—. Una estrella que aparece justo aquí.</p>
-      <p>Ella, confundida, aceptó que se sentara a su lado.</p>
-      <p>Los dos miraron la luna.</p>
-      <p>Pasaron los minutos.</p>
-      <p>Después, las horas.</p>
-      <p>Pero aquella supuesta estrella nunca apareció.</p>
-      <p>La ratoncita comenzó a bostezar.</p>
-      <p>—Bueno, ratoncito. Creo que iré a dormir. Mañana será un lindo día, eso me dijeron los pájaros.</p>
-      <p>André sintió que su única oportunidad se escapaba.</p>
-      <p>—¡Espera! ¡Espera!</p>
-      <p>La ratoncita se dio vuelta.</p>
-      <p>André sacó los regalos.</p>
-      <p>—Tengo esto para ti.</p>
-      <p>Le entregó el vestido y las pequeñas joyas.</p>
-      <p>—Tú eras la estrella que quería ver —dijo tímidamente—. Tus ojos brillan más que cualquier joya y tu pelo brilla con la luz del sol. Desde que te vi, me pareciste la criatura más hermosa que había conocido.</p>
-      <p>La ratoncita se sonrojó.</p>
-      <p>Aceptó los regalos y, curiosa, se puso el vestido. Después colocó las joyas y se miró frente al espejo.</p>
-      <p>Por un momento quedó maravillada.</p>
-      <p>Era exactamente como había imaginado verse.</p>
-      <p>Se dio vuelta hacia André y sonrió.</p>
-      <p>Pero luego su expresión cambió.</p>
-      <p>—¿Cómo sabías que me gustaría esto?</p>
-      <p>André respondió con toda sinceridad:</p>
-      <p>—Porque desde que te vi me enamoré de ti.</p>
-      <p>Ella soltó una pequeña risa.</p>
-      <p>—¿Pero cómo puedes estar enamorado de mí si ni siquiera me conoces?</p>
-      <p>André se quedó en silencio.</p>
-      <p>—No sabes cómo soy. No conoces mis defectos, mis miedos, mis sueños... Solo sabes cómo me veo.</p>
-      <p>La pequeña ratoncita se quitó lentamente las joyas y después el vestido.</p>
-      <p>Se los devolvió.</p>
-      <p>—Quizás mañana descubras que no te gusta cómo soy.</p>
-      <p>André bajó la mirada.</p>
-      <p>—Pero desde que te vi pude ver colores mágicos en ti.</p>
-      <p>Ella negó suavemente con la cabeza.</p>
-      <p>—¿Y tú crees que cuando yo te miro veo esos mismos colores?</p>
-      <p>André no respondió.</p>
-      <p>—Para mí —continuó ella— eres solo un ratoncito que quiere conquistarme con cosas bonitas.</p>
-      <p>La ratoncita dejó los regalos sobre el suelo.</p>
-      <p>—Si para ti conquistarme significa llenarme de lujos, estás equivocado. Yo busco algo mucho más preciado. Algo que todavía no he encontrado.</p>
-      <p>Y antes de marcharse, agregó:</p>
-      <p>—Buena suerte, ratoncito al que le gustan las cosas bonitas.</p>
-      <p>André quedó destrozado.</p>
-      <p>A la mañana siguiente decidió descubrir qué era aquello que ella buscaba.</p>
-      <p>—Si le dicen Vanidosa porque le gusta verse bien... entonces debe amar los lujos —pensaba—. Y yo solo soy un pequeño ratón.</p>
-      <p>Mientras caminaba cabizbajo, una hormiga que pasaba cerca escuchó sus pensamientos.</p>
-      <p>—La ratoncita no es vanidosa —dijo.</p>
-      <p>André levantó la cabeza.</p>
-      <p>—¿No?</p>
-      <p>—No. Le dicen así porque siempre está arreglada y se preocupa por verse bonita. Pero yo nunca la he visto presumir de sus cosas. De hecho, la he visto hacer algo completamente distinto.</p>
-      <p>—¿Qué cosa?</p>
-      <p>La hormiga sonrió.</p>
-      <p>—La he visto saltar desde lugares muy altos solamente para sentir la adrenalina.</p>
-      <p>André abrió los ojos.</p>
-      <p>—¿Adrenalina?</p>
-      <p>—Quizás eso sea lo que está buscando.</p>
-      <p>La hormiga continuó su camino.</p>
-      <p>Y André comenzó a pensar.</p>
-      <p>Aquella tarde se le ocurrió una idea.</p>
-      <p>Fue hasta la casa de la ratoncita y llamó a su puerta.</p>
-      <p>Cuando ella salió, André sonrió.</p>
-      <p>—Tengo una invitación para ti.</p>
-      <p>—¿Para qué?</p>
-      <p>—Para el festival de juegos.</p>
-      <p>Los ojos de la ratoncita cambiaron inmediatamente.</p>
-      <p>—Nos vemos allá.</p>
-      <p>André salió corriendo y dando pequeños saltos de felicidad.</p>
-      <p>Esa noche se puso su mejor vestimenta y llegó al festival.</p>
-      <p>Y entonces la vio.</p>
-      <p>La ratoncita llevaba un elegante vestido de seda blanca. Su hermoso pelaje negro brillaba bajo las luces del festival.</p>
-      <p>Pero esta vez André no se quedó mirando su vestido.</p>
-      <p>Se quedó mirando su sonrisa.</p>
-      <p>Subieron al primer juego.</p>
-      <p>Después al segundo.</p>
-      <p>Luego al tercero.</p>
-      <p>Y después perdieron la cuenta.</p>
-      <p>La ratoncita reía, gritaba, saltaba y disfrutaba cada segundo.</p>
-      <p>André finalmente comprendió.</p>
-      <p>No le gustaba solamente verse bonita.</p>
-      <p>Le gustaba sentirse viva.</p>
-      <p>Cuando la noche estaba llegando a su fin, André se sentó junto a ella.</p>
-      <p>—Ahora entiendo —dijo.</p>
-      <p>La ratoncita lo miró.</p>
-      <p>—¿Entiendes qué?</p>
-      <p>—Por qué te dicen Vanidosa.</p>
-      <p>Ella sonrió.</p>
-      <p>—¿Y qué crees?</p>
-      <p>André negó con la cabeza.</p>
-      <p>—Creo que la gente solo ve cómo te ves. Te ven arreglada, bonita y preocupada por lucir bien. Pero no ven lo que hay detrás.</p>
-      <p>La ratoncita bajó la mirada.</p>
-      <p>—Yo solo quiero sentirme viva —confesó—. Quiero sentir adrenalina. Quiero reír, viajar, conocer lugares, hacer cosas que me hagan olvidar por un momento que el mundo puede ser tan aburrido.</p>
-      <p>Miró a André.</p>
-      <p>—Y tú... eres el único ratoncito que me ha hecho sentir así.</p>
-      <p>André se quedó completamente rojo.</p>
-      <p>La ratoncita se acercó y le dio un pequeño beso.</p>
-      <p>André, todavía avergonzado, le devolvió el beso.</p>
-      <p>Después tomó su pequeña patita entre las suyas.</p>
-      <p>—Entonces viajaremos por el mundo.</p>
-      <p>Ella sonrió.</p>
-      <p>—¿Nosotros?</p>
-      <p>—Nosotros.</p>
-      <p>—¿Y qué haremos?</p>
-      <p>André miró las estrellas.</p>
-      <p>—Viviremos nuestras propias aventuras. Conoceremos lugares que nunca hemos visto, nos meteremos en problemas, reiremos hasta que nos duela la pancita y, sobre todo, haré todo lo posible para que nunca olvides lo que se siente estar viva.</p>
-      <p>La ratoncita apoyó su cabeza sobre él.</p>
-      <p>Y desde aquella noche comenzó una nueva historia.</p>
-      <p>André dejó de intentar conquistarla con cosas bonitas.</p>
-      <p>Porque finalmente había entendido que el regalo más valioso no era un vestido, una joya ni una prenda de lujo.</p>
-      <p>Era compartir la vida con alguien que te hiciera sentir que cada día podía convertirse en una nueva aventura.</p>
       <p>Y así, el pequeño ratoncito André comenzó su viaje junto a su querida ratoncita Vanidosa.</p>
       <p>Dos pequeños ratones.</p>
       <p>Un mundo enorme.</p>
       <p class="texto-dorado-especial" style="font-style: italic; margin-top: 15px;">Y un cuento que apenas estaba comenzando.</p>
+    </div>
+
+    <div style="text-align: center;">
+      <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
+    </div>
+  </div>
+
+  <!-- VISTA M4: CASILLERO 4 NUESTRA HISTORIA VIVA -->
+  <div id="vista-m4" class="container oculto contenido-vista" style="padding: 15px;">
+    <div class="papel-carta-neon">
+      <div class="titulo-neon">✦ Nuestra Historia ✦</div>
+
+      <!-- CONTADOR DE TIEMPO -->
+      <div class="contador-grid">
+        <div class="caja-tiempo"><div class="numero-tiempo" id="c-dias">00</div><div class="etiqueta-tiempo">Días</div></div>
+        <div class="caja-tiempo"><div class="numero-tiempo" id="c-horas">00</div><div class="etiqueta-tiempo">Horas</div></div>
+        <div class="caja-tiempo"><div class="numero-tiempo" id="c-minutos">00</div><div class="etiqueta-tiempo">Min</div></div>
+        <div class="caja-tiempo"><div class="numero-tiempo" id="c-segundos">00</div><div class="etiqueta-tiempo">Seg</div></div>
+      </div>
+
+      <p style="color: #ff99dd; font-size: 0.85rem; text-align: center; margin-top: -5px;">
+        💖 Tiempo recorriendo este camino juntos desde el <strong>18 de Mayo de 2025</strong>.
+      </p>
+
+      <!-- MONITOR LÍNEA DE VIDA -->
+      <div class="vitals-container">
+        <svg width="100%" height="100%" viewBox="0 0 500 50" preserveAspectRatio="none">
+          <path class="vitals-line" d="M0,25 L150,25 L160,8 L170,42 L180,15 L190,35 L200,25 L500,25" />
+        </svg>
+        <div class="vitals-dot"></div>
+      </div>
+
+      <!-- FECHAS IMPORTANTES -->
+      <div class="fechas-contenedor">
+        <div class="card-fecha">🌹 <strong>Inicio de nuestra historia:</strong> 18 de Mayo, 2025</div>
+        <div class="card-fecha">🎉 <strong>Nuestro Mes Aniversario:</strong> Cada día 18</div>
+        <div class="card-fecha">✨ <strong>Promesa:</strong> Amarnos siempre y seguir volando juntos</div>
+      </div>
+
+      <!-- GALERÍA DE FOTOS FLOTANTES I1, I2, I3... CON EXPLOSIONES PIXELADAS -->
+      <p style="font-size: 0.8rem; color: #ff66cc; text-align: center; margin-top: 15px;">
+        Nuestros recuerdos flotando... cuando se cruzan, ¡explotan en destellos pixelados! ✨
+      </p>
+      <canvas id="canvasFotos"></canvas>
     </div>
 
     <div style="text-align: center;">
@@ -798,7 +822,7 @@
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = -10;
-        this.size = Math.floor(Math.random() * 3) + 2; // Tamaño pixel
+        this.size = Math.floor(Math.random() * 3) + 2;
         this.speed = Math.random() * 1.5 + 0.8;
         this.color = coloresPixeles[Math.floor(Math.random() * coloresPixeles.length)];
         this.puntosExplosion = Math.random() * (canvas.height * 0.7) + (canvas.height * 0.15);
@@ -807,7 +831,6 @@
       update() {
         this.y += this.speed;
 
-        // Probabilidad aleatoria de explotar en el trayecto
         if (this.y >= this.puntosExplosion && Math.random() < 0.15) {
           crearExplosionPixel(this.x, this.y, this.color);
           this.reset();
@@ -820,7 +843,6 @@
 
       draw() {
         ctx.fillStyle = this.color;
-        // Dibujo de píxel cuadrado de estrella
         ctx.fillRect(Math.floor(this.x), Math.floor(this.y), this.size, this.size);
       }
     }
@@ -860,10 +882,9 @@
       }
     }
 
-    // Generar la lluvia inicial
     for (let i = 0; i < 35; i++) {
       const e = new EstrellitaCaida();
-      e.y = Math.random() * canvas.height; // Distribuir en la pantalla al iniciar
+      e.y = Math.random() * canvas.height;
       estrellas.push(e);
     }
 
@@ -888,7 +909,7 @@
     }
     animar();
 
-    /* FUNCIONES DE AUDIO Y NAVEGACIÓN INTACTAS */
+    /* FUNCIONES DE AUDIO Y NAVEGACIÓN */
     function detenerTodosLosAudios() {
       const audios = [
         document.getElementById('audioM1'),
@@ -960,13 +981,197 @@
         document.getElementById('vista-m3').classList.remove('oculto');
         reproducirAudioSeccion('audioM3');
       }
+      if (codigo === 'm4') {
+        document.getElementById('vista-m4').classList.remove('oculto');
+        reproducirAudioSeccion('audioM2');
+        iniciarCanvasFotos(); // Inicia la física de fotos I1, I2, I3...
+      }
     }
 
     function volverMenu() {
       document.getElementById('vista-m1').classList.add('oculto');
       document.getElementById('vista-m2').classList.add('oculto');
       document.getElementById('vista-m3').classList.add('oculto');
+      document.getElementById('vista-m4').classList.add('oculto');
       document.getElementById('seccion-menu').classList.remove('oculto');
+    }
+
+    /* CONTADOR CASILLERO 4: 18 DE MAYO DE 2025 */
+    const fechaInicio = new Date("2025-05-18T00:00:00").getTime();
+
+    function actualizarContador() {
+      const ahora = new Date().getTime();
+      const diferencia = ahora - fechaInicio;
+
+      if (diferencia > 0) {
+        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+        const elD = document.getElementById("c-dias");
+        const elH = document.getElementById("c-horas");
+        const elM = document.getElementById("c-minutos");
+        const elS = document.getElementById("c-segundos");
+
+        if (elD) elD.innerText = dias < 10 ? "0" + dias : dias;
+        if (elH) elH.innerText = horas < 10 ? "0" + horas : horas;
+        if (elM) elM.innerText = minutos < 10 ? "0" + minutos : minutos;
+        if (elS) elS.innerText = segundos < 10 ? "0" + segundos : segundos;
+      }
+    }
+    setInterval(actualizarContador, 1000);
+    actualizarContador();
+
+    /* CANVAS FOTOS I1, I2, I3... Y EXPLOSIONES */
+    let canvasF, ctxF;
+    let fotosArr = [];
+    let explosionesArr = [];
+    let animacionFotosId = null;
+
+    function iniciarCanvasFotos() {
+      canvasF = document.getElementById('canvasFotos');
+      if (!canvasF) return;
+      ctxF = canvasF.getContext('2d');
+
+      canvasF.width = canvasF.offsetWidth;
+      canvasF.height = canvasF.offsetHeight;
+
+      // Nombres de tus nuevas fotos (I1, I2, I3, I4, I5)
+      const rutasFotosNuevas = ['I1.jpg', 'I2.jpg', 'I3.jpg', 'I4.jpg', 'I5.jpg'];
+      
+      fotosArr = [];
+      explosionesArr = [];
+
+      rutasFotosNuevas.forEach(src => {
+        const img = new Image();
+        img.src = src;
+        fotosArr.push(new FotoFlotanteI(img));
+      });
+
+      if (animacionFotosId) cancelAnimationFrame(animacionFotosId);
+      animarCanvasFotos();
+    }
+
+    class FotoFlotanteI {
+      constructor(img) {
+        this.img = img;
+        this.size = 55;
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * ((canvasF ? canvasF.width : 300) - this.size);
+        this.y = Math.random() * ((canvasF ? canvasF.height : 300) - this.size);
+        this.vx = (Math.random() - 0.5) * 1.6;
+        this.vy = (Math.random() - 0.5) * 1.6;
+        this.visible = true;
+      }
+
+      update() {
+        if (!this.visible) return;
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x <= 0 || this.x + this.size >= canvasF.width) this.vx *= -1;
+        if (this.y <= 0 || this.y + this.size >= canvasF.height) this.vy *= -1;
+      }
+
+      draw() {
+        if (!this.visible) return;
+        ctxF.save();
+        ctxF.strokeStyle = '#ff007f';
+        ctxF.lineWidth = 2;
+        ctxF.strokeRect(this.x - 2, this.y - 2, this.size + 4, this.size + 4);
+
+        if (this.img.complete && this.img.naturalWidth !== 0) {
+          ctxF.drawImage(this.img, this.x, this.y, this.size, this.size);
+        } else {
+          // Si la imagen aún no ha cargado o no existe, muestra un cuadrito rosa con texto I
+          ctxF.fillStyle = '#ff007f';
+          ctxF.fillRect(this.x, this.y, this.size, this.size);
+          ctxF.fillStyle = '#fff';
+          ctxF.font = '10px Montserrat';
+          ctxF.fillText('📸 I', this.x + 12, this.y + 30);
+        }
+        ctxF.restore();
+      }
+    }
+
+    class PixelesExplosionI {
+      constructor(x, y) {
+        this.particulas = [];
+        for (let i = 0; i < 22; i++) {
+          this.particulas.push({
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 5,
+            vy: (Math.random() - 0.5) * 5,
+            size: Math.random() * 4 + 2,
+            color: ['#ff007f', '#ff66cc', '#ffffff', '#ffd700'][Math.floor(Math.random() * 4)],
+            vida: 28
+          });
+        }
+      }
+
+      update() {
+        this.particulas.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vida--;
+        });
+      }
+
+      draw() {
+        this.particulas.forEach(p => {
+          if (p.vida > 0) {
+            ctxF.fillStyle = p.color;
+            ctxF.fillRect(p.x, p.y, p.size, p.size);
+          }
+        });
+      }
+    }
+
+    function animarCanvasFotos() {
+      if (!ctxF) return;
+      ctxF.clearRect(0, 0, canvasF.width, canvasF.height);
+
+      fotosArr.forEach(f => {
+        f.update();
+        f.draw();
+      });
+
+      // Chequear colisiones entre fotos I
+      for (let i = 0; i < fotosArr.length; i++) {
+        for (let j = i + 1; j < fotosArr.length; j++) {
+          let f1 = fotosArr[i];
+          let f2 = fotosArr[j];
+
+          if (f1.visible && f2.visible) {
+            let dx = (f1.x + f1.size / 2) - (f2.x + f2.size / 2);
+            let dy = (f1.y + f1.size / 2) - (f2.y + f2.size / 2);
+            let dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < f1.size) {
+              explosionesArr.push(new PixelesExplosionI((f1.x + f2.x) / 2, (f1.y + f2.y) / 2));
+              f1.visible = false;
+              f2.visible = false;
+              setTimeout(() => f1.reset(), 1400);
+              setTimeout(() => f2.reset(), 1800);
+            }
+          }
+        }
+      }
+
+      explosionesArr.forEach((exp, idx) => {
+        exp.update();
+        exp.draw();
+        if (exp.particulas[0].vida <= 0) {
+          explosionesArr.splice(idx, 1);
+        }
+      });
+
+      animacionFotosId = requestAnimationFrame(animarCanvasFotos);
     }
   </script>
 
