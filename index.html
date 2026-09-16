@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -37,7 +38,6 @@
       padding: 20px;
     }
 
-    /* Fondo animado con luces */
     .bg-lights {
       position: fixed;
       top: 0;
@@ -67,7 +67,6 @@
       text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
     }
 
-    /* Estilos del Menú Principal */
     .menu-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -97,7 +96,6 @@
       transform: translateY(-5px);
     }
 
-    /* Iluminación individual de casilleros */
     .casillero-btn[data-target="c1"] { border-color: rgba(255, 50, 50, 0.6); box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); }
     .casillero-btn[data-target="c2"] { border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
     .casillero-btn[data-target="c3"] { border-color: rgba(255, 215, 0, 0.6); box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
@@ -107,7 +105,6 @@
       font-size: 2rem;
     }
 
-    /* Secciones de Contenido */
     .content-section {
       display: none;
       background: var(--card-bg);
@@ -144,7 +141,6 @@
       background: rgba(255, 255, 255, 0.1);
     }
 
-    /* Reproductor de Audio */
     .audio-controls {
       display: flex;
       align-items: center;
@@ -167,7 +163,6 @@
       font-size: 0.85rem;
     }
 
-    /* CASILLERO 4: NUESTRA HISTORIA VIVA */
     .c4-container {
       background: #050508;
       border: 2px solid var(--pink-neon);
@@ -204,7 +199,6 @@
       color: #fff;
     }
 
-    /* Canvas de fotos flotantes */
     .canvas-fotos-box {
       width: 100%;
       height: 320px;
@@ -222,15 +216,17 @@
       display: block;
     }
 
-    /* ESTILOS DE LA HISTORIA DEL RATONCITO (RESTAURADA) */
+    /* HISTORIA RATONCITO */
     .historia-container {
-      max-height: 400px;
+      max-height: 450px;
       overflow-y: auto;
-      padding-right: 10px;
-      line-height: 1.7;
+      padding: 10px;
+      line-height: 1.8;
       font-size: 0.95rem;
       color: #e0e0e0;
       text-align: justify;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
     }
 
     .historia-container::-webkit-scrollbar {
@@ -244,7 +240,7 @@
 
     .historia-titulo {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       color: var(--gold-accent);
       text-align: center;
       margin-bottom: 15px;
@@ -254,7 +250,6 @@
       margin-bottom: 15px;
     }
 
-    /* Estilos del Contador */
     .timer-display {
       font-size: 0.95rem;
       text-align: center;
@@ -301,7 +296,7 @@
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
 
-    <!-- CASILLERO 2: HISTORIA DEL RATONCITO (RESTAURADA COMPLETA) -->
+    <!-- CASILLERO 2: HISTORIA DEL RATONCITO RESTAURADA -->
     <div id="c2" class="content-section">
       <div class="audio-controls">
         <span style="font-size:0.85rem;">🎵 Música 2</span>
@@ -309,12 +304,12 @@
       </div>
 
       <div id="seccion-historia" class="historia-container">
-        <h2 class="historia-titulo">🐭 La Historia de Nuestro Ratoncito ✨</h2>
+        <h2 class="historia-titulo">🐭 El ratoncito André y la ratoncita Vanidosa ✨</h2>
         <div class="historia-texto">
-          <p>Érase una vez, en un rincón mágico y lleno de cariño, un pequeño ratoncito que caminaba buscando un lugar donde sentirse seguro y amado...</p>
-          <p>En su recorrido encontró el corazón más dulce y cálido de todos: el tuyo. Desde ese instante, el ratoncito supo que no había otro lugar en el mundo donde quisiera estar.</p>
-          <p>Prometió cuidar cada instante, acompañarte en cada paso, sacarte una sonrisa incluso en los días difíciles y recordarte siempre lo inmensamente especial que eres.</p>
-          <p>Esta historia no termina aquí, porque cada día juntos es un nuevo capítulo que escribimos con amor, abrazos y promesas eternas. Te amo con todo mi corazón, mi papito bello. ✨💖</p>
+          <p>Había una vez un pequeño ratoncito llamado André, muy curioso, tierno y con un corazón gigantesco. Un día, en su camino por el bosque, conoció a una ratoncita muy especial: la ratoncita Vanidosa. Desde el primer instante en que sus miradas se cruzaron, el ratoncito André supo que ella no era como las demás; tenía un brillo único, una sonrisa que iluminaba todo a su alrededor y un encanto al que nadie podía resistirse.</p>
+          <p>El ratoncito André decidió acompañarla en cada una de sus aventuras. Aprendió a cuidar de ella, a sacarle sonrisas incluso en los días más grises y a recordarle a diario lo valiosa e increíble que era. A pesar de que a veces la ratoncita Vanidosa se hacía la difícil o mostraba su lado orgulloso, en el fondo guardaba un cariño inmenso y sincero por su fiel compañero.</p>
+          <p>Caminaron juntos superando cada obstáculo, compartiendo momentos inolvidables, risas y abrazos que curaban cualquier tristeza. El ratoncito André le prometió a su amada ratoncita que, sin importar cuánto tiempo pasara o qué tan lejos estuviera el camino, él siempre estaría a su lado para protegerla, amarla y celebrar cada mes aniversario juntos.</p>
+          <p>Hoy, esa bella historia no ha terminado, sino que sigue escribiéndose día con día. Porque este amor entre el ratoncito André y la ratoncita Vanidosa es real, infinito y está destinado a durar hasta la eternidad. 💖✨</p>
         </div>
       </div>
 
@@ -362,14 +357,12 @@
 
   </div>
 
-  <!-- ELEMENTOS DE AUDIO -->
   <audio id="audio1" src="M1.mp3" loop></audio>
   <audio id="audio2" src="M2.mp3" loop></audio>
   <audio id="audio3" src="M3.mp3" loop></audio>
   <audio id="audio4" src="T1.mp3" loop></audio>
 
   <script>
-    // NAVEGACION ENTRE SECCIONES
     const botones = document.querySelectorAll('.casillero-btn');
     const secciones = document.querySelectorAll('.content-section');
     const menu = document.getElementById('menu-principal');
@@ -394,7 +387,6 @@
       detenerAudios();
     }
 
-    // CONTROL DE AUDIOS
     function toggleAudio(id) {
       const audio = document.getElementById(id);
       if(!audio) return;
@@ -413,25 +405,23 @@
       });
     }
 
-    /* =========================================================
-       SISTEMA CASILLERO 4: ANIMACIONES & FOTOS (CORREGIDO)
-       ========================================================= */
+    /* RENDERIZADO PERSISTENTE DE IMÁGENES CASILLERO 4 */
     let ecgAnimId = null;
     let fotosAnimId = null;
     let canvasF, ctxF;
     let fotosFlotantes = [];
 
-    // Nombres exactos subidos a GitHub (.jpg)
     const rutasFotosNuevas = ['I1.jpg', 'I2.jpg', 'I3.jpg', 'I4.jpg', 'I5.jpg'];
     const imagenesCargadasI = [];
 
-    // Pre-carga continua con prevención de fallos de red y caché
     rutasFotosNuevas.forEach((ruta) => {
       const img = new Image();
-      img.src = ruta + '?v=' + new Date().getTime();
-      img.onload = () => { img.isLoaded = true; };
+      img.src = ruta;
+      img.isReady = false;
+      img.onload = () => { img.isReady = true; };
       img.onerror = () => {
-        setTimeout(() => { img.src = ruta + '?retry=' + Math.random(); }, 1200);
+        // Reintento continuo directo
+        img.src = ruta + '?t=' + Date.now();
       };
       imagenesCargadasI.push(img);
     });
@@ -462,7 +452,8 @@
       }
 
       draw() {
-        if (this.img && (this.img.complete || this.img.isLoaded) && this.img.naturalWidth > 0) {
+        // Renderizado garantizado: Dibuja siempre que la imagen exista y tenga dimensiones válidas
+        if (this.img && (this.img.isReady || this.img.complete) && this.img.naturalWidth > 0) {
           ctxF.save();
           let w = this.img.naturalWidth;
           let h = this.img.naturalHeight;
@@ -487,10 +478,8 @@
     }
 
     function iniciarCasillero4() {
-      // 1. Contador de tiempo
       actualizarContador();
 
-      // 2. Animación ECG
       const ecgCanvas = document.getElementById('ecgCanvas');
       if (ecgCanvas) {
         ecgCanvas.width = ecgCanvas.parentElement.clientWidth;
@@ -523,7 +512,6 @@
         loopEcg();
       }
 
-      // 3. Canvas Fotos Flotantes
       canvasF = document.getElementById('canvasFotos');
       if (canvasF) {
         canvasF.width = canvasF.parentElement.clientWidth;
@@ -562,4 +550,3 @@
     }
   </script>
 </body>
-</html>
