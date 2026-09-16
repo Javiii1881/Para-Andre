@@ -30,6 +30,19 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* CANVAS FONDO DE LLUVIA Y EXPLOSIONES PIXELADAS */
+    #canvasEstrellas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .container {
@@ -43,6 +56,7 @@
       box-sizing: border-box;
       margin: 20px auto;
       position: relative;
+      z-index: 10;
     }
 
     .titulo-cursivo {
@@ -428,6 +442,9 @@
 </head>
 <body>
 
+  <!-- CANVAS PARA EFECTO PIXELADO -->
+  <canvas id="canvasEstrellas"></canvas>
+
   <audio id="audioM1" src="M1.mp3" loop></audio>
   <audio id="audioM2" src="M2.mp3" loop></audio>
   <audio id="audioM3" src="M3.mp3" loop></audio>
@@ -758,6 +775,120 @@
     const CLAVE_CORRECTA = "18092026";
     let audioActual = null;
 
+    /* SCRIPT DE LLUVIA Y EXPLOSIONES PIXELADAS EN SEGUNDO PLANO */
+    const canvas = document.getElementById('canvasEstrellas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const coloresPixeles = ['#ff1493', '#ff66cc', '#ffd700', '#ffffff', '#ff99dd'];
+    const estrellas = [];
+    const particulasExplosion = [];
+
+    class EstrellitaCaida {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = -10;
+        this.size = Math.floor(Math.random() * 3) + 2; // Tamaño pixel
+        this.speed = Math.random() * 1.5 + 0.8;
+        this.color = coloresPixeles[Math.floor(Math.random() * coloresPixeles.length)];
+        this.puntosExplosion = Math.random() * (canvas.height * 0.7) + (canvas.height * 0.15);
+      }
+
+      update() {
+        this.y += this.speed;
+
+        // Probabilidad aleatoria de explotar en el trayecto
+        if (this.y >= this.puntosExplosion && Math.random() < 0.15) {
+          crearExplosionPixel(this.x, this.y, this.color);
+          this.reset();
+        }
+
+        if (this.y > canvas.height + 10) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        // Dibujo de píxel cuadrado de estrella
+        ctx.fillRect(Math.floor(this.x), Math.floor(this.y), this.size, this.size);
+      }
+    }
+
+    class ParticulaExplosion {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.floor(Math.random() * 3) + 2;
+        const angulo = Math.random() * Math.PI * 2;
+        const velocidad = Math.random() * 3 + 0.5;
+        this.vx = Math.cos(angulo) * velocidad;
+        this.vy = Math.sin(angulo) * velocidad;
+        this.color = color;
+        this.life = 1.0;
+        this.decay = Math.random() * 0.04 + 0.02;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life -= this.decay;
+      }
+
+      draw() {
+        ctx.globalAlpha = Math.max(0, this.life);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(Math.floor(this.x), Math.floor(this.y), this.size, this.size);
+        ctx.globalAlpha = 1.0;
+      }
+    }
+
+    function crearExplosionPixel(x, y, color) {
+      const numParticulas = Math.floor(Math.random() * 10) + 8;
+      for (let i = 0; i < numParticulas; i++) {
+        particulasExplosion.push(new ParticulaExplosion(x, y, color));
+      }
+    }
+
+    // Generar la lluvia inicial
+    for (let i = 0; i < 35; i++) {
+      const e = new EstrellitaCaida();
+      e.y = Math.random() * canvas.height; // Distribuir en la pantalla al iniciar
+      estrellas.push(e);
+    }
+
+    function animar() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      estrellas.forEach(estrella => {
+        estrella.update();
+        estrella.draw();
+      });
+
+      for (let i = particulasExplosion.length - 1; i >= 0; i--) {
+        const p = particulasExplosion[i];
+        p.update();
+        p.draw();
+        if (p.life <= 0) {
+          particulasExplosion.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animar);
+    }
+    animar();
+
+    /* FUNCIONES DE AUDIO Y NAVEGACIÓN INTACTAS */
     function detenerTodosLosAudios() {
       const audios = [
         document.getElementById('audioM1'),
