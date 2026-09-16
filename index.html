@@ -15,7 +15,8 @@
       --text-white: #ffffff;
       --text-muted: #cccccc;
       --border-color: rgba(255, 255, 255, 0.15);
-      --gold-accent: #d4af37;
+      /* Dorado más intenso, vivo y cálido */
+      --gold-accent: #ffd700;
     }
 
     body {
@@ -240,7 +241,7 @@
 
     .papel-carta {
       background: #18171c;
-      border: 1px solid rgba(212, 175, 55, 0.4);
+      border: 1px solid rgba(255, 215, 0, 0.4);
       border-radius: 12px;
       padding: 30px 22px;
       position: relative;
@@ -262,6 +263,7 @@
       height: 45px;
       line-height: 43px;
       margin: 0 auto 10px auto;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
     }
 
     .papel-carta p {
@@ -283,7 +285,7 @@
 
     .marco-foto-carta:hover {
       transform: scale(1.02);
-      border-color: rgba(212, 175, 55, 0.5);
+      border-color: rgba(255, 215, 0, 0.6);
     }
 
     .marco-foto-carta img {
@@ -291,6 +293,25 @@
       height: auto;
       border-radius: 6px;
       display: block;
+    }
+
+    /* EFECTO DE LUZ Y DESTELLO ESTRELLADO SUTIL EN TEXTO DORADO */
+    .texto-dorado-especial {
+      color: var(--gold-accent);
+      font-weight: 600;
+      animation: destelloEstrella 3.5s infinite ease-in-out;
+      display: inline-block;
+    }
+
+    @keyframes destelloEstrella {
+      0%, 100% {
+        color: #ffd700;
+        text-shadow: 0 0 4px rgba(255, 215, 0, 0.4), 0 0 8px rgba(255, 215, 0, 0.2);
+      }
+      50% {
+        color: #fff4b8;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.9), 0 0 18px rgba(255, 255, 255, 0.6);
+      }
     }
   </style>
 </head>
@@ -350,7 +371,7 @@
       <div class="sello-carta">
         <div class="sello-icono">💌</div>
         <div class="titulo-cursivo" style="font-size: 2.8rem; margin: 0; color: #fff;">Cartita para usted</div>
-        <div style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; color: var(--gold-accent); margin-top: 5px;">18.09.2026</div>
+        <div class="texto-dorado-especial" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; margin-top: 5px;">18.09.2026</div>
       </div>
 
       <p>Hola, mi amor.</p>
@@ -384,7 +405,7 @@
       <p>Y ojalá pueda hacerte cambiar un poquito esa visión que tienes de tu cumpleaños. Porque para mí, amor, este día sí es demasiado especial.</p>
       <p>Porque naciste tú.</p>
       <p>Y para mí, tú eres de las cosas más especiales que tengo en mi vida.</p>
-      <p style="font-style: italic; color: var(--gold-accent); margin-top: 25px;">Feliz cumpleaños, mi amor.<br>Te amo. Siempre.</p>
+      <p class="texto-dorado-especial" style="font-style: italic; margin-top: 25px;">Feliz cumpleaños, mi amor.<br>Te amo. Siempre.</p>
     </div>
 
     <div style="text-align: center;">
@@ -392,13 +413,13 @@
     </div>
   </div>
 
-  <!-- VISTA M2 CON EXTENSIÓN .JFIF -->
+  <!-- VISTA M2 -->
   <div id="vista-m2" class="container oculto contenido-vista" style="padding: 15px;">
     <div class="papel-carta">
       <div class="sello-carta">
         <div class="sello-icono">✨</div>
         <div class="titulo-cursivo" style="font-size: 2.8rem; margin: 0; color: #fff;">Feliz Aniversario</div>
-        <div style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; color: var(--gold-accent); margin-top: 5px;">16 MESES JUNTOS</div>
+        <div class="texto-dorado-especial" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; margin-top: 5px;">16 MESES JUNTOS</div>
       </div>
 
       <p>Aparte de ser tu cumpleaños, es nuestro mes aniversario: ¡16 meses ya, mi amorcito precioso! No te imaginas lo feliz que estoy de un mes más, de estar siempre contigo, de que seas el hombre de mi vida. Te amo como no te imaginas y no tengo palabras para expresar lo hermoso que es esto.</p>
@@ -418,7 +439,7 @@
 
       <p>Y también quiero agradecerte por algo más: gracias por la suegra que me diste. De verdad la amo muchísimo y estoy demasiado agradecida de haber podido conocerla y tener ese cariño con ella. Y a mi suegro también lo quiero muchísimo. Gracias por darme una familia tan bonita y por hacerme sentir parte de ella, incluso estando tan lejos. Los quiero muchísimo a los dos y espero poder compartir muchos momentos más con ellos.</p>
 
-      <!-- FOTO F3 (OBLIGATORIA DESPUÉS DEL PÁRRAFO DE LOS SUEGROS) -->
+      <!-- FOTO F3 -->
       <div class="marco-foto-carta">
         <img src="F3.jfif" alt="Foto F3">
       </div>
@@ -439,7 +460,7 @@
       </div>
 
       <p>Aquí atentamente tu mujer, que te ama hoy, siempre y está vuelta loca por ti, hombrecito. Te amo y estoy locamente enamorada de ti.</p>
-      <p style="font-style: italic; color: var(--gold-accent); margin-top: 15px;">Loca, loca, estoy por ti.</p>
+      <p class="texto-dorado-especial" style="font-style: italic; margin-top: 15px;">Loca, loca, estoy por ti.</p>
     </div>
 
     <div style="text-align: center;">
