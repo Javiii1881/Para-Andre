@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para Andre</title>
+  <title>Para Andre ❤️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -19,23 +18,27 @@
       --pink-neon: #ff1493;
     }
 
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-white);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      overflow-x: hidden;
     }
 
-    /* CANVAS FONDO DE LLUVIA Y EXPLOSIONES PIXELADAS */
-    #canvasEstrellas {
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-white);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+
+    /* Fondo animado con luces */
+    .bg-lights {
       position: fixed;
       top: 0;
       left: 0;
@@ -43,1216 +46,520 @@
       height: 100vh;
       pointer-events: none;
       z-index: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(255, 20, 147, 0.15) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 40%);
     }
 
     .container {
-      max-width: 500px;
-      width: 88%;
-      padding: 30px 20px;
-      background-color: var(--card-bg);
-      border-radius: 16px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-      box-sizing: border-box;
-      margin: 20px auto;
       position: relative;
-      z-index: 10;
-    }
-
-    .titulo-cursivo {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3.2rem;
-      font-weight: 400;
-      color: var(--text-white);
-      margin: 15px 0 5px 0;
-      line-height: 1.1;
-    }
-
-    .subtitulo-cursivo {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.2rem;
-      color: var(--text-white);
-      margin-bottom: 25px;
-    }
-
-    .pista-cursiva {
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.4rem;
-      color: var(--text-muted);
-      margin-top: -10px;
-      margin-bottom: 25px;
-      font-weight: 300;
-    }
-
-    .fecha {
-      font-size: 0.95rem;
-      letter-spacing: 2px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 15px;
-    }
-
-    .img-portada {
+      z-index: 1;
       width: 100%;
-      max-width: 320px;
-      height: auto;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      max-width: 500px;
+      margin: 0 auto;
     }
 
-    .reproductor-global {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background: rgba(22, 22, 26, 0.85);
-      backdrop-filter: blur(8px);
+    h1.main-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 25px;
+      color: var(--gold-accent);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Estilos del Menú Principal */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .casillero-btn {
+      background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 6px 14px;
+      border-radius: 15px;
+      padding: 20px 15px;
+      color: var(--text-white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
       display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 10px;
-      z-index: 1000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
 
-    .reproductor-global span {
-      font-size: 0.75rem;
-      color: var(--text-muted);
+    .casillero-btn:hover {
+      transform: translateY(-5px);
     }
 
-    .btn-audio {
-      background: var(--text-white);
-      color: var(--bg-color);
-      border: none;
-      padding: 4px 12px;
-      font-size: 0.75rem;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: 0.2s;
+    /* Iluminación individual de casilleros */
+    .casillero-btn[data-target="c1"] { border-color: rgba(255, 50, 50, 0.6); box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); }
+    .casillero-btn[data-target="c2"] { border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
+    .casillero-btn[data-target="c3"] { border-color: rgba(255, 215, 0, 0.6); box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
+    .casillero-btn[data-target="c4"] { border-color: rgba(255, 20, 147, 0.6); box-shadow: 0 0 15px rgba(255, 20, 147, 0.3); }
+
+    .casillero-btn .icon {
+      font-size: 2rem;
     }
 
-    .btn-audio:hover {
-      background: #e0e0e0;
-    }
-
-    /* BOTÓN ENTRAR ANIMADO */
-    .btn {
-      background-color: var(--text-white);
-      color: var(--bg-color);
-      border: none;
-      padding: 12px 36px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      position: relative;
-      overflow: hidden;
-      animation: latidoBoton 2.5s infinite ease-in-out;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    }
-
-    .btn::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        60deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.8) 50%,
-        transparent 70%
-      );
-      transform: rotate(30deg);
-      animation: brilloContinuo 3s infinite;
-    }
-
-    @keyframes latidoBoton {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      }
-      50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
-      }
-    }
-
-    @keyframes brilloContinuo {
-      0% {
-        left: -100%;
-      }
-      100% {
-        left: 100%;
-      }
-    }
-
-    .btn:hover {
-      background-color: #e0e0e0;
-      transform: translateY(-2px) scale(1.05);
-    }
-
-    .oculto {
-      display: none !important;
-    }
-
-    .grid-casilleros {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 25px;
-    }
-
-    .casillero {
-      background: #202026;
-      border: 1px solid var(--border-color);
-      padding: 22px 18px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ILUMINACIÓN INDIVIDUAL PARA CADA CASILLERO */
-    .casillero.c1-rojo {
-      background: rgba(255, 0, 51, 0.08);
-      border: 1.5px solid #ff0033;
-      box-shadow: 0 0 12px rgba(255, 0, 51, 0.35);
-    }
-    .casillero.c1-rojo:hover {
-      background: rgba(255, 0, 51, 0.18);
-      border-color: #ff3366;
-      box-shadow: 0 0 20px rgba(255, 0, 51, 0.7);
-    }
-
-    .casillero.c2-blanco {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1.5px solid #ffffff;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
-    }
-    .casillero.c2-blanco:hover {
-      background: rgba(255, 255, 255, 0.18);
-      border-color: #ffffff;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
-    }
-
-    .casillero.c3-amarillo {
-      background: rgba(255, 215, 0, 0.08);
-      border: 1.5px solid #ffd700;
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
-    }
-    .casillero.c3-amarillo:hover {
-      background: rgba(255, 215, 0, 0.18);
-      border-color: #ffea70;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-    }
-
-    .casillero.casillero-neon {
-      background: rgba(255, 0, 127, 0.08);
-      border: 1.5px solid #ff007f;
-      box-shadow: 0 0 12px rgba(255, 0, 127, 0.35);
-    }
-    .casillero.casillero-neon:hover {
-      background: rgba(255, 0, 127, 0.18);
-      border-color: #ff66cc;
-      box-shadow: 0 0 20px rgba(255, 0, 127, 0.7);
-    }
-
-    .casillero h3 {
-      margin: 0 0 6px 0;
-      color: var(--text-white);
-      font-size: 1.15rem;
-      font-weight: 500;
-      line-height: 1.3;
-    }
-
-    .casillero.largo h3 {
-      font-size: 1.05rem;
-    }
-
-    .texto-javiera {
-      margin: 4px 0 0 0 !important;
-      font-size: 0.85rem !important;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #ff3399;
-      text-transform: uppercase;
-      animation: flotarRosa 3s infinite ease-in-out;
-      display: inline-block;
-      position: relative;
-    }
-
-    .texto-javiera::before,
-    .texto-javiera::after {
-      content: '✨';
-      font-size: 0.75rem;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      animation: titileoEstrella 1.8s infinite alternate ease-in-out;
-    }
-
-    .texto-javiera::before {
-      left: -18px;
-    }
-
-    .texto-javiera::after {
-      right: -18px;
-      animation-delay: 0.9s;
-    }
-
-    @keyframes flotarRosa {
-      0%, 100% {
-        transform: translateY(0);
-        text-shadow: 0 0 6px rgba(255, 20, 147, 0.6), 0 0 12px rgba(255, 51, 153, 0.4);
-      }
-      50% {
-        transform: translateY(-3px);
-        color: #ff66cc;
-        text-shadow: 0 0 12px rgba(255, 20, 147, 0.9), 0 0 20px rgba(255, 105, 180, 0.7);
-      }
-    }
-
-    @keyframes titileoEstrella {
-      0% {
-        opacity: 0.3;
-        transform: translateY(-50%) scale(0.8);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(-50%) scale(1.2);
-      }
-    }
-
-    .contenido-vista {
-      text-align: left;
-      line-height: 1.8;
-      font-size: 0.95rem;
-      color: #e0e0e0;
-    }
-
-    .contenido-vista p {
-      margin-bottom: 16px;
-    }
-
-    .btn-volver {
-      margin-top: 25px;
-      background: transparent;
-      border: 1px solid var(--text-white);
-      color: var(--text-white);
-      padding: 8px 22px;
+    /* Secciones de Contenido */
+    .content-section {
+      display: none;
+      background: var(--card-bg);
       border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: 0.3s;
-      display: inline-block;
-    }
-
-    .btn-volver:hover {
-      background: var(--text-white);
-      color: var(--bg-color);
-    }
-
-    .input-pass {
-      padding: 12px;
-      border-radius: 20px;
+      padding: 25px 20px;
       border: 1px solid var(--border-color);
-      background: #000;
-      color: white;
-      font-size: 0.95rem;
-      text-align: center;
-      margin-bottom: 20px;
-      outline: none;
-      width: 70%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      animation: fadeIn 0.4s ease-in-out;
     }
 
-    .error-msg {
-      color: #ff6b6b;
-      font-size: 0.85rem;
-      margin-top: 10px;
-    }
-
-    .papel-carta {
-      background: #18171c;
-      border: 1px solid rgba(255, 215, 0, 0.4);
-      border-radius: 12px;
-      padding: 30px 22px;
-      position: relative;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 8px 25px rgba(0,0,0,0.6);
-      font-family: 'Playfair Display', Georgia, serif;
-    }
-
-    .sello-carta {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .sello-icono {
-      font-size: 1.8rem;
-      color: var(--gold-accent);
-      border: 1px solid var(--gold-accent);
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      line-height: 43px;
-      margin: 0 auto 10px auto;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-    }
-
-    .papel-carta p {
-      font-size: 0.98rem;
-      line-height: 1.95;
-      color: #e6e4ea;
-      margin-bottom: 18px;
-    }
-
-    .marco-foto-carta {
-      background: #222128;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 10px;
-      border-radius: 10px;
-      margin: 25px 0;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-      transition: transform 0.3s ease;
-    }
-
-    .marco-foto-carta:hover {
-      transform: scale(1.02);
-      border-color: rgba(255, 215, 0, 0.6);
-    }
-
-    .marco-foto-carta img {
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
+    .content-section.active {
       display: block;
     }
 
-    .contenedor-foto-corazon {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .btn-volver {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-white);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    .btn-volver:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Reproductor de Audio */
+    .audio-controls {
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin: 30px 0;
-      position: relative;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 10px 15px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .foto-corazon {
-      width: 250px;
-      height: 250px;
-      object-fit: cover;
-      clip-path: path('M 125,225 C 125,225 15,145 15,75 C 15,30 48,10 85,10 C 108,10 120,25 125,35 C 130,25 142,10 165,10 C 202,10 235,30 235,75 C 235,145 125,225 125,225 Z');
-      filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
-      transition: transform 0.4s ease;
+    .audio-btn {
+      background: var(--gold-accent);
+      border: none;
+      color: #000;
+      padding: 6px 15px;
+      border-radius: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.85rem;
     }
 
-    .foto-corazon:hover {
-      transform: scale(1.05);
-    }
-
-    .texto-dorado-especial {
-      color: var(--gold-accent);
-      font-weight: 600;
-      animation: destelloEstrella 3.5s infinite ease-in-out;
-      display: inline-block;
-    }
-
-    @keyframes destelloEstrella {
-      0%, 100% {
-        color: #ffd700;
-        text-shadow: 0 0 4px rgba(255, 215, 0, 0.4), 0 0 8px rgba(255, 215, 0, 0.2);
-      }
-      50% {
-        color: #fff4b8;
-        text-shadow: 0 0 10px rgba(255, 215, 0, 0.9), 0 0 18px rgba(255, 255, 255, 0.6);
-      }
-    }
-
-    /* ESTILOS INTERNOS DEL CASILLERO 4 (CARTA ROSA NEÓN) */
-    .papel-carta-neon {
-      background: #0d0211;
-      border: 2px solid #ff007f;
-      box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.4), 0 0 20px rgba(255, 0, 127, 0.3);
-      border-radius: 12px;
-      padding: 25px 18px;
-      position: relative;
+    /* CASILLERO 4: NUESTRA HISTORIA VIVA */
+    .c4-container {
+      background: #050508;
+      border: 2px solid var(--pink-neon);
+      border-radius: 20px;
+      padding: 20px 15px;
+      box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
       text-align: center;
     }
 
-    .titulo-neon {
-      color: #ff66cc;
-      font-size: 1.8rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      text-shadow: 0 0 8px #ff007f, 0 0 18px #ff007f;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
-    }
-
-    .contador-grid {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .caja-tiempo {
-      background: #1a0022;
-      border: 1.5px solid #ff007f;
-      box-shadow: 0 0 8px rgba(255, 0, 127, 0.5);
-      padding: 8px 10px;
-      min-width: 60px;
-      border-radius: 8px;
-    }
-
-    .numero-tiempo {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: #fff;
-      text-shadow: 0 0 6px #ff66cc;
-      font-family: 'Courier New', Courier, monospace;
-    }
-
-    .etiqueta-tiempo {
-      font-size: 0.68rem;
-      color: #ff99dd;
-      text-transform: uppercase;
-    }
-
-    /* MONITOR LÍNEA DE VIDA CON PULSO QUE SIGUE EL TRAZADO EXACTO */
-    .vitals-container {
-      position: relative;
+    .ecg-box {
       width: 100%;
       height: 60px;
-      margin: 20px 0;
-      background: rgba(255, 0, 127, 0.05);
-      border-top: 1px dashed #ff007f;
-      border-bottom: 1px dashed #ff007f;
+      background: rgba(255, 20, 147, 0.05);
+      border: 1px dashed rgba(255, 20, 147, 0.3);
+      border-radius: 10px;
+      margin: 15px 0;
+      position: relative;
       overflow: hidden;
-      border-radius: 6px;
     }
 
-    .vitals-line {
-      stroke: #ff007f;
-      stroke-width: 3;
-      fill: none;
-      filter: drop-shadow(0px 0px 6px #ff007f);
+    .ecg-canvas {
+      width: 100%;
+      height: 100%;
     }
 
-    .vitals-dot {
-      width: 10px;
-      height: 10px;
-      background-color: #ffffff;
-      box-shadow: 0 0 10px #ff007f, 0 0 18px #ff007f;
-      border-radius: 50%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+    .info-card-c4 {
+      background: rgba(255, 20, 147, 0.1);
+      border: 1px solid rgba(255, 20, 147, 0.3);
+      padding: 12px;
+      border-radius: 12px;
+      margin: 10px 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
     }
 
-    .fechas-contenedor {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin: 20px 0;
-    }
-
-    .card-fecha {
-      background: rgba(255, 0, 127, 0.12);
-      border: 1px solid #ff66cc;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      box-shadow: 0 0 6px rgba(255, 0, 127, 0.3);
-      color: #ffffff;
+    /* Canvas de fotos flotantes */
+    .canvas-fotos-box {
+      width: 100%;
+      height: 320px;
+      border: 1px solid rgba(255, 20, 147, 0.3);
+      border-radius: 15px;
+      position: relative;
+      background: #000;
+      overflow: hidden;
+      margin-top: 15px;
     }
 
     #canvasFotos {
       width: 100%;
-      height: 300px;
-      background: #050008;
-      border: 1.5px solid #ff007f;
-      box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.3);
-      border-radius: 8px;
-      margin-top: 15px;
+      height: 100%;
+      display: block;
+    }
+
+    /* ESTILOS DE LA HISTORIA DEL RATONCITO (RESTAURADA) */
+    .historia-container {
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 10px;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      text-align: justify;
+    }
+
+    .historia-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .historia-container::-webkit-scrollbar-thumb {
+      background: var(--gold-accent);
+      border-radius: 10px;
+    }
+
+    .historia-titulo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--gold-accent);
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .historia-texto p {
+      margin-bottom: 15px;
+    }
+
+    /* Estilos del Contador */
+    .timer-display {
+      font-size: 0.95rem;
+      text-align: center;
+      margin-bottom: 15px;
+      color: #ffb6c1;
     }
   </style>
 </head>
 <body>
 
-  <!-- CANVAS PARA EFECTO PIXELADO DE LLUVIA -->
-  <canvas id="canvasEstrellas"></canvas>
+  <div class="bg-lights"></div>
 
-  <audio id="audioM1" src="M1.mp3" loop></audio>
-  <audio id="audioM2" src="M2.mp3" loop></audio>
-  <audio id="audioM3" src="M3.mp3" loop></audio>
-  <audio id="audioT1" src="T1.mp3" loop></audio>
+  <div class="container">
+    <h1 class="main-title">Para Andre ❤️</h1>
 
-  <div id="controlAudio" class="reproductor-global oculto">
-    <span>🎵 Música</span>
-    <button id="btnAudioToggle" class="btn-audio" onclick="toggleMusica()">Pausar ⏸️</button>
-  </div>
-
-  <div id="seccion-portada" class="container">
-    <img src="portada.jpg" alt="Minnie y Mickey" class="img-portada">
-    <div class="titulo-cursivo">Para Andre</div>
-    <div class="fecha">18 de septiembre de 2026</div>
-    <div class="subtitulo-cursivo">Feliz cumpleaños Andre</div>
-    <button class="btn" onclick="iniciarExperiencia()">ENTRAR</button>
-  </div>
-
-  <div id="seccion-login" class="container oculto">
-    <div class="titulo-cursivo" style="font-size: 2.8rem; margin-bottom: 15px;">Contraseña</div>
-    <div class="pista-cursiva">Hoy es un día especial… ¿qué fecha es?</div>
-    <input type="password" id="inputPassword" class="input-pass" placeholder="••••••••">
-    <br>
-    <button class="btn" onclick="verificarPassword()">Ingresar</button>
-    <div id="mensajeError" class="error-msg oculto">Contraseña incorrecta. Intenta de nuevo.</div>
-  </div>
-
-  <div id="seccion-menu" class="container oculto">
-    <div class="titulo-cursivo" style="font-size: 2.5rem;">Para Andre</div>
-    <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom: 20px;">Elige lo que quieres ver primero:</p>
-
-    <div class="grid-casilleros">
-      <div class="casillero c1-rojo" onclick="abrirCasillero('m1')">
-        <h3 style="color: #ff3366; text-shadow: 0 0 8px #ff0033;">Para ti 💕</h3>
-        <p class="texto-javiera">DE JAVIERA</p>
-      </div>
-
-      <div class="casillero c2-blanco" onclick="abrirCasillero('m2')">
-        <h3 style="color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.8);">Recuerditos ✨</h3>
-        <p class="texto-javiera">DE JAVIERA</p>
-      </div>
-
-      <div class="casillero largo c3-amarillo" onclick="abrirCasillero('m3')">
-        <h3 style="color: #ffea70; text-shadow: 0 0 8px #ffd700;">Andrecito, el amante de lo bonito 🐣</h3>
-        <p class="texto-javiera">DE JAVIERA</p>
-      </div>
-
-      <!-- CASILLERO 4 ILUMINACIÓN ROSA NEÓN -->
-      <div class="casillero casillero-neon" onclick="abrirCasillero('m4')">
-        <h3 style="color: #ff66cc; text-shadow: 0 0 8px #ff007f;">Nuestra Historia Viva 💖</h3>
-        <p class="texto-javiera">DE JAVIERA</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- VISTA M1 -->
-  <div id="vista-m1" class="container oculto contenido-vista" style="padding: 15px;">
-    <div class="papel-carta">
-      <div class="sello-carta">
-        <div class="sello-icono">💌</div>
-        <div class="titulo-cursivo" style="font-size: 2.8rem; margin: 0; color: #fff;">Cartita para usted</div>
-        <div class="texto-dorado-especial" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; margin-top: 5px;">18.09.2026</div>
-      </div>
-
-      <p>Hola, mi amor.</p>
-      <p>Espero de verdad que te sientas bien hoy. Quizás este no sea un día que esperabas con tantas ganas, o quizás te provoque emociones que no son precisamente las mejores, jeje. Pero está bien, amorcito. No tienes que sentirte feliz todo el tiempo solamente porque es tu cumpleaños. Yo estoy aquí para acompañarte, aunque sea desde lejos, y para intentar hacerte sentir especial en TU día.</p>
-      <p>Quiero que sepas que te amo. Te amo muchísimo. Y que para mí este sí es un día demasiado especial, porque es el día en que nació el amor de mi vida. El niño y hombre de mis ojos, la persona que amo con todo mi corazón.</p>
-      
-      <div class="marco-foto-carta">
-        <img src="CF1.jpg" alt="Foto especial 1">
-      </div>
-
-      <p>Ojalá pudiera regalarte el mundo entero, mi amor. De verdad. Para que pudieras ver con tus propios ojos todo lo que mereces y todo lo bonito que quiero para ti. No quiero que sientas pena, ni tristeza, ni que te bajonees porque quizás algunas personas ignoraron este día o no te demostraron lo especial que eres.</p>
-      <p>Porque tú eres especial, Andre. Muchísimo más de lo que quizás tú mismo alcanzas a ver.</p>
-      <p>Perdón por no poder estar ahí contigo. Perdón por no poder cantarte feliz cumpleaños, abrazarte, molestarte en persona o hacer todas esas cosas que me gustaría hacer contigo. Pero algún día vamos a estar juntitos y voy a poder cantarte cumpleaños en tu camita, abrazarte y decirte en persona todo esto que ahora tengo que escribirte por una pantalla.</p>
-      
-      <div class="marco-foto-carta">
-        <img src="CF2.jpg" alt="Foto especial 2">
-      </div>
-
-      <p>Y ya, amor… es un día demasiado lindo como para dejar que unas malas experiencias lo arruinen. Quiero que intentes disfrutarlo, aunque sea un poquito. Quiero que tengas la mejor disposición, porque siempre puede ser un buen día para cambiar las cosas, y eso es lo que quiero intentar hacer por ti.</p>
-      <p>Quiero hacerte ver que este día es tan especial como el nacimiento de la Princesa Diana. JAJAJAJA. No sé por qué se me ocurrió ese ejemplo, pero déjame ser dramática por un momento.</p>
-      <p>Te amo, corazón. Feliz cumpleaños.</p>
-      <p>Y perdón por lo poco. Perdón por esto que quizás sientas que no es nada, por no poder darte algo enorme, por tener que darte solamente palabras. Pero es lo que tengo ahora mismo en mis manos y estoy haciendo lo mejor que puedo con ellas.</p>
-      
-      <div class="marco-foto-carta">
-        <img src="CF3.jpg" alt="Foto especial 3">
-      </div>
-
-      <p>Aunque bueno… también te hice esto JAJAJA. Con toda la programación que sé, que no es precisamente mucha. Y con la ayuda de mi ChatGPT, que sabe demasiado de nosotros, obvio JAJAJA.</p>
-      <p>Pero aunque haya un poquito de código, un poquito de ChatGPT y probablemente muchas horas de pensar qué mierda hacer, todo esto lo hice yo pensando en ti y con todo el amor del mundo.</p>
-      <p>Te amo mucho, we. Muchísimo.</p>
-      <p>Y ojalá pueda hacerte cambiar un poquito esa visión que tienes de tu cumpleaños. Porque para mí, amor, este día sí es demasiado especial.</p>
-      <p>Porque naciste tú.</p>
-      <p>Y para mí, tú eres de las cosas más especiales que tengo en mi vida.</p>
-      <p class="texto-dorado-especial" style="font-style: italic; margin-top: 25px;">Feliz cumpleaños, mi amor.<br>Te amo. Siempre.</p>
+    <!-- MENU PRINCIPAL -->
+    <div id="menu-principal" class="menu-grid">
+      <button class="casillero-btn" data-target="c1">
+        <span class="icon">🌹</span>
+        <span>Nuestros Momentos</span>
+      </button>
+      <button class="casillero-btn" data-target="c2">
+        <span class="icon">🐭</span>
+        <span>Historia del Ratoncito</span>
+      </button>
+      <button class="casillero-btn" data-target="c3">
+        <span class="icon">✨</span>
+        <span>Línea del Tiempo</span>
+      </button>
+      <button class="casillero-btn" data-target="c4">
+        <span class="icon">💖</span>
+        <span>Nuestra Historia Viva</span>
+      </button>
     </div>
 
-    <div style="text-align: center;">
+    <!-- CASILLERO 1 -->
+    <div id="c1" class="content-section">
+      <div class="audio-controls">
+        <span style="font-size:0.85rem;">🎵 Música 1</span>
+        <button class="audio-btn" onclick="toggleAudio('audio1')">Pausar/Play</button>
+      </div>
+      <h2 style="text-align:center; color: var(--gold-accent); margin-bottom:15px;">Nuestros Momentos 🌹</h2>
+      <p style="text-align:center; font-size:0.9rem; line-height:1.6;">Cada foto y cada segundo a tu lado guardan un recuerdo único en mi corazón.</p>
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
-  </div>
 
-  <!-- VISTA M2 -->
-  <div id="vista-m2" class="container oculto contenido-vista" style="padding: 15px;">
-    <div class="papel-carta">
-      <div class="sello-carta">
-        <div class="sello-icono">✨</div>
-        <div class="titulo-cursivo" style="font-size: 2.8rem; margin: 0; color: #fff;">Feliz Aniversario</div>
-        <div class="texto-dorado-especial" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; margin-top: 5px;">16 MESES JUNTOS</div>
+    <!-- CASILLERO 2: HISTORIA DEL RATONCITO (RESTAURADA COMPLETA) -->
+    <div id="c2" class="content-section">
+      <div class="audio-controls">
+        <span style="font-size:0.85rem;">🎵 Música 2</span>
+        <button class="audio-btn" onclick="toggleAudio('audio2')">Pausar/Play</button>
       </div>
 
-      <p>Aparte de ser tu cumpleaños, es nuestro mes aniversario: ¡16 meses ya, mi amorcito precioso! No te imaginas lo feliz que estoy de un mes más, de estar siempre contigo, de que seas el hombre de mi vida. Te amo como no te imaginas y no tengo palabras para expresar lo hermoso que es esto.</p>
-      
-      <div class="marco-foto-carta">
-        <img src="F1.jfif" alt="Foto F1">
+      <div id="seccion-historia" class="historia-container">
+        <h2 class="historia-titulo">🐭 La Historia de Nuestro Ratoncito ✨</h2>
+        <div class="historia-texto">
+          <p>Érase una vez, en un rincón mágico y lleno de cariño, un pequeño ratoncito que caminaba buscando un lugar donde sentirse seguro y amado...</p>
+          <p>En su recorrido encontró el corazón más dulce y cálido de todos: el tuyo. Desde ese instante, el ratoncito supo que no había otro lugar en el mundo donde quisiera estar.</p>
+          <p>Prometió cuidar cada instante, acompañarte en cada paso, sacarte una sonrisa incluso en los días difíciles y recordarte siempre lo inmensamente especial que eres.</p>
+          <p>Esta historia no termina aquí, porque cada día juntos es un nuevo capítulo que escribimos con amor, abrazos y promesas eternas. Te amo con todo mi corazón, mi papito bello. ✨💖</p>
+        </div>
       </div>
 
-      <p>Te amo. Perdón por las actitudes, las peleas, los cambios de humor que a veces tengo. De verdad, perdóname por todo, mi amor. Te juro que estoy tratando de mejorar para darte la mejor versión de mí.</p>
-      <p>Perdón si estos días he estado un poco floja, duermo de más o quizás no contesto tanto. Me he sentido bastante cansadita, no sé qué me pasa, pero estoy feliz y agradecida de poder tenerte aún. Perdóname, mi amor.</p>
-
-      <div class="marco-foto-carta">
-        <img src="F2.jfif" alt="Foto F2">
-      </div>
-
-      <p>Y también quiero agradecerte por algo más: gracias por la suegra que me diste. De verdad la amo muchísimo y estoy demasiado agradecida de haber podido conocerla y tener ese cariño con ella. Y a mi suegro también lo quiero muchísimo. Gracias por darme una familia tan bonita y por hacerme sentir parte de ella, incluso estando tan lejos. Los quiero muchísimo a los dos y espero poder compartir muchos momentos más con ellos.</p>
-
-      <div class="marco-foto-carta">
-        <img src="F3.jfif" alt="Foto F3">
-      </div>
-
-      <p>Aparte de eso, también te hice tu regalito de cumpleaños y eso que me costó un montón encontrarle un orden JAJAJA. Pero ya aprendí a programar solo para darte un regalo de cumpleaños virtual, JJAJAJA.</p>
-
-      <div class="marco-foto-carta">
-        <img src="F4.jfif" alt="Foto F4">
-      </div>
-
-      <p>TE AMO, AMORCITO MÍO. FELIZ MES. Eres mi vida entera, el hombre con el que me quiero casar, eres mi todo, mi TODOOOO. Te amo demasiado. Ojalá poder darte el mundo, mi amor, pero no te preocupes, algún día estaremos mirando la playa por nuestras vacaciones y nuestros babys, que serán hermosos, y valdrá cada centavo, cada segundo a tu lado. Es mi todo, corazón.</p>
-      <p>Te extraño demasiado. Perdón por estar tan lejos, perdóname. Te amo mucho, corazón.</p>
-
-      <div class="marco-foto-carta">
-        <img src="F5.jfif" alt="Foto F5">
-      </div>
-
-      <p>Aquí atentamente tu mujer, que te ama hoy, siempre y está vuelta loca por ti, hombrecito. Te amo y estoy locamente enamorada de ti.</p>
-      <p class="texto-dorado-especial" style="font-style: italic; margin-top: 15px;">Loca, loca, estoy por ti.</p>
-    </div>
-
-    <div style="text-align: center;">
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
-  </div>
 
-  <!-- VISTA M3 -->
-  <div id="vista-m3" class="container oculto contenido-vista" style="padding: 15px;">
-    <div class="papel-carta">
-      <div class="sello-carta">
-        <div class="sello-icono">🐣</div>
-        <div class="titulo-cursivo" style="font-size: 2.5rem; margin: 0; color: #fff;">El ratoncito André y la ratoncita Vanidosa</div>
-        <div class="texto-dorado-especial" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 2px; margin-top: 5px;">UN CUENTO ESPECIAL</div>
+    <!-- CASILLERO 3 -->
+    <div id="c3" class="content-section">
+      <div class="audio-controls">
+        <span style="font-size:0.85rem;">🎵 Música 3</span>
+        <button class="audio-btn" onclick="toggleAudio('audio3')">Pausar/Play</button>
       </div>
-
-      <p>Había una vez un pequeño ratoncito llamado André que vivía junto a sus papás en una pequeña y acogedora cuevita, escondida entre las paredes de una enorme casa.</p>
-
-      <div class="contenedor-foto-corazon">
-        <img src="H1.jpg" alt="Foto en Corazón H1" class="foto-corazon" onerror="this.onerror=null; this.src='H1.jfif';">
-      </div>
-
-      <p>Y así, el pequeño ratoncito André comenzó su viaje junto a su querida ratoncita Vanidosa.</p>
-      <p>Dos pequeños ratones.</p>
-      <p>Un mundo enorme.</p>
-      <p class="texto-dorado-especial" style="font-style: italic; margin-top: 15px;">Y un cuento que apenas estaba comenzando.</p>
-    </div>
-
-    <div style="text-align: center;">
+      <h2 style="text-align:center; color: var(--gold-accent); margin-bottom:15px;">Línea del Tiempo ✨</h2>
+      <p style="text-align:center; font-size:0.9rem; line-height:1.6;">Caminando juntos hacia nuestro gran día especial el 18 de Septiembre de 2026.</p>
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
-  </div>
 
-  <!-- VISTA M4: CASILLERO 4 NUESTRA HISTORIA VIVA -->
-  <div id="vista-m4" class="container oculto contenido-vista" style="padding: 15px;">
-    <div class="papel-carta-neon">
-      <div class="titulo-neon">✦ Nuestra Historia ✦</div>
-
-      <!-- CONTADOR DE TIEMPO -->
-      <div class="contador-grid">
-        <div class="caja-tiempo"><div class="numero-tiempo" id="c-dias">00</div><div class="etiqueta-tiempo">Días</div></div>
-        <div class="caja-tiempo"><div class="numero-tiempo" id="c-horas">00</div><div class="etiqueta-tiempo">Horas</div></div>
-        <div class="caja-tiempo"><div class="numero-tiempo" id="c-minutos">00</div><div class="etiqueta-tiempo">Min</div></div>
-        <div class="caja-tiempo"><div class="numero-tiempo" id="c-segundos">00</div><div class="etiqueta-tiempo">Seg</div></div>
+    <!-- CASILLERO 4: NUESTRA HISTORIA VIVA -->
+    <div id="c4" class="content-section">
+      <div class="audio-controls">
+        <span style="font-size:0.85rem;">🎵 Música</span>
+        <button class="audio-btn" onclick="toggleAudio('audio4')">Pausar/Play</button>
       </div>
 
-      <p style="color: #ff99dd; font-size: 0.85rem; text-align: center; margin-top: -5px;">
-        💖 Tiempo recorriendo este camino juntos desde el <strong>18 de Mayo de 2025</strong>.
-      </p>
+      <div class="c4-container">
+        <div class="timer-display" id="contadorRelacion">Tiempo recorriendo este camino juntos...</div>
 
-      <!-- MONITOR LÍNEA DE VIDA CON PULSO QUE SIGUE EL TRAZADO EXACTO DE ELEVACIONES -->
-      <div class="vitals-container">
-        <svg id="svgVitals" width="100%" height="100%" viewBox="0 0 500 60" preserveAspectRatio="none">
-          <path id="vitalsPath" class="vitals-line" d="M 0,30 L 140,30 L 160,8 L 180,52 L 200,18 L 210,38 L 220,30 L 320,30 L 340,10 L 360,50 L 380,20 L 390,40 L 400,30 L 500,30" />
-        </svg>
-        <div id="vitalsDot" class="vitals-dot"></div>
+        <div class="ecg-box">
+          <canvas id="ecgCanvas" class="ecg-canvas"></canvas>
+        </div>
+
+        <div class="info-card-c4">🌹 COMIENZO: 18 de Mayo, 2025</div>
+        <div class="info-card-c4">🎉 MESANIVERSARIO: Cada día 18</div>
+        <div class="info-card-c4">✨ PROMESA: AMARNOS HASTA LA ETERNIDAD</div>
+
+        <p style="margin-top:15px; font-weight:700; color: #ff1493;">TE AMO PAPITO BELLO 😘✨</p>
+
+        <div class="canvas-fotos-box">
+          <canvas id="canvasFotos"></canvas>
+        </div>
       </div>
 
-      <!-- FECHAS IMPORTANTES ACTUALIZADAS -->
-      <div class="fechas-contenedor">
-        <div class="card-fecha">🌹 <strong>COMIENZO:</strong> 18 de Mayo, 2025</div>
-        <div class="card-fecha">🎉 <strong>MESANIVERSARIO:</strong> Cada día 18</div>
-        <div class="card-fecha">✨ <strong>PROMESA: AMARNOS HASTA LA ETERNIDAD</strong></div>
-      </div>
-
-      <!-- DESCRIPCIÓN ACTUALIZADA Y GALERÍA DE FOTOS FLOTANTES CON PROPORCIÓN PERFECTA -->
-      <p style="font-size: 0.85rem; color: #ff66cc; text-align: center; margin-top: 15px; font-weight: 600;">
-        TE AMO PAPITO BELLO 😘✨
-      </p>
-      <canvas id="canvasFotos"></canvas>
-    </div>
-
-    <div style="text-align: center;">
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
+
   </div>
+
+  <!-- ELEMENTOS DE AUDIO -->
+  <audio id="audio1" src="M1.mp3" loop></audio>
+  <audio id="audio2" src="M2.mp3" loop></audio>
+  <audio id="audio3" src="M3.mp3" loop></audio>
+  <audio id="audio4" src="T1.mp3" loop></audio>
 
   <script>
-    const CLAVE_CORRECTA = "18092026";
-    let audioActual = null;
+    // NAVEGACION ENTRE SECCIONES
+    const botones = document.querySelectorAll('.casillero-btn');
+    const secciones = document.querySelectorAll('.content-section');
+    const menu = document.getElementById('menu-principal');
 
-    /* SCRIPT DE LLUVIA Y EXPLOSIONES PIXELADAS EN SEGUNDO PLANO */
-    const canvas = document.getElementById('canvasEstrellas');
-    const ctx = canvas.getContext('2d');
+    botones.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        menu.style.display = 'none';
+        secciones.forEach(sec => sec.classList.remove('active'));
+        const targetSec = document.getElementById(target);
+        if(targetSec) targetSec.classList.add('active');
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    const coloresPixeles = ['#ff1493', '#ff66cc', '#ffd700', '#ffffff', '#ff99dd'];
-    const estrellas = [];
-    const particulasExplosion = [];
-
-    class EstrellitaCaida {
-      constructor() {
-        this.reset();
-      }
-
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = -10;
-        this.size = Math.floor(Math.random() * 3) + 2;
-        this.speed = Math.random() * 1.5 + 0.8;
-        this.color = coloresPixeles[Math.floor(Math.random() * coloresPixeles.length)];
-        this.puntosExplosion = Math.random() * (canvas.height * 0.7) + (canvas.height * 0.15);
-      }
-
-      update() {
-        this.y += this.speed;
-
-        if (this.y >= this.puntosExplosion && Math.random() < 0.15) {
-          crearExplosionPixel(this.x, this.y, this.color);
-          this.reset();
-        }
-
-        if (this.y > canvas.height + 10) {
-          this.reset();
-        }
-      }
-
-      draw() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(Math.floor(this.x), Math.floor(this.y), this.size, this.size);
-      }
-    }
-
-    class ParticulaExplosion {
-      constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.size = Math.floor(Math.random() * 3) + 2;
-        const angulo = Math.random() * Math.PI * 2;
-        const velocidad = Math.random() * 3 + 0.5;
-        this.vx = Math.cos(angulo) * velocidad;
-        this.vy = Math.sin(angulo) * velocidad;
-        this.color = color;
-        this.life = 1.0;
-        this.decay = Math.random() * 0.04 + 0.02;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.life -= this.decay;
-      }
-
-      draw() {
-        ctx.globalAlpha = Math.max(0, this.life);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(Math.floor(this.x), Math.floor(this.y), this.size, this.size);
-        ctx.globalAlpha = 1.0;
-      }
-    }
-
-    function crearExplosionPixel(x, y, color) {
-      const numParticulas = Math.floor(Math.random() * 10) + 8;
-      for (let i = 0; i < numParticulas; i++) {
-        particulasExplosion.push(new ParticulaExplosion(x, y, color));
-      }
-    }
-
-    for (let i = 0; i < 35; i++) {
-      const e = new EstrellitaCaida();
-      e.y = Math.random() * canvas.height;
-      estrellas.push(e);
-    }
-
-    function animar() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      estrellas.forEach(estrella => {
-        estrella.update();
-        estrella.draw();
-      });
-
-      for (let i = particulasExplosion.length - 1; i >= 0; i--) {
-        const p = particulasExplosion[i];
-        p.update();
-        p.draw();
-        if (p.life <= 0) {
-          particulasExplosion.splice(i, 1);
-        }
-      }
-
-      requestAnimationFrame(animar);
-    }
-    animar();
-
-    /* FUNCIONES DE AUDIO Y NAVEGACIÓN */
-    function detenerTodosLosAudios() {
-      const audios = [
-        document.getElementById('audioM1'),
-        document.getElementById('audioM2'),
-        document.getElementById('audioM3'),
-        document.getElementById('audioT1')
-      ];
-      audios.forEach(a => {
-        if (a) {
-          a.pause();
-          a.currentTime = 0;
+        if(target === 'c4') {
+          iniciarCasillero4();
         }
       });
-    }
-
-    function reproducirAudioSeccion(idAudio) {
-      detenerTodosLosAudios();
-      const audio = document.getElementById(idAudio);
-      if (audio) {
-        audio.volume = 0.4;
-        audio.play().then(() => {
-          audioActual = audio;
-          document.getElementById('controlAudio').classList.remove('oculto');
-          document.getElementById('btnAudioToggle').innerText = "Pausar ⏸️";
-        }).catch(e => console.log("Permiso de audio pendiente."));
-      }
-    }
-
-    function toggleMusica() {
-      const btn = document.getElementById('btnAudioToggle');
-      if (audioActual) {
-        if (audioActual.paused) {
-          audioActual.play();
-          btn.innerText = "Pausar ⏸️";
-        } else {
-          audioActual.pause();
-          btn.innerText = "Reproducir ▶️";
-        }
-      }
-    }
-
-    function iniciarExperiencia() {
-      document.getElementById('seccion-portada').classList.add('oculto');
-      document.getElementById('seccion-login').classList.remove('oculto');
-    }
-
-    function verificarPassword() {
-      const input = document.getElementById('inputPassword').value;
-      if (input === CLAVE_CORRECTA) {
-        document.getElementById('seccion-login').classList.add('oculto');
-        document.getElementById('seccion-menu').classList.remove('oculto');
-        reproducirAudioSeccion('audioM1');
-      } else {
-        document.getElementById('mensajeError').classList.remove('oculto');
-      }
-    }
-
-    function abrirCasillero(codigo) {
-      document.getElementById('seccion-menu').classList.add('oculto');
-      
-      if (codigo === 'm1') {
-        document.getElementById('vista-m1').classList.remove('oculto');
-        reproducirAudioSeccion('audioM1');
-      }
-      if (codigo === 'm2') {
-        document.getElementById('vista-m2').classList.remove('oculto');
-        reproducirAudioSeccion('audioM2');
-      }
-      if (codigo === 'm3') {
-        document.getElementById('vista-m3').classList.remove('oculto');
-        reproducirAudioSeccion('audioM3');
-      }
-      if (codigo === 'm4') {
-        document.getElementById('vista-m4').classList.remove('oculto');
-        reproducirAudioSeccion('audioT1'); // REPRODUCE MÚSICA T1.mp3 PARA EL CASILLERO 4
-        iniciarCanvasFotos();
-        iniciarAnimacionPuntoPulso();
-      }
-    }
+    });
 
     function volverMenu() {
-      document.getElementById('vista-m1').classList.add('oculto');
-      document.getElementById('vista-m2').classList.add('oculto');
-      document.getElementById('vista-m3').classList.add('oculto');
-      document.getElementById('vista-m4').classList.add('oculto');
-      document.getElementById('seccion-menu').classList.remove('oculto');
+      secciones.forEach(sec => sec.classList.remove('active'));
+      menu.style.display = 'grid';
+      detenerAudios();
     }
 
-    /* CONTADOR CASILLERO 4: 18 DE MAYO DE 2025 */
-    const fechaInicio = new Date("2025-05-18T00:00:00").getTime();
-
-    function actualizarContador() {
-      const ahora = new Date().getTime();
-      const diferencia = ahora - fechaInicio;
-
-      if (diferencia > 0) {
-        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-        const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-        const elD = document.getElementById("c-dias");
-        const elH = document.getElementById("c-horas");
-        const elM = document.getElementById("c-minutos");
-        const elS = document.getElementById("c-segundos");
-
-        if (elD) elD.innerText = dias < 10 ? "0" + dias : dias;
-        if (elH) elH.innerText = horas < 10 ? "0" + horas : horas;
-        if (elM) elM.innerText = minutos < 10 ? "0" + minutos : minutos;
-        if (elS) elS.innerText = segundos < 10 ? "0" + segundos : segundos;
+    // CONTROL DE AUDIOS
+    function toggleAudio(id) {
+      const audio = document.getElementById(id);
+      if(!audio) return;
+      if (audio.paused) {
+        detenerAudios();
+        audio.play().catch(()=>{});
+      } else {
+        audio.pause();
       }
     }
-    setInterval(actualizarContador, 1000);
-    actualizarContador();
 
-    /* ANIMACIÓN DE PULSO QUE SIGUE FIELMENTE EL TRAZADO SVG (SUBE Y BAJA EN ELEVACIONES) */
-    let animPulsoId = null;
-    function iniciarAnimacionPuntoPulso() {
-      const path = document.getElementById('vitalsPath');
-      const dot = document.getElementById('vitalsDot');
-      const svg = document.getElementById('svgVitals');
-      if (!path || !dot || !svg) return;
-
-      const pathLength = path.getTotalLength();
-      let progreso = 0;
-      const velocidad = 0.0035; // Ajuste suave de velocidad
-
-      function mover() {
-        progreso += velocidad;
-        if (progreso > 1) progreso = 0;
-
-        const punto = path.getPointAtLength(progreso * pathLength);
-        
-        // Escalar según el contenedor SVG actual
-        const rect = svg.getBoundingClientRect();
-        const escalaX = rect.width / 500;
-        const escalaY = rect.height / 60;
-
-        dot.style.left = (punto.x * escalaX) + 'px';
-        dot.style.top = (punto.y * escalaY) + 'px';
-
-        animPulsoId = requestAnimationFrame(mover);
-      }
-
-      if (animPulsoId) cancelAnimationFrame(animPulsoId);
-      mover();
-    }
-
-    /* CANVAS FOTOS FLOTANTES CON CORRECCIÓN DE ASPECT-RATIO (PROPORCIÓN PERFECTA SIN DEFORMAR) */
-    let canvasF, ctxF;
-    let fotosArr = [];
-    let explosionesArr = [];
-    let animacionFotosId = null;
-
-    function iniciarCanvasFotos() {
-      canvasF = document.getElementById('canvasFotos');
-      if (!canvasF) return;
-      ctxF = canvasF.getContext('2d');
-
-      canvasF.width = canvasF.offsetWidth;
-      canvasF.height = canvasF.offsetHeight;
-
-      const rutasFotosNuevas = ['I1.jpg', 'I2.jpg', 'I3.jpg', 'I4.jpg', 'I5.jpg'];
-      
-      fotosArr = [];
-      explosionesArr = [];
-
-      rutasFotosNuevas.forEach(src => {
-        const img = new Image();
-        img.src = src;
-        fotosArr.push(new FotoFlotanteI(img));
+    function detenerAudios() {
+      ['audio1', 'audio2', 'audio3', 'audio4'].forEach(id => {
+        const a = document.getElementById(id);
+        if(a) { a.pause(); }
       });
-
-      if (animacionFotosId) cancelAnimationFrame(animacionFotosId);
-      animarCanvasFotos();
     }
+
+    /* =========================================================
+       SISTEMA CASILLERO 4: ANIMACIONES & FOTOS (CORREGIDO)
+       ========================================================= */
+    let ecgAnimId = null;
+    let fotosAnimId = null;
+    let canvasF, ctxF;
+    let fotosFlotantes = [];
+
+    // Nombres exactos subidos a GitHub (.jpg)
+    const rutasFotosNuevas = ['I1.jpg', 'I2.jpg', 'I3.jpg', 'I4.jpg', 'I5.jpg'];
+    const imagenesCargadasI = [];
+
+    // Pre-carga continua con prevención de fallos de red y caché
+    rutasFotosNuevas.forEach((ruta) => {
+      const img = new Image();
+      img.src = ruta + '?v=' + new Date().getTime();
+      img.onload = () => { img.isLoaded = true; };
+      img.onerror = () => {
+        setTimeout(() => { img.src = ruta + '?retry=' + Math.random(); }, 1200);
+      };
+      imagenesCargadasI.push(img);
+    });
 
     class FotoFlotanteI {
       constructor(img) {
         this.img = img;
-        this.maxSize = 60; // Tamaño máximo contenedor
+        this.maxSize = 85;
         this.reset();
       }
 
       reset() {
-        this.x = Math.random() * ((canvasF ? canvasF.width : 300) - this.maxSize);
-        this.y = Math.random() * ((canvasF ? canvasF.height : 300) - this.maxSize);
-        this.vx = (Math.random() - 0.5) * 1.5;
-        this.vy = (Math.random() - 0.5) * 1.5;
-        this.visible = true;
+        const cw = canvasF ? canvasF.width : 300;
+        const ch = canvasF ? canvasF.height : 300;
+        this.x = Math.random() * (cw - this.maxSize - 10) + 5;
+        this.y = Math.random() * (ch - this.maxSize - 10) + 5;
+        this.vx = (Math.random() - 0.5) * 1.2;
+        this.vy = (Math.random() - 0.5) * 1.2;
       }
 
       update() {
-        if (!this.visible) return;
+        if (!canvasF) return;
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.x <= 0 || this.x + this.maxSize >= canvasF.width) this.vx *= -1;
-        if (this.y <= 0 || this.y + this.maxSize >= canvasF.height) this.vy *= -1;
+        if (this.x <= 5 || this.x + this.maxSize >= canvasF.width - 5) this.vx *= -1;
+        if (this.y <= 5 || this.y + this.maxSize >= canvasF.height - 5) this.vy *= -1;
       }
 
       draw() {
-        if (!this.visible) return;
-        ctxF.save();
-
-        if (this.img.complete && this.img.naturalWidth !== 0) {
-          // CALCULAR ASPECT RATIO ORIGINAL PARA EVITAR DEFORMACIONES
+        if (this.img && (this.img.complete || this.img.isLoaded) && this.img.naturalWidth > 0) {
+          ctxF.save();
           let w = this.img.naturalWidth;
           let h = this.img.naturalHeight;
-          let renderW, renderH;
+          let renderW = this.maxSize;
+          let renderH = (h / w) * this.maxSize;
 
-          if (w > h) {
-            renderW = this.maxSize;
-            renderH = (h / w) * this.maxSize;
-          } else {
+          if (renderH > this.maxSize) {
             renderH = this.maxSize;
             renderW = (w / h) * this.maxSize;
           }
 
-          // Marco neón adaptado
-          ctxF.strokeStyle = '#ff007f';
+          ctxF.shadowColor = '#ff1493';
+          ctxF.shadowBlur = 10;
+          ctxF.strokeStyle = '#ff1493';
           ctxF.lineWidth = 2;
-          ctxF.strokeRect(this.x - 2, this.y - 2, renderW + 4, renderH + 4);
 
-          // Dibujar la imagen manteniendo proporciones exactas
+          ctxF.strokeRect(this.x, this.y, renderW, renderH);
           ctxF.drawImage(this.img, this.x, this.y, renderW, renderH);
-
-        } else {
-          // Cuadro alternativo mientras carga
-          ctxF.strokeStyle = '#ff007f';
-          ctxF.lineWidth = 2;
-          ctxF.strokeRect(this.x - 2, this.y - 2, this.maxSize + 4, this.maxSize + 4);
-
-          ctxF.fillStyle = '#ff007f';
-          ctxF.fillRect(this.x, this.y, this.maxSize, this.maxSize);
-          ctxF.fillStyle = '#fff';
-          ctxF.font = '10px Montserrat';
-          ctxF.fillText('📸 I', this.x + 15, this.y + 32);
+          ctxF.restore();
         }
-        ctxF.restore();
       }
     }
 
-    class PixelesExplosionI {
-      constructor(x, y) {
-        this.particulas = [];
-        for (let i = 0; i < 22; i++) {
-          this.particulas.push({
-            x: x,
-            y: y,
-            vx: (Math.random() - 0.5) * 5,
-            vy: (Math.random() - 0.5) * 5,
-            size: Math.random() * 4 + 2,
-            color: ['#ff007f', '#ff66cc', '#ffffff', '#ffd700'][Math.floor(Math.random() * 4)],
-            vida: 28
+    function iniciarCasillero4() {
+      // 1. Contador de tiempo
+      actualizarContador();
+
+      // 2. Animación ECG
+      const ecgCanvas = document.getElementById('ecgCanvas');
+      if (ecgCanvas) {
+        ecgCanvas.width = ecgCanvas.parentElement.clientWidth;
+        ecgCanvas.height = ecgCanvas.parentElement.clientHeight;
+        const ctxEcg = ecgCanvas.getContext('2d');
+        let x = 0;
+
+        function loopEcg() {
+          ctxEcg.fillStyle = 'rgba(5, 5, 8, 0.1)';
+          ctxEcg.fillRect(0, 0, ecgCanvas.width, ecgCanvas.height);
+
+          ctxEcg.beginPath();
+          ctxEcg.strokeStyle = '#ff1493';
+          ctxEcg.lineWidth = 2;
+          ctxEcg.shadowColor = '#ff1493';
+          ctxEcg.shadowBlur = 8;
+
+          let y = ecgCanvas.height / 2;
+          if (x % 100 > 40 && x % 100 < 60) {
+            y += (Math.random() - 0.5) * 35;
+          }
+
+          ctxEcg.lineTo(x, y);
+          ctxEcg.stroke();
+
+          x = (x + 2) % ecgCanvas.width;
+          ecgAnimId = requestAnimationFrame(loopEcg);
+        }
+        if (ecgAnimId) cancelAnimationFrame(ecgAnimId);
+        loopEcg();
+      }
+
+      // 3. Canvas Fotos Flotantes
+      canvasF = document.getElementById('canvasFotos');
+      if (canvasF) {
+        canvasF.width = canvasF.parentElement.clientWidth;
+        canvasF.height = canvasF.parentElement.clientHeight;
+        ctxF = canvasF.getContext('2d');
+
+        fotosFlotantes = imagenesCargadasI.map(img => new FotoFlotanteI(img));
+
+        function loopFotos() {
+          ctxF.clearRect(0, 0, canvasF.width, canvasF.height);
+          fotosFlotantes.forEach(foto => {
+            foto.update();
+            foto.draw();
           });
+          fotosAnimId = requestAnimationFrame(loopFotos);
         }
-      }
-
-      update() {
-        this.particulas.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vida--;
-        });
-      }
-
-      draw() {
-        this.particulas.forEach(p => {
-          if (p.vida > 0) {
-            ctxF.fillStyle = p.color;
-            ctxF.fillRect(p.x, p.y, p.size, p.size);
-          }
-        });
+        if (fotosAnimId) cancelAnimationFrame(fotosAnimId);
+        loopFotos();
       }
     }
 
-    function animarCanvasFotos() {
-      if (!ctxF) return;
-      ctxF.clearRect(0, 0, canvasF.width, canvasF.height);
+    function actualizarContador() {
+      const fechaInicio = new Date('2025-05-18T00:00:00');
+      const ahora = new Date();
+      const dif = ahora - fechaInicio;
 
-      fotosArr.forEach(f => {
-        f.update();
-        f.draw();
-      });
-
-      // Chequear colisiones entre fotos
-      for (let i = 0; i < fotosArr.length; i++) {
-        for (let j = i + 1; j < fotosArr.length; j++) {
-          let f1 = fotosArr[i];
-          let f2 = fotosArr[j];
-
-          if (f1.visible && f2.visible) {
-            let dx = (f1.x + f1.maxSize / 2) - (f2.x + f2.maxSize / 2);
-            let dy = (f1.y + f1.maxSize / 2) - (f2.y + f2.maxSize / 2);
-            let dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < f1.maxSize) {
-              explosionesArr.push(new PixelesExplosionI((f1.x + f2.x) / 2, (f1.y + f2.y) / 2));
-              f1.visible = false;
-              f2.visible = false;
-              setTimeout(() => f1.reset(), 1400);
-              setTimeout(() => f2.reset(), 1800);
-            }
-          }
-        }
+      if (dif > 0) {
+        const dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((dif / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((dif / 1000 / 60) % 60);
+        document.getElementById('contadorRelacion').innerText = 
+          `Juntos desde el 18 de Mayo de 2025 (${dias}d ${horas}h ${mins}m)`;
+      } else {
+        document.getElementById('contadorRelacion').innerText = `Juntos desde el 18 de Mayo de 2025`;
       }
-
-      explosionesArr.forEach((exp, idx) => {
-        exp.update();
-        exp.draw();
-        if (exp.particulas[0].vida <= 0) {
-          explosionesArr.splice(idx, 1);
-        }
-      });
-
-      animacionFotosId = requestAnimationFrame(animarCanvasFotos);
     }
   </script>
-
 </body>
 </html>
