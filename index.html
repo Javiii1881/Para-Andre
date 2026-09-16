@@ -60,6 +60,15 @@
       margin-bottom: 25px;
     }
 
+    .pista-cursiva {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      margin-top: -10px;
+      margin-bottom: 25px;
+      font-weight: 300;
+    }
+
     .fecha {
       font-size: 0.95rem;
       letter-spacing: 2px;
@@ -113,11 +122,15 @@
     .casillero {
       background: #202026;
       border: 1px solid var(--border-color);
-      padding: 20px;
+      padding: 22px 18px;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
-      text-align: left;
+      text-align: center; /* Texto centrado */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .casillero:hover {
@@ -130,6 +143,11 @@
       color: var(--text-white);
       font-size: 1.15rem;
       font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .casillero.largo h3 {
+      font-size: 1.05rem; /* Ajuste sutil para la frase más larga */
     }
 
     .casillero p {
@@ -193,8 +211,8 @@
 
   <!-- LOGIN DE CONTRASEÑA -->
   <div id="seccion-login" class="container oculto">
-    <div class="titulo-cursivo" style="font-size: 2.5rem;">Contraseña</div>
-    <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom:20px;">Ingresa la clave especial para ver el contenido</p>
+    <div class="titulo-cursivo" style="font-size: 2.8rem; margin-bottom: 15px;">Contraseña</div>
+    <div class="pista-cursiva">Hoy es un día especial… ¿qué fecha es?</div>
     <input type="password" id="inputPassword" class="input-pass" placeholder="••••••••">
     <br>
     <button class="btn" onclick="verificarPassword()">Ingresar</button>
@@ -208,17 +226,17 @@
 
     <div class="grid-casilleros">
       <div class="casillero" onclick="abrirCasillero('carta')">
-        <h3>Carta de cumpleaños 💌</h3>
+        <h3>Para ti 💕</h3>
         <p>Unas palabras especiales escritas para ti.</p>
       </div>
 
       <div class="casillero" onclick="abrirCasillero('fotos')">
-        <h3>Fotos juntos 📸</h3>
+        <h3>Recuerditos ✨</h3>
         <p>Nuestros momentos favoritos.</p>
       </div>
 
-      <div class="casillero" onclick="abrirCasillero('historia')">
-        <h3>Una historia inventada 📖</h3>
+      <div class="casillero largo" onclick="abrirCasillero('historia')">
+        <h3>Andrecito, el amante de lo bonito 🐣</h3>
         <p>Una aventura especial escrita para ti.</p>
       </div>
     </div>
@@ -226,21 +244,21 @@
 
   <!-- VISTA: CARTA -->
   <div id="vista-carta" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.2rem;">Carta de cumpleaños 💌</div>
+    <div class="titulo-cursivo" style="font-size: 2.2rem;">Para ti 💕</div>
     <p style="color: var(--text-muted); margin-top:20px;">Aquí irá el texto completo de tu carta para Andre...</p>
     <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
   </div>
 
   <!-- VISTA: FOTOS -->
   <div id="vista-fotos" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.2rem;">Fotos juntos 📸</div>
+    <div class="titulo-cursivo" style="font-size: 2.2rem;">Recuerditos ✨</div>
     <p style="color: var(--text-muted); margin-top:20px;">Aquí agregaremos tus fotos con pequeñas frases...</p>
     <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
   </div>
 
   <!-- VISTA: HISTORIA INVENTADA -->
   <div id="vista-historia" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.2rem;">Una historia inventada 📖</div>
+    <div class="titulo-cursivo" style="font-size: 2.2rem;">Andrecito, el amante de lo bonito 🐣</div>
     <p style="color: var(--text-muted); margin-top:20px;">Aquí irá la historia de ficción para Andre...</p>
     <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
   </div>
