@@ -86,7 +86,6 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
 
-    /* Reproductor flotante superior constante */
     .reproductor-global {
       position: fixed;
       top: 15px;
@@ -239,7 +238,6 @@
       margin-top: 10px;
     }
 
-    /* ESTILOS EXCLUSIVOS PARA CARTA M1 Y M2 */
     .papel-carta {
       background: #18171c;
       border: 1px solid rgba(212, 175, 55, 0.4);
@@ -294,31 +292,19 @@
       border-radius: 6px;
       display: block;
     }
-
-    .marco-foto-carta .pie-foto {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 8px;
-      letter-spacing: 1px;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Audios independientes para cada M -->
   <audio id="audioM1" src="M1.mp3" loop></audio>
   <audio id="audioM2" src="M2.mp3" loop></audio>
   <audio id="audioM3" src="M3.mp3" loop></audio>
 
-  <!-- Control de Audio Flotante -->
   <div id="controlAudio" class="reproductor-global oculto">
     <span>🎵 Música</span>
     <button id="btnAudioToggle" class="btn-audio" onclick="toggleMusica()">Pausar ⏸️</button>
   </div>
 
-  <!-- PORTADA -->
   <div id="seccion-portada" class="container">
     <img src="portada.jpg" alt="Minnie y Mickey" class="img-portada">
     <div class="titulo-cursivo">Para Andre</div>
@@ -327,7 +313,6 @@
     <button class="btn" onclick="iniciarExperiencia()">ENTRAR</button>
   </div>
 
-  <!-- LOGIN DE CONTRASEÑA -->
   <div id="seccion-login" class="container oculto">
     <div class="titulo-cursivo" style="font-size: 2.8rem; margin-bottom: 15px;">Contraseña</div>
     <div class="pista-cursiva">Hoy es un día especial… ¿qué fecha es?</div>
@@ -337,25 +322,21 @@
     <div id="mensajeError" class="error-msg oculto">Contraseña incorrecta. Intenta de nuevo.</div>
   </div>
 
-  <!-- MENÚ PRINCIPAL CON CASILLEROS M1, M2 Y M3 -->
   <div id="seccion-menu" class="container oculto">
     <div class="titulo-cursivo" style="font-size: 2.5rem;">Para Andre</div>
     <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom: 20px;">Elige lo que quieres ver primero:</p>
 
     <div class="grid-casilleros">
-      <!-- CASILLERO 1 (M1) -->
       <div class="casillero" onclick="abrirCasillero('m1')">
         <h3>Para ti 💕</h3>
         <p>Unas palabras especiales escritas para ti.</p>
       </div>
 
-      <!-- CASILLERO 2 (M2) -->
       <div class="casillero" onclick="abrirCasillero('m2')">
         <h3>Recuerditos ✨</h3>
         <p>Nuestros momentos favoritos.</p>
       </div>
 
-      <!-- CASILLERO 3 (M3) -->
       <div class="casillero largo" onclick="abrirCasillero('m3')">
         <h3>Andrecito, el amante de lo bonito 🐣</h3>
         <p>Una aventura especial escrita para ti.</p>
@@ -363,7 +344,7 @@
     </div>
   </div>
 
-  <!-- VISTA M1: PRIMERA SECCIÓN -->
+  <!-- VISTA M1 -->
   <div id="vista-m1" class="container oculto contenido-vista" style="padding: 15px;">
     <div class="papel-carta">
       <div class="sello-carta">
@@ -377,8 +358,7 @@
       <p>Quiero que sepas que te amo. Te amo muchísimo. Y que para mí este sí es un día demasiado especial, porque es el día en que nació el amor de mi vida. El niño y hombre de mis ojos, la persona que amo con todo mi corazón.</p>
       
       <div class="marco-foto-carta">
-        <img src="CF1.jpg" alt="Foto especial 1" onerror="this.parentElement.style.display='none'">
-        <div class="pie-foto">NUESTROS MOMENTOS I</div>
+        <img src="CF1.jpg" alt="Foto especial 1">
       </div>
 
       <p>Ojalá pudiera regalarte el mundo entero, mi amor. De verdad. Para que pudieras ver con tus propios ojos todo lo que mereces y todo lo bonito que quiero para ti. No quiero que sientas pena, ni tristeza, ni que te bajonees porque quizás algunas personas ignoraron este día o no te demostraron lo especial que eres.</p>
@@ -386,8 +366,7 @@
       <p>Perdón por no poder estar ahí contigo. Perdón por no poder cantarte feliz cumpleaños, abrazarte, molestarte en persona o hacer todas esas cosas que me gustaría hacer contigo. Pero algún día vamos a estar juntitos y voy a poder cantarte cumpleaños en tu camita, abrazarte y decirte en persona todo esto que ahora tengo que escribirte por una pantalla.</p>
       
       <div class="marco-foto-carta">
-        <img src="CF2.jpg" alt="Foto especial 2" onerror="this.parentElement.style.display='none'">
-        <div class="pie-foto">NUESTROS MOMENTOS II</div>
+        <img src="CF2.jpg" alt="Foto especial 2">
       </div>
 
       <p>Y ya, amor… es un día demasiado lindo como para dejar que unas malas experiencias lo arruinen. Quiero que intentes disfrutarlo, aunque sea un poquito. Quiero que tengas la mejor disposición, porque siempre puede ser un buen día para cambiar las cosas, y eso es lo que quiero intentar hacer por ti.</p>
@@ -396,8 +375,7 @@
       <p>Y perdón por lo poco. Perdón por esto que quizás sientas que no es nada, por no poder darte algo enorme, por tener que darte solamente palabras. Pero es lo que tengo ahora mismo en mis manos y estoy haciendo lo mejor que puedo con ellas.</p>
       
       <div class="marco-foto-carta">
-        <img src="CF3.jpg" alt="Foto especial 3" onerror="this.parentElement.style.display='none'">
-        <div class="pie-foto">NUESTROS MOMENTOS III</div>
+        <img src="CF3.jpg" alt="Foto especial 3">
       </div>
 
       <p>Aunque bueno… también te hice esto JAJAJA. Con toda la programación que sé, que no es precisamente mucha. Y con la ayuda de mi ChatGPT, que sabe demasiado de nosotros, obvio JAJAJA.</p>
@@ -414,7 +392,7 @@
     </div>
   </div>
 
-  <!-- VISTA M2: SEGUNDA SECCIÓN (CARTA DE ANIVERSARIO + FOTO F1, F2, F3, F4, F5) -->
+  <!-- VISTA M2 CON EXTENSIÓN .JFIF -->
   <div id="vista-m2" class="container oculto contenido-vista" style="padding: 15px;">
     <div class="papel-carta">
       <div class="sello-carta">
@@ -427,7 +405,7 @@
       
       <!-- FOTO F1 -->
       <div class="marco-foto-carta">
-        <img src="F1.jpg" alt="Foto F1" onerror="this.parentElement.style.display='none'">
+        <img src="F1.jfif" alt="Foto F1">
       </div>
 
       <p>Te amo. Perdón por las actitudes, las peleas, los cambios de humor que a veces tengo. De verdad, perdóname por todo, mi amor. Te juro que estoy tratando de mejorar para darte la mejor versión de mí.</p>
@@ -435,21 +413,21 @@
 
       <!-- FOTO F2 -->
       <div class="marco-foto-carta">
-        <img src="F2.jpg" alt="Foto F2" onerror="this.parentElement.style.display='none'">
+        <img src="F2.jfif" alt="Foto F2">
       </div>
 
       <p>Y también quiero agradecerte por algo más: gracias por la suegra que me diste. De verdad la amo muchísimo y estoy demasiado agradecida de haber podido conocerla y tener ese cariño con ella. Y a mi suegro también lo quiero muchísimo. Gracias por darme una familia tan bonita y por hacerme sentir parte de ella, incluso estando tan lejos. Los quiero muchísimo a los dos y espero poder compartir muchos momentos más con ellos.</p>
 
-      <!-- FOTO F3 (OBLIGATORIA AQUÍ POST-PÁRRAFO DE LOS SUEGROS) -->
+      <!-- FOTO F3 (OBLIGATORIA DESPUÉS DEL PÁRRAFO DE LOS SUEGROS) -->
       <div class="marco-foto-carta">
-        <img src="F3.jpg" alt="Foto F3" onerror="this.parentElement.style.display='none'">
+        <img src="F3.jfif" alt="Foto F3">
       </div>
 
       <p>Aparte de eso, también te hice tu regalito de cumpleaños y eso que me costó un montón encontrarle un orden JAJAJA. Pero ya aprendí a programar solo para darte un regalo de cumpleaños virtual, JJAJAJA.</p>
 
       <!-- FOTO F4 -->
       <div class="marco-foto-carta">
-        <img src="F4.jpg" alt="Foto F4" onerror="this.parentElement.style.display='none'">
+        <img src="F4.jfif" alt="Foto F4">
       </div>
 
       <p>TE AMO, AMORCITO MÍO. FELIZ MES. Eres mi vida entera, el hombre con el que me quiero casar, eres mi todo, mi TODOOOO. Te amo demasiado. Ojalá poder darte el mundo, mi amor, pero no te preocupes, algún día estaremos mirando la playa por nuestras vacaciones y nuestros babys, que serán hermosos, y valdrá cada centavo, cada segundo a tu lado. Es mi todo, corazón.</p>
@@ -457,7 +435,7 @@
 
       <!-- FOTO F5 -->
       <div class="marco-foto-carta">
-        <img src="F5.jpg" alt="Foto F5" onerror="this.parentElement.style.display='none'">
+        <img src="F5.jfif" alt="Foto F5">
       </div>
 
       <p>Aquí atentamente tu mujer, que te ama hoy, siempre y está vuelta loca por ti, hombrecito. Te amo y estoy locamente enamorada de ti.</p>
@@ -469,7 +447,7 @@
     </div>
   </div>
 
-  <!-- VISTA M3: TERCERA SECCIÓN (HISTORIA) -->
+  <!-- VISTA M3 -->
   <div id="vista-m3" class="container oculto contenido-vista">
     <div class="titulo-cursivo" style="font-size: 2.6rem; text-align: center;">Una historia</div>
     <p style="color: var(--text-muted); margin-top:20px; text-align:center;">Aquí irá la historia de ficción para Andre...</p>
