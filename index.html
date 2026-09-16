@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Para Andre</title>
-  <!-- Tipografía cursiva elegante tipo caligrafía -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -41,9 +40,9 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
       box-sizing: border-box;
       margin: 20px auto;
+      position: relative;
     }
 
-    /* Tipografía cursiva elegante */
     .titulo-cursivo {
       font-family: 'Great Vibes', cursive;
       font-size: 3.2rem;
@@ -77,7 +76,6 @@
       margin-bottom: 15px;
     }
 
-    /* Foto principal Mickey y Minnie */
     .img-portada {
       width: 100%;
       max-width: 320px;
@@ -87,7 +85,54 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
 
-    /* Botón estilo limpio blanco/negro */
+    .img-carta {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      margin: 18px 0;
+      display: block;
+    }
+
+    /* Reproductor flotante superior constante */
+    .reproductor-global {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: rgba(22, 22, 26, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    .reproductor-global span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .btn-audio {
+      background: var(--text-white);
+      color: var(--bg-color);
+      border: none;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .btn-audio:hover {
+      background: #e0e0e0;
+    }
+
     .btn {
       background-color: var(--text-white);
       color: var(--bg-color);
@@ -111,7 +156,6 @@
       display: none !important;
     }
 
-    /* Casilleros limpios */
     .grid-casilleros {
       display: flex;
       flex-direction: column;
@@ -156,7 +200,6 @@
       color: var(--text-muted);
     }
 
-    /* Formato de las cartas/vistas internas */
     .contenido-vista {
       text-align: left;
       line-height: 1.8;
@@ -208,13 +251,22 @@
 </head>
 <body>
 
+  <!-- Audio Continuo Global en segundo plano -->
+  <audio id="musicaFondo" src="M1.mp3" loop></audio>
+
+  <!-- Control de Audio Flotante -->
+  <div id="controlAudio" class="reproductor-global oculto">
+    <span>🎵 Música</span>
+    <button id="btnAudioToggle" class="btn-audio" onclick="toggleMusica()">Pausar ⏸️</button>
+  </div>
+
   <!-- PORTADA -->
   <div id="seccion-portada" class="container">
     <img src="portada.jpg" alt="Minnie y Mickey" class="img-portada">
     <div class="titulo-cursivo">Para Andre</div>
     <div class="fecha">18 de septiembre de 2026</div>
     <div class="subtitulo-cursivo">Feliz cumpleaños Andre</div>
-    <button class="btn" onclick="mostrarLogin()">ENTRAR</button>
+    <button class="btn" onclick="iniciarExperiencia()">ENTRAR</button>
   </div>
 
   <!-- LOGIN DE CONTRASEÑA -->
@@ -227,43 +279,55 @@
     <div id="mensajeError" class="error-msg oculto">Contraseña incorrecta. Intenta de nuevo.</div>
   </div>
 
-  <!-- MENÚ PRINCIPAL (3 CASILLEROS) -->
+  <!-- MENÚ PRINCIPAL CON CASILLEROS M1, M2 Y M3 -->
   <div id="seccion-menu" class="container oculto">
     <div class="titulo-cursivo" style="font-size: 2.5rem;">Para Andre</div>
     <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom: 20px;">Elige lo que quieres ver primero:</p>
 
     <div class="grid-casilleros">
-      <div class="casillero" onclick="abrirCasillero('carta')">
+      <!-- CASILLERO 1 (M1) -->
+      <div class="casillero" onclick="abrirCasillero('m1')">
         <h3>Para ti 💕</h3>
         <p>Unas palabras especiales escritas para ti.</p>
       </div>
 
-      <div class="casillero" onclick="abrirCasillero('fotos')">
+      <!-- CASILLERO 2 (M2) -->
+      <div class="casillero" onclick="abrirCasillero('m2')">
         <h3>Recuerditos ✨</h3>
         <p>Nuestros momentos favoritos.</p>
       </div>
 
-      <div class="casillero largo" onclick="abrirCasillero('historia')">
+      <!-- CASILLERO 3 (M3) -->
+      <div class="casillero largo" onclick="abrirCasillero('m3')">
         <h3>Andrecito, el amante de lo bonito 🐣</h3>
         <p>Una aventura especial escrita para ti.</p>
       </div>
     </div>
   </div>
 
-  <!-- VISTA: CARTA -->
-  <div id="vista-carta" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.5rem; text-align: center; margin-bottom: 20px;">Para ti 💕</div>
+  <!-- VISTA M1: PRIMERA SECCIÓN (CARTA) -->
+  <div id="vista-m1" class="container oculto contenido-vista">
+    <div class="titulo-cursivo" style="font-size: 2.6rem; text-align: center; margin-bottom: 15px;">Cartita para usted</div>
     
     <p>Hola, mi amor.</p>
     <p>Espero de verdad que te sientas bien hoy. Quizás este no sea un día que esperabas con tantas ganas, o quizás te provoque emociones que no son precisamente las mejores, jeje. Pero está bien, amorcito. No tienes que sentirte feliz todo el tiempo solamente porque es tu cumpleaños. Yo estoy aquí para acompañarte, aunque sea desde lejos, y para intentar hacerte sentir especial en TU día.</p>
     <p>Quiero que sepas que te amo. Te amo muchísimo. Y que para mí este sí es un día demasiado especial, porque es el día en que nació el amor de mi vida. El niño y hombre de mis ojos, la persona que amo con todo mi corazón.</p>
+    
+    <img src="CF1.jpg" alt="Foto especial 1" class="img-carta" onerror="this.style.display='none'">
+
     <p>Ojalá pudiera regalarte el mundo entero, mi amor. De verdad. Para que pudieras ver con tus propios ojos todo lo que mereces y todo lo bonito que quiero para ti. No quiero que sientas pena, ni tristeza, ni que te bajonees porque quizás algunas personas ignoraron este día o no te demostraron lo especial que eres.</p>
     <p>Porque tú eres especial, Andre. Muchísimo más de lo que quizás tú mismo alcanzas a ver.</p>
     <p>Perdón por no poder estar ahí contigo. Perdón por no poder cantarte feliz cumpleaños, abrazarte, molestarte en persona o hacer todas esas cosas que me gustaría hacer contigo. Pero algún día vamos a estar juntitos y voy a poder cantarte cumpleaños en tu camita, abrazarte y decirte en persona todo esto que ahora tengo que escribirte por una pantalla.</p>
+    
+    <img src="CF2.jpg" alt="Foto especial 2" class="img-carta" onerror="this.style.display='none'">
+
     <p>Y ya, amor… es un día demasiado lindo como para dejar que unas malas experiencias lo arruinen. Quiero que intentes disfrutarlo, aunque sea un poquito. Quiero que tengas la mejor disposición, porque siempre puede ser un buen día para cambiar las cosas, y eso es lo que quiero intentar hacer por ti.</p>
     <p>Quiero hacerte ver que este día es tan especial como el nacimiento de la Princesa Diana. JAJAJAJA. No sé por qué se me ocurrió ese ejemplo, pero déjame ser dramática por un momento.</p>
     <p>Te amo, corazón. Feliz cumpleaños.</p>
     <p>Y perdón por lo poco. Perdón por esto que quizás sientas que no es nada, por no poder darte algo enorme, por tener que darte solamente palabras. Pero es lo que tengo ahora mismo en mis manos y estoy haciendo lo mejor que puedo con ellas.</p>
+    
+    <img src="CF3.jpg" alt="Foto especial 3" class="img-carta" onerror="this.style.display='none'">
+
     <p>Aunque bueno… también te hice esto JAJAJA. Con toda la programación que sé, que no es precisamente mucha. Y con la ayuda de mi ChatGPT, que sabe demasiado de nosotros, obvio JAJAJA.</p>
     <p>Pero aunque haya un poquito de código, un poquito de ChatGPT y probablemente muchas horas de pensar qué mierda hacer, todo esto lo hice yo pensando en ti y con todo el amor del mundo.</p>
     <p>Te amo mucho, we. Muchísimo.</p>
@@ -277,34 +341,61 @@
     </div>
   </div>
 
-  <!-- VISTA: FOTOS -->
-  <div id="vista-fotos" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.5rem; text-align: center;">Recuerditos ✨</div>
+  <!-- VISTA M2: SEGUNDA SECCIÓN (RECUERDITOS) -->
+  <div id="vista-m2" class="container oculto contenido-vista">
+    <div class="titulo-cursivo" style="font-size: 2.6rem; text-align: center;">Feliz 18, amor</div>
     <p style="color: var(--text-muted); margin-top:20px; text-align:center;">Aquí agregaremos tus fotos con pequeñas frases...</p>
+    
     <div style="text-align: center;">
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
   </div>
 
-  <!-- VISTA: HISTORIA INVENTADA -->
-  <div id="vista-historia" class="container oculto contenido-vista">
-    <div class="titulo-cursivo" style="font-size: 2.5rem; text-align: center;">Andrecito, el amante de lo bonito 🐣</div>
+  <!-- VISTA M3: TERCERA SECCIÓN (HISTORIA) -->
+  <div id="vista-m3" class="container oculto contenido-vista">
+    <div class="titulo-cursivo" style="font-size: 2.6rem; text-align: center;">Una historia</div>
     <p style="color: var(--text-muted); margin-top:20px; text-align:center;">Aquí irá la historia de ficción para Andre...</p>
+    
     <div style="text-align: center;">
       <button class="btn-volver" onclick="volverMenu()">← Volver al menú</button>
     </div>
   </div>
 
   <script>
-    // CONTRASEÑA
     const CLAVE_CORRECTA = "18092026";
+    let musicaIniciada = false;
 
-    function mostrarLogin() {
+    function reproducirMusicaGlobal() {
+      if (!musicaIniciada) {
+        const audio = document.getElementById('musicaFondo');
+        audio.volume = 0.4;
+        audio.play().then(() => {
+          musicaIniciada = true;
+          document.getElementById('controlAudio').classList.remove('oculto');
+        }).catch(e => console.log("Permiso de audio pendiente."));
+      }
+    }
+
+    function toggleMusica() {
+      const audio = document.getElementById('musicaFondo');
+      const btn = document.getElementById('btnAudioToggle');
+      if (audio.paused) {
+        audio.play();
+        btn.innerText = "Pausar ⏸️";
+      } else {
+        audio.pause();
+        btn.innerText = "Reproducir ▶️";
+      }
+    }
+
+    function iniciarExperiencia() {
+      reproducirMusicaGlobal();
       document.getElementById('seccion-portada').classList.add('oculto');
       document.getElementById('seccion-login').classList.remove('oculto');
     }
 
     function verificarPassword() {
+      reproducirMusicaGlobal();
       const input = document.getElementById('inputPassword').value;
       if (input === CLAVE_CORRECTA) {
         document.getElementById('seccion-login').classList.add('oculto');
@@ -314,17 +405,17 @@
       }
     }
 
-    function abrirCasillero(tipo) {
+    function abrirCasillero(codigo) {
       document.getElementById('seccion-menu').classList.add('oculto');
-      if (tipo === 'carta') document.getElementById('vista-carta').classList.remove('oculto');
-      if (tipo === 'fotos') document.getElementById('vista-fotos').classList.remove('oculto');
-      if (tipo === 'historia') document.getElementById('vista-historia').classList.remove('oculto');
+      if (codigo === 'm1') document.getElementById('vista-m1').classList.remove('oculto');
+      if (codigo === 'm2') document.getElementById('vista-m2').classList.remove('oculto');
+      if (codigo === 'm3') document.getElementById('vista-m3').classList.remove('oculto');
     }
 
     function volverMenu() {
-      document.getElementById('vista-carta').classList.add('oculto');
-      document.getElementById('vista-fotos').classList.add('oculto');
-      document.getElementById('vista-historia').classList.add('oculto');
+      document.getElementById('vista-m1').classList.add('oculto');
+      document.getElementById('vista-m2').classList.add('oculto');
+      document.getElementById('vista-m3').classList.add('oculto');
       document.getElementById('seccion-menu').classList.remove('oculto');
     }
   </script>
