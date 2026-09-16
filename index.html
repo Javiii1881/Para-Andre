@@ -6,7 +6,7 @@
   <title>Para Andre</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -16,6 +16,7 @@
       --text-muted: #cccccc;
       --border-color: rgba(255, 255, 255, 0.15);
       --gold-accent: #ffd700;
+      --pink-neon: #ff1493;
     }
 
     body {
@@ -123,23 +124,65 @@
       background: #e0e0e0;
     }
 
+    /* BOTÓN ENTRAR ANIMADO */
     .btn {
       background-color: var(--text-white);
       color: var(--bg-color);
       border: none;
       padding: 12px 36px;
       font-size: 0.95rem;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 1px;
       border-radius: 25px;
       cursor: pointer;
       transition: all 0.3s ease;
       text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      animation: latidoBoton 2.5s infinite ease-in-out;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        60deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.8) 50%,
+        transparent 70%
+      );
+      transform: rotate(30deg);
+      animation: brilloContinuo 3s infinite;
+    }
+
+    @keyframes latidoBoton {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+      }
+    }
+
+    @keyframes brilloContinuo {
+      0% {
+        left: -100%;
+      }
+      100% {
+        left: 100%;
+      }
     }
 
     .btn:hover {
       background-color: #e0e0e0;
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.05);
     }
 
     .oculto {
@@ -184,10 +227,59 @@
       font-size: 1.05rem;
     }
 
-    .casillero p {
-      margin: 0;
-      font-size: 0.85rem;
-      color: var(--text-muted);
+    /* TEXTO "DE JAVIERA" ROSA NEÓN ANIMADO CON DESTELLOS */
+    .texto-javiera {
+      margin: 4px 0 0 0 !important;
+      font-size: 0.85rem !important;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #ff3399;
+      text-transform: uppercase;
+      animation: flotarRosa 3s infinite ease-in-out;
+      display: inline-block;
+      position: relative;
+    }
+
+    .texto-javiera::before,
+    .texto-javiera::after {
+      content: '✨';
+      font-size: 0.75rem;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: titileoEstrella 1.8s infinite alternate ease-in-out;
+    }
+
+    .texto-javiera::before {
+      left: -18px;
+    }
+
+    .texto-javiera::after {
+      right: -18px;
+      animation-delay: 0.9s;
+    }
+
+    @keyframes flotarRosa {
+      0%, 100% {
+        transform: translateY(0);
+        text-shadow: 0 0 6px rgba(255, 20, 147, 0.6), 0 0 12px rgba(255, 51, 153, 0.4);
+      }
+      50% {
+        transform: translateY(-3px);
+        color: #ff66cc;
+        text-shadow: 0 0 12px rgba(255, 20, 147, 0.9), 0 0 20px rgba(255, 105, 180, 0.7);
+      }
+    }
+
+    @keyframes titileoEstrella {
+      0% {
+        opacity: 0.3;
+        transform: translateY(-50%) scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.2);
+      }
     }
 
     .contenido-vista {
@@ -294,7 +386,6 @@
       display: block;
     }
 
-    /* ESTILO PARA CORAZÓN DE IMAGEN H1 */
     .contenedor-foto-corazon {
       display: flex;
       justify-content: center;
@@ -370,17 +461,17 @@
     <div class="grid-casilleros">
       <div class="casillero" onclick="abrirCasillero('m1')">
         <h3>Para ti 💕</h3>
-        <p>Unas palabras especiales escritas para ti.</p>
+        <p class="texto-javiera">DE JAVIERA</p>
       </div>
 
       <div class="casillero" onclick="abrirCasillero('m2')">
         <h3>Recuerditos ✨</h3>
-        <p>Nuestros momentos favoritos.</p>
+        <p class="texto-javiera">DE JAVIERA</p>
       </div>
 
       <div class="casillero largo" onclick="abrirCasillero('m3')">
         <h3>Andrecito, el amante de lo bonito 🐣</h3>
-        <p>Una aventura especial escrita para ti.</p>
+        <p class="texto-javiera">DE JAVIERA</p>
       </div>
     </div>
   </div>
@@ -444,7 +535,6 @@
 
       <p>Aparte de ser tu cumpleaños, es nuestro mes aniversario: ¡16 meses ya, mi amorcito precioso! No te imaginas lo feliz que estoy de un mes más, de estar siempre contigo, de que seas el hombre de mi vida. Te amo como no te imaginas y no tengo palabras para expresar lo hermoso que es esto.</p>
       
-      <!-- FOTO F1 -->
       <div class="marco-foto-carta">
         <img src="F1.jfif" alt="Foto F1">
       </div>
@@ -452,21 +542,18 @@
       <p>Te amo. Perdón por las actitudes, las peleas, los cambios de humor que a veces tengo. De verdad, perdóname por todo, mi amor. Te juro que estoy tratando de mejorar para darte la mejor versión de mí.</p>
       <p>Perdón si estos días he estado un poco floja, duermo de más o quizás no contesto tanto. Me he sentido bastante cansadita, no sé qué me pasa, pero estoy feliz y agradecida de poder tenerte aún. Perdóname, mi amor.</p>
 
-      <!-- FOTO F2 -->
       <div class="marco-foto-carta">
         <img src="F2.jfif" alt="Foto F2">
       </div>
 
       <p>Y también quiero agradecerte por algo más: gracias por la suegra que me diste. De verdad la amo muchísimo y estoy demasiado agradecida de haber podido conocerla y tener ese cariño con ella. Y a mi suegro también lo quiero muchísimo. Gracias por darme una familia tan bonita y por hacerme sentir parte de ella, incluso estando tan lejos. Los quiero muchísimo a los dos y espero poder compartir muchos momentos más con ellos.</p>
 
-      <!-- FOTO F3 -->
       <div class="marco-foto-carta">
         <img src="F3.jfif" alt="Foto F3">
       </div>
 
       <p>Aparte de eso, también te hice tu regalito de cumpleaños y eso que me costó un montón encontrarle un orden JAJAJA. Pero ya aprendí a programar solo para darte un regalo de cumpleaños virtual, JJAJAJA.</p>
 
-      <!-- FOTO F4 -->
       <div class="marco-foto-carta">
         <img src="F4.jfif" alt="Foto F4">
       </div>
@@ -474,7 +561,6 @@
       <p>TE AMO, AMORCITO MÍO. FELIZ MES. Eres mi vida entera, el hombre con el que me quiero casar, eres mi todo, mi TODOOOO. Te amo demasiado. Ojalá poder darte el mundo, mi amor, pero no te preocupes, algún día estaremos mirando la playa por nuestras vacaciones y nuestros babys, que serán hermosos, y valdrá cada centavo, cada segundo a tu lado. Es mi todo, corazón.</p>
       <p>Te extraño demasiado. Perdón por estar tan lejos, perdóname. Te amo mucho, corazón.</p>
 
-      <!-- FOTO F5 -->
       <div class="marco-foto-carta">
         <img src="F5.jfif" alt="Foto F5">
       </div>
@@ -488,7 +574,7 @@
     </div>
   </div>
 
-  <!-- VISTA M3 (HISTORIA COMPLETA E IMAGEN H1 EN CORAZÓN) -->
+  <!-- VISTA M3 -->
   <div id="vista-m3" class="container oculto contenido-vista" style="padding: 15px;">
     <div class="papel-carta">
       <div class="sello-carta">
@@ -522,7 +608,6 @@
       <p>No sabía su historia. No conocía sus gustos. Ni siquiera sabía cómo era realmente.</p>
       <p>Solo sabía que, desde que la había visto, algo dentro de él había cambiado.</p>
 
-      <!-- FOTO H1 CON FORMA DE CORAZÓN -->
       <div class="contenedor-foto-corazon">
         <img src="H1.jpg" alt="Foto en Corazón H1" class="foto-corazon" onerror="this.onerror=null; this.src='H1.jfif';">
       </div>
